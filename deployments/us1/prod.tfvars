@@ -32,7 +32,7 @@ vnet_config_map = {
   }
   vnet-spoke-pprod-client-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
-    subscription_id_spoke = "5a1019fa-917d-4ca0-8580-52ff2469e621"
+    subscription_id_spoke = ""
     spoke_vnet_name       = "client"
     suffix_number         = "01"
     vnet_address_space    = ["10.60.32.0/20"]
