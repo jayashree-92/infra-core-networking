@@ -1,5 +1,5 @@
 locals {
-  devops_vnet_config_map = lookup(var.vnet_config_map, "vnet-spoke-devops-01")
+  devops_vnet_config_map     = lookup(var.vnet_config_map, "vnet-spoke-devops-01")
   vnet-spoke-pprod-client-01 = lookup(var.vnet_config_map, "vnet-spoke-pprod-client-01")
 }
 

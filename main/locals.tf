@@ -11,7 +11,7 @@ locals {
     short_env_code = local.short_env_code
     location       = var.location
   }
-  dep_pprod_map  = {
+  dep_pprod_map = {
     full_env_code  = local.full_env_pprod_code
     short_env_code = local.short_env_pprod_code
     location       = var.location

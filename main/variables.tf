@@ -33,6 +33,6 @@ variable "virtual_hub_id" {
 
 variable "vnet_config_map" {
   description = "Configuration map for the virtual networks"
-  type    = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
