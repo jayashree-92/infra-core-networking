@@ -35,7 +35,7 @@ vnet_config_map = {
   vnet-spoke-client-pprod-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
     subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
-    spoke_vnet_name       = "client"
+    spoke_vnet_name       = "platform"
     suffix_number         = "01"
     vnet_address_space    = ["10.60.32.0/20"]
     subnets = {
@@ -55,15 +55,25 @@ vnet_config_map = {
         subnet_name           = "data"
         subnet_address_prefix = ["10.60.38.0/24"]
       }
+    }
+  }
+  vnet-spoke-client-appgw-pprod-01 = {
+    subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
+    subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
+    spoke_vnet_name       = "platform-agw"
+    suffix_number         = "01"
+    vnet_address_space    = ["10.60.4.0/24"]
+    subnets = {
       appgw_subnet = {
         subnet_name           = "appgw"
         subnet_address_prefix = ["10.60.4.0/27"]
       }
       lb_subnet = {
         subnet_name           = "lb"
-        subnet_address_prefix = ["10.60.32.0/27"]
+        subnet_address_prefix = ["10.60.4.32/27"]
       }
 
     }
   }
+
 }
