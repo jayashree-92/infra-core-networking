@@ -36,3 +36,11 @@ variable "vnet_config_map" {
   type        = map(any)
   default     = {}
 }
+
+variable "environment_spoke_pprod_code" {
+
+}
+
+variable "environment_spoke_code_pprod_short" {
+
+}

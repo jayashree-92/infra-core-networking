@@ -1,9 +1,11 @@
-environment_code       = "prod"
-environment_code_short = "p"
-location_code          = "usc"
-location               = "Central US"
-environment_pprod_code = "pprod"
-environment_code_pprod_short = "pprod"
+environment_code                   = "prod"
+environment_code_short             = "p"
+location_code                      = "usc"
+location                           = "Central US"
+
+# Spoke Codes
+environment_spoke_pprod_code       = "preprod"
+environment_spoke_code_pprod_short = "pprod"
 
 virtual_hub_id = "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01"
 
@@ -30,9 +32,9 @@ vnet_config_map = {
       }
     }
   }
-  vnet-spoke-pprod-client-01 = {
+  vnet-spoke-client-pprod-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
-    subscription_id_spoke = ""
+    subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
     spoke_vnet_name       = "client"
     suffix_number         = "01"
     vnet_address_space    = ["10.60.32.0/20"]
@@ -64,5 +66,4 @@ vnet_config_map = {
 
     }
   }
-
 }
