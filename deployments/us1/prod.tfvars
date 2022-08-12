@@ -32,7 +32,7 @@ vnet_config_map = {
       }
     }
   }
-  vnet-spoke-client-pprod-01 = {
+  vnet-spoke-platform-pprod-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
     subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
     spoke_vnet_name       = "platform"
@@ -57,7 +57,7 @@ vnet_config_map = {
       }
     }
   }
-  vnet-spoke-client-appgw-pprod-01 = {
+  vnet-spoke-platform-appgw-pprod-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
     subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
     spoke_vnet_name       = "platform-agw"
