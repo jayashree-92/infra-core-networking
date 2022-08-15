@@ -20,7 +20,7 @@ stages:
               -backend-config="key=$TF_STATE_BLOB_FILE" \
               -backend-config="access_key=$TF_STATE_BLOB_ACCESS_KEY"
           displayName: Terraform Init
-          workingDirectory: $(Build.SourcesDirectory)/main
+          workingDirectory: $(System.DefaultWorkingDirectory)/main
           continueOnError: false
           env:
             TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
@@ -30,22 +30,30 @@ stages:
         - bash: |
             terraform validate
           displayName: Terraform Validate
-          workingDirectory: $(Build.SourcesDirectory)/main
+          workingDirectory: $(System.DefaultWorkingDirectory)/main
           continueOnError: false
         - bash: |
             terraform plan \
               -var-file="../deployments/us1/prod.tfvars" \
               -out deployment.tfplan
           displayName: Terraform Plan
-          workingDirectory: $(Build.SourcesDirectory)/main
+          workingDirectory: $(System.DefaultWorkingDirectory)/main
           continueOnError: false
           env:
             ARM_SUBSCRIPTION_ID: $(arm-subscription-id)
             ARM_CLIENT_ID:       $(arm-client-id)
             ARM_CLIENT_SECRET:   $(arm-client-secret)
             ARM_TENANT_ID:       $(arm-tenant-id)
-        - publish: $(Build.SourcesDirectory)
-          artifact: terraform_drop
+        - task: CopyFiles@2
+          inputs:
+            SourceFolder: "./"
+            Contents: |
+              **/*
+              !main/.terraform/**/*
+            TargetFolder: $(Build.ArtifactStagingDirectory)
+          displayName: "Copy Artifacts"
+        - publish: $(Build.ArtifactStagingDirectory)
+          artifact: drop
   - stage: terraform_cd
     displayName: Terraform CD
     jobs:
@@ -56,6 +64,8 @@ stages:
           runOnce:
             deploy:
               steps:
+                - download: current
+                  artifact: drop
                 - bash: |
                     terraform init \
                       -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
@@ -63,7 +73,7 @@ stages:
                       -backend-config="key=$TF_STATE_BLOB_FILE" \
                       -backend-config="access_key=$TF_STATE_BLOB_ACCESS_KEY"
                   displayName: Terraform Init
-                  workingDirectory: $(Agent.BuildDirectory)/terraform_drop/main
+                  workingDirectory: $(Pipeline.Workspace)/drop/main
                   continueOnError: false
                   env:
                     TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
@@ -73,7 +83,7 @@ stages:
                 - bash: |
                     terraform apply -auto-approve deployment.tfplan
                   displayName: Terraform Apply
-                  workingDirectory: $(Agent.BuildDirectory)/terraform_drop/main
+                  workingDirectory: $(Pipeline.Workspace)/drop/main
                   env:
                     ARM_SUBSCRIPTION_ID: $(arm-subscription-id)
                     ARM_CLIENT_ID:       $(arm-client-id)
