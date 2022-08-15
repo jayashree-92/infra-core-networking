@@ -11,7 +11,7 @@ stages:
   - stage: terraform_ci
     displayName: Terraform CI
     jobs:
-      - job: Terraform_Validate
+      - job: Terraform_Plan
         steps:
         - bash: |
             terraform init \
