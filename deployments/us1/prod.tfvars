@@ -45,15 +45,15 @@ vnet_config_map = {
       }
       web_subnet = {
         subnet_name           = "web"
-        subnet_address_prefix = ["10.60.16.0/24"]
+        subnet_address_prefix = ["10.60.17.0/24"]
       }
       int_subnet = {
         subnet_name           = "int"
-        subnet_address_prefix = ["10.60.16.0/24"]
+        subnet_address_prefix = ["10.60.18.0/24"]
       }
       data_subnet = {
         subnet_name           = "data"
-        subnet_address_prefix = ["10.60.16.0/24"]
+        subnet_address_prefix = ["10.60.22.0/24"]
       }
     }
   }
