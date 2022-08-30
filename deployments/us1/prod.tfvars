@@ -32,6 +32,31 @@ vnet_config_map = {
       }
     }
   }
+  vnet-spoke-platform-prod-01 = {
+    subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
+    subscription_id_spoke = "b69669b9-6d12-4ada-b44d-5f578b85f46c"
+    spoke_vnet_name       = "platform"
+    suffix_number         = "01"
+    vnet_address_space    = ["10.60.16.0/20"]
+    subnets = {
+      dmz_subnet = {
+        subnet_name           = "dmz"
+        subnet_address_prefix = ["10.60.16.0/24"]
+      }
+      web_subnet = {
+        subnet_name           = "web"
+        subnet_address_prefix = ["10.60.16.0/24"]
+      }
+      int_subnet = {
+        subnet_name           = "int"
+        subnet_address_prefix = ["10.60.16.0/24"]
+      }
+      data_subnet = {
+        subnet_name           = "data"
+        subnet_address_prefix = ["10.60.16.0/24"]
+      }
+    }
+  }
   vnet-spoke-platform-pprod-01 = {
     subscription_id_hub   = "75641de5-1456-4853-bc77-dd7db76c35a1"
     subscription_id_spoke = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
