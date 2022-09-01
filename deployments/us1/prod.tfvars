@@ -55,7 +55,7 @@ vnet_config_map = {
         subnet_name           = "data"
         subnet_address_prefix = ["10.60.22.0/24"]
       }
-      data_subnet = {
+      priv_subnet = {
         subnet_name           = "priv"
         subnet_address_prefix = ["10.60.23.0/24"]
       }
@@ -84,7 +84,7 @@ vnet_config_map = {
         subnet_name           = "data"
         subnet_address_prefix = ["10.60.38.0/24"]
       }
-      data_subnet = {
+      priv_subnet = {
         subnet_name           = "priv"
         subnet_address_prefix = ["10.60.39.0/24"]
       }
