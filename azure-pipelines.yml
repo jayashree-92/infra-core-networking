@@ -4,7 +4,11 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
-trigger: none
+trigger:
+  branches:
+    include:
+    - main
+
 pr: none
 
 stages:
@@ -27,11 +31,13 @@ stages:
             TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
             TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
             TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
+
         - bash: |
             terraform validate
           displayName: Terraform Validate
           workingDirectory: $(System.DefaultWorkingDirectory)/main
           continueOnError: false
+
         - bash: |
             terraform plan \
               -var-file="../deployments/us1/prod.tfvars" \
@@ -44,6 +50,7 @@ stages:
             ARM_CLIENT_ID:       $(arm-client-id)
             ARM_CLIENT_SECRET:   $(arm-client-secret)
             ARM_TENANT_ID:       $(arm-tenant-id)
+
         - task: CopyFiles@2
           inputs:
             SourceFolder: "./"
@@ -54,6 +61,7 @@ stages:
           displayName: "Copy Artifacts"
         - publish: $(Build.ArtifactStagingDirectory)
           artifact: drop
+
   - stage: terraform_cd
     displayName: Terraform CD
     jobs:
@@ -66,6 +74,7 @@ stages:
               steps:
                 - download: current
                   artifact: drop
+
                 - bash: |
                     terraform init \
                       -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
@@ -80,6 +89,7 @@ stages:
                     TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
                     TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
                     TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
+
                 - bash: |
                     terraform apply -auto-approve deployment.tfplan
                   displayName: Terraform Apply
@@ -89,4 +99,3 @@ stages:
                     ARM_CLIENT_ID:       $(arm-client-id)
                     ARM_CLIENT_SECRET:   $(arm-client-secret)
                     ARM_TENANT_ID:       $(arm-tenant-id)
-      

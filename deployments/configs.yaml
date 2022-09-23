@@ -14,45 +14,145 @@
 # priv (private endpoint)
 # int (ssis, ssrs, proxy blg, fss)
 
-vwan:
-  name: vWan-Prod-USe2-01
-  subscription: 75641de5-1456-4853-bc77-dd7db76c35a1
-  resource_group: Rg-vWan-Prod-01
-  location: East US 2
-  disable_vpn_encryption: false
-  allow_branch_to_branch_traffic: true
-  office365_local_breakout_category: None
-  type: Standard
-  tags:
+subscriptions:
+  - id: 75641de5-1456-4853-bc77-dd7db76c35a1
+    name: Sb-NetHub-Prd-01
+    legacy_name: Sb-NetHub-Prd-01
 
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub
-# terraform import azurerm_virtual_hub.example /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.Network/virtualHubs/hub1
-hubs:
-  - name: HubNet-Prod-UsE2-01
-    subscription: 75641de5-1456-4853-bc77-dd7db76c35a1
-    resource_group_name: Rg-vWan-Prod-01
-    location: East US 2
-    address_prefix: 10.50.0.0/23 #10.90.0.0/16
-    sku: Standard
-    virtual_wan_id:
-    firewall:
-      name:
-      location:
-      public_ip:
-    tags:
-    # DO NOT USE https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table
-    # USE INSTEAD https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table_route
-    route_tables:
-      - name:
-        virtual_hub_id:
-        labels:
-          - Default
-        routes:
-          - name:
-            destinations_type:
-            destinations: ["10.0.0.0/16"]
-            next_hop_type: "ResourceId"
-            next_hop: azurerm_virtual_hub_connection.example.id
+    vwan:
+      name: vWan-Prod-USe2-01
+      subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
+      resource_group:
+        name: rg-net-prod-01
+        legacy_name: Rg-vWan-Prod-01
+        location: East US 2
+        tags:
+          Managed-By: Terraform
+          ResourceName: rg-net-prod-01
+      location: East US 2
+      disable_vpn_encryption: false
+      allow_branch_to_branch_traffic: true
+      office365_local_breakout_category: None
+      type: Standard
+      tags:
+        Managed-By: Terraform
+
+    # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub
+    # terraform import azurerm_virtual_hub.example /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.Network/virtualHubs/hub1
+    hubs:
+      - name: vhub-net-prod-uc-01
+        legacy_name: HubNet-Prod-UsC-01
+        subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1 # TO DELETE
+        location: Central US
+        address_prefix: 10.60.0.0/23
+        sku: Standard
+        tags:
+          Managed-By: Terraform
+          ResourceName: vhub-net-prod-uc-01
+
+        vpn:
+          gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
+          sites:
+            - name: LegAzure-Prod-CAE-01
+              links:
+                - name: LegProdCAE01
+                  ip_address:
+        firewall_policy:
+          name: fwp-net-prod-uc-01
+          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
+          resource_group:
+            name: rg-fwp-net-prod-uc-01
+            legacy_name: FwPol-Prod-UsC-01
+            location: Central US
+            tags:
+              Managed-By: Terraform
+              ResourceName: rg-fwp-net-prod-uc-01
+          tags:
+            managed-by: Terraform
+            resource-name: fwp-net-prod-uc-01
+          # The firewall policy collection groups will go to another repo just like nsg rules
+          # we just create the fw policy here
+          # rule_collection_groups:
+          #   - name:
+          #     application_rule_collections:
+          #       - name:
+          #     network_rule_collections:
+          #       - name:
+          #     nat_rule_collections:
+          #       - name:
+
+        firewall:
+          name: fw-net-prod-uc-01
+          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
+          location: Central US
+          sku_tier: Premium
+          sku_name: AZFW_Hub
+          tags:
+            managed-by: Terraform
+            resource-name: fw-net-prod-uc-01
+
+        # DO NOT USE https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table
+        # USE INSTEAD https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table_route
+        route_tables: []
+          # - name: routetable1
+          #   virtual_hub_id:
+          #   labels:
+          #     - Default
+          #   routes:
+          #     - name: route1
+          #       destinations_type: CIDR
+          #       destinations: ["10.0.0.0/16"]
+          #       next_hop_type: "ResourceId"
+          #       next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01
+      # - name: vhub-net-prod-eu-01
+      #   legacy_name:
+      #   subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
+      #   location: East US 2
+      #   address_prefix: 10.90.0.0/23
+      #   sku: Standard
+      #   tags:
+      #     Managed-By: Terraform
+      #     ResourceName: vhub-net-prod-eu-01
+
+      #   vpn:
+      #     gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
+      #     sites:
+      #       - name: vpngs-net-prod-eu1
+      #         links:
+      #           - name: vpngc-net-prod-eu1
+      #             ip_address:
+
+      #   firewall_policy:
+      #     name: fwp-net-prod-eu-01
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: Terraform
+      #       resource-name: rg-fwp-net-prod-eu-01
+
+      #   firewall:
+      #     name: fw-net-prod-eu-01
+      #     legacy_name:
+      #     location: East US 2
+      #     sku_tier: Premium
+      #     sku_name: AZFW_Hub
+      #     tags:
+      #       managed-by: Terraform
+      #       resource-name: fw-net-prod-uc-01
+
+      #   # DO NOT USE https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table
+      #   # USE INSTEAD https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table_route
+      #   route_tables: []
+      #     # - name: routetable1
+      #     #   virtual_hub_id:
+      #     #   labels:
+      #     #     - Default
+      #     #   routes:
+      #     #     - name: route1
+      #     #       destinations_type: CIDR
+      #     #       destinations: ["10.0.0.0/16"]
+      #     #       next_hop_type: "ResourceId"
+      #     #       next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01
     spokes:
       # automatically create connection between vnets and hub
       # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
@@ -79,8 +179,49 @@ hubs:
             delegation:
               name:
 
+  - id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
+    name: Sb-Client-PProd-US-01
+    spokes:
+      # automatically create connection between vnets and hub
+      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
+      - name:
+        resource_group_name:
+        address_space:
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
+        # terraform import azurerm_subnet.exampleSubnet /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1
+        subnets:
+          # each subnet creates its own NSG if enabled to be used after when applying rules. Defaults to true
+          - name: snet-dev-app-usc-01
+            address_prefixes: ["0.0.0.0/0"]
+            service_endpoints:
+            service_endpoint_policy_ids:
+            private_endpoint_network_policies_enabled:
+            create_nsg: false
+            # for App Gateway
+            delegation:
+              name:
+
+  - id: b69669b9-6d12-4ada-b44d-5f578b85f46c
+    name: Sb-Client-Prod-US-01
+    legacy_name: Sb-Client-Prod-US-01
+    spokes:
+      - name: 
+        legacy_name: vnet-platform-prod-usc-01
+        hub_connection: vhub-net-prod-uc-01
+
+
+  - id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
+    name: Sb-client-Dev-US-01
+
+
 vnets:
-# automatically create connection between vnets and hub
+  # automatically create connection between vnets and hub
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
   - name:
     resource_group_name:
