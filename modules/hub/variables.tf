@@ -72,10 +72,22 @@ variable "hub" {
     })
 
     firewall_policy = object({
-      name        = string
-      legacy_name = string
-      tags        = map(string)
-      location    = string
+      name              = string
+      legacy_name       = string
+      tags              = map(string)
+      location          = string
+      private_ip_ranges = list(string)
+      dns = object({
+        proxy_enabled = bool
+        servers       = list(string)
+      })
+      intrusion_detection = object({
+        mode = string
+      })
+      threat_intelligence_allowlist = object({
+        fqdns        = list(string)
+        ip_addresses = list(string)
+      })
       resource_group = object({
         name        = string
         legacy_name = string

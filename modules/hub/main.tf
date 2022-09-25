@@ -65,6 +65,20 @@ resource "azurerm_firewall_policy" "fwp" {
   resource_group_name = azurerm_resource_group.rg_fwp.name
   location            = coalesce(try(var.hub.firewall_policy.location, ""), azurerm_resource_group.rg_fwp.location)
   tags                = var.hub.firewall_policy.tags
+  private_ip_ranges   = var.hub.firewall_policy.private_ip_ranges
+  dns {
+    proxy_enabled = var.hub.firewall_policy.dns.proxy_enabled
+    servers       = var.hub.firewall_policy.dns.servers
+  }
+
+  intrusion_detection {
+    mode = var.hub.firewall_policy.intrusion_detection.mode
+  }
+
+  threat_intelligence_allowlist {
+    fqdns        = var.hub.firewall_policy.threat_intelligence_allowlist.fqdns
+    ip_addresses = var.hub.firewall_policy.threat_intelligence_allowlist.ip_addresses
+  }
 }
 
 resource "azurerm_vpn_gateway" "vpng" {

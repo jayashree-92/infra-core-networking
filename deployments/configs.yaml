@@ -115,6 +115,14 @@ subscriptions:
             tags:
               managed-by: terraform
               resource-name: rg-fwp-net-prod-uc-01
+          dns :
+            proxy_enabled: false
+            servers       : []
+          intrusion_detection:
+            mode : Alert
+          threat_intelligence_allowlist :
+            fqdns  : []
+            ip_addresses  : []
           tags:
             managed-by: terraform
             resource-name: fwp-net-prod-uc-01
