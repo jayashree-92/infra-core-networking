@@ -6,8 +6,8 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
-  alias           = "sbclientpprodus01"
-  subscription_id = "e4eb0487-0872-4b0f-9185-79cf4d6a2af1"
+  alias           = "sb_pfm_qa_uc_01"
+  subscription_id = local.subscription_ids.sb_pfm_qa_uc_01
   features {
   }
 }

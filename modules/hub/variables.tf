@@ -20,9 +20,52 @@ variable "hub" {
     vpn = object({
       gateway_name = string
       sites = list(object({
-        name = string
+        name          = string
+        location      = string
+        address_cidrs = list(string)
+        device_vendor = string
+        tags          = map(string)
+        o365_policy = object({
+          traffic_category = object({
+            allow_endpoint_enabled    = bool
+            default_endpoint_enabled  = bool
+            optimize_endpoint_enabled = bool
+          })
+        })
+        routing = object({
+          associated_route_table = string
+          propagated_route_table = object({
+            labels          = list(string)
+            route_table_ids = list(string)
+          })
+        })
         links = list(object({
-          name       = string
+          name          = string
+          fqdn          = string
+          provider_name = string
+          speed_in_mbps = number
+          bgp = object({
+            asn             = number
+            peering_address = string
+          })
+
+          connection = object({
+            bgp_enabled          = bool
+            egress_nat_rule_ids  = list(string)
+            ingress_nat_rule_ids = list(string)
+            shared_key           = string
+            ipsec_policy = object({
+              dh_group                 = string
+              encryption_algorithm     = string
+              ike_encryption_algorithm = string
+              ike_integrity_algorithm  = string
+              integrity_algorithm      = string
+              pfs_group                = string
+              sa_data_size_kb          = number
+              sa_lifetime_sec          = number
+            })
+
+          })
           ip_address = string
         }))
       }))
@@ -32,14 +75,22 @@ variable "hub" {
       name        = string
       legacy_name = string
       tags        = map(string)
+      location    = string
+      resource_group = object({
+        name        = string
+        legacy_name = string
+        location    = string
+        tags        = map(string)
+      })
     })
 
 
     firewall = object({
-      name     = string
-      sku_tier = string
-      sku_name = string
-      tags     = map(string)
+      name        = string
+      legacy_name = string
+      sku_tier    = string
+      sku_name    = string
+      tags        = map(string)
     })
 
     route_tables = list(
@@ -55,6 +106,7 @@ variable "hub" {
             next_hop          = string
         }))
     }))
+
     tags = map(string)
   })
 }

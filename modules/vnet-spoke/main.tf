@@ -1,16 +1,8 @@
-# data "azurerm_resource_group" "rgrp" {
-#   provider = azurerm.spoke
-#   count    = var.create_resource_group == false ? 1 : 0
-#   name     = var.resource_group_name
-# }
-
-# resource "azurerm_resource_group" "rg" {
-#   provider = azurerm.spoke
-#   count    = var.create_resource_group ? 1 : 0
-#   name     = format("rg-vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}")
-#   location = var.location
-#   tags     = merge({ "ResourceName" = format("%s", var.resource_group_name) }, var.tags, )
-# }
+resource "azurerm_resource_group" "rg" {
+  name     = coalesce(try(var.spoke.resource_group.legacy_name, ""), var.spoke.resource_group.name)
+  location = var.spoke.resource_group.location
+  tags     = var.spoke.resource_group.tags
+}
 
 # resource "azurerm_virtual_network" "vnet" {
 #   provider            = azurerm.spoke

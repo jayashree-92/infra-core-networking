@@ -6,6 +6,6 @@ output "hub" {
     virtual_router_asn     = azurerm_virtual_hub.hub.virtual_router_asn
     virtual_router_ips     = azurerm_virtual_hub.hub.virtual_router_ips
     firewall               = azurerm_firewall.fw
-    firewall               = azurerm_firewall_policy.fwp
+    firewall_policy        = azurerm_firewall_policy.fwp
   }
 }

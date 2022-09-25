@@ -27,15 +27,15 @@ subscriptions:
         legacy_name: Rg-vWan-Prod-01
         location: East US 2
         tags:
-          Managed-By: Terraform
-          ResourceName: rg-net-prod-01
+          managed-by: terraform
+          resource-name: rg-net-prod-01
       location: East US 2
       disable_vpn_encryption: false
       allow_branch_to_branch_traffic: true
       office365_local_breakout_category: None
       type: Standard
       tags:
-        Managed-By: Terraform
+        managed-by: terraform
 
     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub
     # terraform import azurerm_virtual_hub.example /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.Network/virtualHubs/hub1
@@ -47,28 +47,76 @@ subscriptions:
         address_prefix: 10.60.0.0/23
         sku: Standard
         tags:
-          Managed-By: Terraform
-          ResourceName: vhub-net-prod-uc-01
+          managed-by: terraform
+          resource-name: vhub-net-prod-uc-01
 
         vpn:
           gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
           sites:
             - name: LegAzure-Prod-CAE-01
+              location: canadaeast # ?? to validate
+              address_cidrs: [ "10.32.0.0/16", "10.33.0.0/16" ]
+              device_vendor: FortiGate
+              routing:
+                associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable
+                propagated_route_table:
+                  labels: ["default"]
+                  route_table_ids: ["/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable"]
+              o365_policy: # validate if it is important. got error Blocks of type "o365_policy" are not expected here.
+                traffic_category:
+                  allow_endpoint_enabled: false
+                  default_endpoint_enabled: false
+                  optimize_endpoint_enabled: false
+              tags:
+                managed-by: terraform
               links:
                 - name: LegProdCAE01
+                  fqdn: vpn.innocap.com
+                  provider_name: Azure
+                  speed_in_mbps: 100
+                  bgp:
+                    asn: 65309
+                    peering_address: 169.254.17.133
+
                   ip_address:
+                  connection:
+                    bgp_enabled: true
+                    egress_nat_rule_ids: []
+                    ingress_nat_rule_ids: []
+                    shared_key: 
+                    ipsec_policy:
+                      dh_group: ECP256
+                      encryption_algorithm: GCMAES256
+                      ike_encryption_algorithm: GCMAES256
+                      ike_integrity_algorithm: SHA256
+                      integrity_algorithm: GCMAES256
+                      pfs_group: ECP256
+                      sa_data_size_kb: 1024 # is currently defined to 0 in azure but TErraform output an error: expected vpn_link.0.ipsec_policy.0.sa_data_size_kb to be in the range (1024 - 2147483647), got 0
+                      sa_lifetime_sec: 28800
+
+        firewall:
+          name: fw-net-prod-uc-01
+          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
+          location: Central US
+          sku_tier: Premium
+          sku_name: AZFW_Hub
+          tags:
+            managed-by: terraform
+            resource-name: fw-net-prod-uc-01
+
         firewall_policy:
           name: fwp-net-prod-uc-01
-          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
+          legacy_name: FwPol-Prod-UsC-01
+          location: Canada Central
           resource_group:
             name: rg-fwp-net-prod-uc-01
-            legacy_name: FwPol-Prod-UsC-01
-            location: Central US
+            legacy_name: Rg-FwPol-Prod-US-01
+            location: East US 2 # should be -> Central US
             tags:
-              Managed-By: Terraform
-              ResourceName: rg-fwp-net-prod-uc-01
+              managed-by: terraform
+              resource-name: rg-fwp-net-prod-uc-01
           tags:
-            managed-by: Terraform
+            managed-by: terraform
             resource-name: fwp-net-prod-uc-01
           # The firewall policy collection groups will go to another repo just like nsg rules
           # we just create the fw policy here
@@ -81,15 +129,6 @@ subscriptions:
           #     nat_rule_collections:
           #       - name:
 
-        firewall:
-          name: fw-net-prod-uc-01
-          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
-          location: Central US
-          sku_tier: Premium
-          sku_name: AZFW_Hub
-          tags:
-            managed-by: Terraform
-            resource-name: fw-net-prod-uc-01
 
         # DO NOT USE https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table
         # USE INSTEAD https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table_route
@@ -111,8 +150,8 @@ subscriptions:
       #   address_prefix: 10.90.0.0/23
       #   sku: Standard
       #   tags:
-      #     Managed-By: Terraform
-      #     ResourceName: vhub-net-prod-eu-01
+      #     managed-by: terraform
+      #     resource-name: vhub-net-prod-eu-01
 
       #   vpn:
       #     gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
@@ -127,9 +166,15 @@ subscriptions:
       #     legacy_name:
       #     location: East US 2
       #     tags:
-      #       managed-by: Terraform
+      #       managed-by: terraform
       #       resource-name: rg-fwp-net-prod-eu-01
-
+          # resource_group:
+          #   name: rg-fwp-net-prod-eu-01
+          #   legacy_name:
+          #   location: East US 2
+          #   tags:
+          #     managed-by: terraform
+          #     resource-name: rg-fwp-net-prod-eu-01
       #   firewall:
       #     name: fw-net-prod-eu-01
       #     legacy_name:
@@ -137,7 +182,7 @@ subscriptions:
       #     sku_tier: Premium
       #     sku_name: AZFW_Hub
       #     tags:
-      #       managed-by: Terraform
+      #       managed-by: terraform
       #       resource-name: fw-net-prod-uc-01
 
       #   # DO NOT USE https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_route_table
@@ -153,46 +198,34 @@ subscriptions:
       #     #       destinations: ["10.0.0.0/16"]
       #     #       next_hop_type: "ResourceId"
       #     #       next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01
-    spokes:
-      # automatically create connection between vnets and hub
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
-      - name:
-        resource_group_name:
-        address_space:
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers:
-        edge_zone:
-        flow_timeout_in_minutes:
-        # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
-        # terraform import azurerm_subnet.exampleSubnet /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1
-        subnets:
-          # each subnet creates its own NSG if enabled to be used after when applying rules. Defaults to true
-          - name: snet-dev-app-usc-01
-            address_prefixes: ["0.0.0.0/0"]
-            service_endpoints:
-            service_endpoint_policy_ids:
-            private_endpoint_network_policies_enabled:
-            create_nsg: false
-            # for App Gateway
-            delegation:
-              name:
+
 
   - id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
     name: Sb-Client-PProd-US-01
     spokes:
       # automatically create connection between vnets and hub
       # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
-      - name:
-        resource_group_name:
-        address_space:
+      - name: vnet-pfm-qa-cu
+        legacy_name: vnet-platform-preprod-usc-01
+        virtual_hub_name: HubNet-Prod-UsC-01
+        resource_group:
+          name: rg-pfm-qa-cu
+          legacy_name: rg-vnet-platform-preprod-usc-01
+          location: Central US
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-qa-cu
+        address_space: ["10.60.32.0/20"]
         location:
         bgp_community:
         ddos_protection_plan:
         dns_servers:
         edge_zone:
         flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-qa-cu
+          spoke: true
         # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
         # terraform import azurerm_subnet.exampleSubnet /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1
         subnets:

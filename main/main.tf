@@ -3,6 +3,13 @@ locals {
   subscriptions = local.config_file.subscriptions
   vwan          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].vwan
   hubs          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].hubs
+  subscription_ids = {
+    sb_pfm_qa_uc_01 = local.subscriptions[index(local.subscriptions.*.name, "Sb-Client-PProd-US-01")].id
+  }
+
+  spokes = {
+    spoke_pfm_qa_uc_01 = local.subscriptions[index(local.subscriptions.*.name, "Sb-Client-PProd-US-01")].spokes
+  }
 }
 
 output "vwan" {
@@ -11,6 +18,10 @@ output "vwan" {
 
 output "hubs" {
   value = module.hubs
+}
+
+output "vhub_ud_test" {
+  value = module.hubs["vhub-net-prod-uc-01"].hub.id
 }
 
 module "vwan" {
@@ -37,6 +48,19 @@ module "hubs" {
   }
 }
 
-# Vnets-spokes by subscription
+
+# # Vnets-spokes by subscription
+# module "pfm_qa_spokes" {
+#   for_each = { for spoke in local.spokes.spoke_pfm_qa_uc_01 : spoke.name => spoke }
+
+#   source = "../modules/vnet-spoke"
+
+#   virtual_hub_id = module.hubs[each.value.virtual_hub_name].hub.id
+#   spoke          = each.value
+
+#   providers = {
+#     azurerm = azurerm.sb_pfm_qa_uc_01
+#   }
+# }
 
 # NSGS

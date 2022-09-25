@@ -1,3 +1,39 @@
+variable "spoke" {
+  description = "Vnet spoke configuration"
+  type = object({
+    name             = string
+    virtual_hub_name = string
+    resource_group = object({
+      name        = string
+      legacy_name = string
+      location    = string
+      tags        = map(string)
+    })
+    address_space           = list(string)
+    location                = string
+    bgp_community           = string
+    dns_servers             = list(string)
+    edge_zone               = string
+    flow_timeout_in_minutes = string
+    subnets = list(object({
+      name                                      = string
+      address_prefixes                          = list(string)
+      service_endpoints                         = list(any)
+      service_endpoint_policy_ids               = list(string)
+      private_endpoint_network_policies_enabled = bool
+      # for App Gateway
+      delegation = object({
+        name = string
+      })
+    }))
+  })
+}
+
+variable "virtual_hub_id" {
+  description = "Resource ID of the virtual hub to connect to spoke to."
+  type        = string
+}
+
 # variable "create_resource_group" {
 #   description = "Whether to create resource group and use it for all networking resources"
 #   default     = true
