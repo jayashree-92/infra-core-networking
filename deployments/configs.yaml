@@ -42,7 +42,7 @@ subscriptions:
     hubs:
       - name: vhub-net-prod-uc-01
         legacy_name: HubNet-Prod-UsC-01
-        subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1 # TO DELETE
+        subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
         location: Central US
         address_prefix: 10.60.0.0/23
         sku: Standard
@@ -62,7 +62,7 @@ subscriptions:
                 propagated_route_table:
                   labels: ["default"]
                   route_table_ids: ["/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable"]
-              o365_policy: # validate if it is important. got error Blocks of type "o365_policy" are not expected here.
+              o365_policy:
                 traffic_category:
                   allow_endpoint_enabled: false
                   default_endpoint_enabled: false
@@ -83,7 +83,7 @@ subscriptions:
                     bgp_enabled: true
                     egress_nat_rule_ids: []
                     ingress_nat_rule_ids: []
-                    shared_key: 
+                    shared_key:
                     ipsec_policy:
                       dh_group: ECP256
                       encryption_algorithm: GCMAES256
@@ -108,6 +108,7 @@ subscriptions:
           name: fwp-net-prod-uc-01
           legacy_name: FwPol-Prod-UsC-01
           location: Canada Central
+          private_ip_ranges: ["255.255.255.255/32"]
           resource_group:
             name: rg-fwp-net-prod-uc-01
             legacy_name: Rg-FwPol-Prod-US-01
