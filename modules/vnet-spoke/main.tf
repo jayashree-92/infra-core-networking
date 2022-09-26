@@ -1,27 +1,26 @@
 resource "azurerm_resource_group" "rg" {
+  provider = azurerm.spoke
   name     = coalesce(try(var.spoke.resource_group.legacy_name, ""), var.spoke.resource_group.name)
   location = var.spoke.resource_group.location
   tags     = var.spoke.resource_group.tags
 }
 
-# resource "azurerm_virtual_network" "vnet" {
-#   provider            = azurerm.spoke
-#   name                = lower("vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}")
-#   location            = local.location
-#   resource_group_name = local.resource_group_name
-#   address_space       = var.vnet_address_space
-#   dns_servers         = var.dns_servers
-#   tags                = merge({ "ResourceName" = lower("vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}") }, var.tags, )
+resource "azurerm_virtual_network" "vnet" {
+  provider            = azurerm.spoke
+  name                = coalesce(try(var.spoke.legacy_name, ""), var.spoke.name)
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  address_space       = var.spoke.address_space
+  dns_servers         = var.spoke.dns_servers
+  tags                = var.spoke.tags
+}
 
-#   dynamic "ddos_protection_plan" {
-#     for_each = local.if_ddos_enabled
-
-#     content {
-#       id     = azurerm_network_ddos_protection_plan.ddos[0].id
-#       enable = true
-#     }
-#   }
-# }
+resource "azurerm_virtual_hub_connection" "vhc" {
+  provider                  = azurerm.hub
+  name                      = "RemoteVnetToHubPeering_899c94fd-7712-40ce-affa-be9779182787" #HV_HubNet-Prod-UsC-01_ccadb914-f0da-430f-8f15-da6b41721c48
+  remote_virtual_network_id = azurerm_virtual_network.vnet.id
+  virtual_hub_id            = var.virtual_hub_id
+}
 
 # resource "azurerm_subnet" "snet" {
 #   provider             = azurerm.spoke
@@ -41,10 +40,3 @@ resource "azurerm_resource_group" "rg" {
 #   tags                = merge({ "ResourceName" = lower("${var.spoke_vnet_name}-ddos-protection-plan") }, var.tags, )
 # }
 
-# resource "azurerm_virtual_hub_connection" "vhc" {
-#   provider                  = azurerm.hub
-#   count                     = var.create_hub_connection ? 1 : 0
-#   name                      = "peer-${azurerm_virtual_network.vnet.name}"
-#   remote_virtual_network_id = azurerm_virtual_network.vnet.id
-#   virtual_hub_id            = var.virtual_hub_id
-# }

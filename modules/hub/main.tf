@@ -1,16 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.16.0"
-    }
-    random = {
-      source = "hashicorp/random"
-    }
-  }
-  required_version = ">= 0.13"
-}
-
 resource "azurerm_virtual_hub" "hub" {
   name                = coalesce(try(var.hub.legacy_name, ""), var.hub.name)
   resource_group_name = var.vwan.rg_name
@@ -123,41 +110,41 @@ resource "azurerm_vpn_site" "vpn-sites" {
   }
 }
 
-resource "azurerm_vpn_gateway_connection" "vpngc" {
-  for_each           = { for site in var.hub.vpn.sites : site.name => site }
-  name               = "Connection-${each.value.name}"
-  vpn_gateway_id     = azurerm_vpn_gateway.vpng.id
-  remote_vpn_site_id = azurerm_vpn_site.vpn-sites[each.value.name].id
+# resource "azurerm_vpn_gateway_connection" "vpngc" {
+#   for_each           = { for site in var.hub.vpn.sites : site.name => site }
+#   name               = "Connection-${each.value.name}"
+#   vpn_gateway_id     = azurerm_vpn_gateway.vpng.id
+#   remote_vpn_site_id = azurerm_vpn_site.vpn-sites[each.value.name].id
 
-  routing {
-    associated_route_table = each.value.routing.associated_route_table
+#   routing {
+#     associated_route_table = each.value.routing.associated_route_table
 
-    propagated_route_table {
-      labels          = each.value.routing.propagated_route_table.labels
-      route_table_ids = each.value.routing.propagated_route_table.route_table_ids
-    }
-  }
+#     propagated_route_table {
+#       labels          = each.value.routing.propagated_route_table.labels
+#       route_table_ids = each.value.routing.propagated_route_table.route_table_ids
+#     }
+#   }
 
-  dynamic "vpn_link" {
-    for_each = { for link in each.value.links : link.name => link }
-    content {
-      name                 = vpn_link.value.name
-      vpn_site_link_id     = azurerm_vpn_site.vpn-sites[each.value.name].link[index(azurerm_vpn_site.vpn-sites[each.value.name].link.*.name, vpn_link.value.name)].id
-      bgp_enabled          = vpn_link.value.connection.bgp_enabled
-      egress_nat_rule_ids  = vpn_link.value.connection.egress_nat_rule_ids
-      ingress_nat_rule_ids = vpn_link.value.connection.ingress_nat_rule_ids
-      shared_key           = vpn_link.value.connection.shared_key
+#   dynamic "vpn_link" {
+#     for_each = { for link in each.value.links : link.name => link }
+#     content {
+#       name                 = vpn_link.value.name
+#       vpn_site_link_id     = azurerm_vpn_site.vpn-sites[each.value.name].link[index(azurerm_vpn_site.vpn-sites[each.value.name].link.*.name, vpn_link.value.name)].id
+#       bgp_enabled          = vpn_link.value.connection.bgp_enabled
+#       egress_nat_rule_ids  = vpn_link.value.connection.egress_nat_rule_ids
+#       ingress_nat_rule_ids = vpn_link.value.connection.ingress_nat_rule_ids
+#       shared_key           = vpn_link.value.connection.shared_key
 
-      ipsec_policy {
-        dh_group                 = vpn_link.value.connection.ipsec_policy.dh_group
-        encryption_algorithm     = vpn_link.value.connection.ipsec_policy.encryption_algorithm
-        ike_encryption_algorithm = vpn_link.value.connection.ipsec_policy.ike_encryption_algorithm
-        ike_integrity_algorithm  = vpn_link.value.connection.ipsec_policy.ike_integrity_algorithm
-        integrity_algorithm      = vpn_link.value.connection.ipsec_policy.integrity_algorithm
-        pfs_group                = vpn_link.value.connection.ipsec_policy.pfs_group
-        sa_data_size_kb          = vpn_link.value.connection.ipsec_policy.sa_data_size_kb
-        sa_lifetime_sec          = vpn_link.value.connection.ipsec_policy.sa_lifetime_sec
-      }
-    }
-  }
-}
+#       ipsec_policy {
+#         dh_group                 = vpn_link.value.connection.ipsec_policy.dh_group
+#         encryption_algorithm     = vpn_link.value.connection.ipsec_policy.encryption_algorithm
+#         ike_encryption_algorithm = vpn_link.value.connection.ipsec_policy.ike_encryption_algorithm
+#         ike_integrity_algorithm  = vpn_link.value.connection.ipsec_policy.ike_integrity_algorithm
+#         integrity_algorithm      = vpn_link.value.connection.ipsec_policy.integrity_algorithm
+#         pfs_group                = vpn_link.value.connection.ipsec_policy.pfs_group
+#         sa_data_size_kb          = vpn_link.value.connection.ipsec_policy.sa_data_size_kb
+#         sa_lifetime_sec          = vpn_link.value.connection.ipsec_policy.sa_lifetime_sec
+#       }
+#     }
+#   }
+# }

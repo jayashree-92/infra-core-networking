@@ -1,5 +1,5 @@
 provider "azurerm" {
-  alias           = "sbnetprod01"
+  alias           = "hub"
   subscription_id = "75641de5-1456-4853-bc77-dd7db76c35a1"
   features {
   }
@@ -24,4 +24,8 @@ provider "azurerm" {
   subscription_id = "4172118f-0fbf-4130-ba5b-5ad78292ae91"
   features {
   }
+}
+
+provider "azurerm" {
+  features {}
 }

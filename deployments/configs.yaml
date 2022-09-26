@@ -216,7 +216,7 @@ subscriptions:
       # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
       - name: vnet-pfm-qa-cu
         legacy_name: vnet-platform-preprod-usc-01
-        virtual_hub_name: HubNet-Prod-UsC-01
+        virtual_hub_name: vhub-net-prod-uc-01
         resource_group:
           name: rg-pfm-qa-cu
           legacy_name: rg-vnet-platform-preprod-usc-01
@@ -249,7 +249,7 @@ subscriptions:
             delegation:
               name:
 
-  - id: b69669b9-6d12-4ada-b44d-5f578b85f46c
+    id: b69669b9-6d12-4ada-b44d-5f578b85f46c
     name: Sb-Client-Prod-US-01
     legacy_name: Sb-Client-Prod-US-01
     spokes:
