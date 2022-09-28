@@ -17,19 +17,21 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_virtual_hub_connection" "vhc" {
   provider                  = azurerm.hub
-  name                      = "RemoteVnetToHubPeering_899c94fd-7712-40ce-affa-be9779182787" #HV_HubNet-Prod-UsC-01_ccadb914-f0da-430f-8f15-da6b41721c48
-  remote_virtual_network_id = azurerm_virtual_network.vnet.id
+  name                      = var.spoke.virtual_hub_connection_name
+  remote_virtual_network_id = trimsuffix(azurerm_virtual_network.vnet.id, "/")
   virtual_hub_id            = var.virtual_hub_id
 }
 
-# resource "azurerm_subnet" "snet" {
-#   provider             = azurerm.spoke
-#   for_each             = var.subnets
-#   name                 = lower(format("snet-%s-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}", each.value.subnet_name))
-#   resource_group_name  = local.resource_group_name
-#   virtual_network_name = azurerm_virtual_network.vnet.name
-#   address_prefixes     = each.value.subnet_address_prefix
-# }
+resource "azurerm_subnet" "snet" {
+  provider             = azurerm.spoke
+  for_each             = { for subnet in var.spoke.subnets : subnet.name => subnet }
+  name                 = each.value.name
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = each.value.address_prefixes
+}
+
+
 
 # resource "azurerm_network_ddos_protection_plan" "ddos" {
 #   provider            = azurerm.spoke

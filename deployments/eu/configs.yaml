@@ -1,0 +1,163 @@
+location_code: eu
+location: East US 2
+
+subscriptions:
+  # Network
+  - id: 75641de5-1456-4853-bc77-dd7db76c35a1
+    function: network
+    name: sb-net-prod-01
+    legacy_name: Sb-NetHub-Prd-01
+    vwan:
+      name: vWan-Prod-USe2-01
+      subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
+      resource_group:
+        name: rg-net-prod-01
+        legacy_name: Rg-vWan-Prod-01
+        location: East US 2
+        tags:
+          managed-by: terraform
+          resource-name: rg-net-prod-01
+      location: East US 2
+      location_code: eu
+      disable_vpn_encryption: false
+      allow_branch_to_branch_traffic: true
+      office365_local_breakout_category: None
+      type: Standard
+      tags:
+        managed-by: terraform
+    hubs:
+      - name: vhub-net-prod-eu-01
+        legacy_name:
+        location:
+        address_prefix: 10.90.0.0/23
+        sku: Standard
+        vpn:
+          enabled: false
+          gateway_name:
+          sites: []
+        tags:
+          managed-by: terraform
+          resource-name: vhub-net-prod-uc-01
+        firewall_policy:
+          name: fwp-net-prod-eu-01
+          legacy_name:
+          private_ip_ranges: ["255.255.255.255/32"]
+          location: East US 2
+          sku: Premium
+          tags:
+            managed-by: terraform
+            resource-name: rg-fwp-net-prod-eu-01
+          resource_group:
+            name: rg-fwp-net-prod-eu-01
+            legacy_name:
+            location: East US 2
+            tags:
+              managed-by: terraform
+              resource-name: rg-fwp-net-prod-eu-01
+          dns :
+            proxy_enabled: true
+            servers       : []
+          intrusion_detection:
+            mode : Alert
+          threat_intelligence_allowlist :
+            fqdns  : []
+            ip_addresses  : []
+        firewall:
+          name: fw-net-prod-eu-01
+          legacy_name:
+          location: East US 2
+          sku_tier: Premium
+          sku_name: AZFW_Hub
+          tags:
+            managed-by: terraform
+            resource-name: fw-net-prod-uc-01
+        route_tables: []
+    spokes:
+
+  # Platform
+  - id: b69669b9-6d12-4ada-b44d-5f578b85f46c
+    name: sb-pfm-prod-01
+    legacy_name: Sb-Client-Prod-US-01
+    spokes:
+      # automatically create connection between vnets and hub
+      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection
+      - name: vnet-pub-vnet-prod
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu-01
+        virtual_hub_connection_name: peer-vnet-pub-vnet-prod-eu-01
+        resource_group:
+          name: rg-pub-vnet-prod-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-vnet-prod-eu
+        address_space: ["10.90.134.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-vnet-prod
+          spoke: true
+        # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
+        # terraform import azurerm_subnet.exampleSubnet /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1
+        subnets:
+          # each subnet creates its own NSG if enabled to be used after when applying rules. Defaults to true
+          - name: snet-pub-platform-preprod-usc
+            address_prefixes: ["10.60.32.0/24"]
+            service_endpoints:
+            # for App Gateway
+            delegation:
+              name:
+
+
+  - id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
+    name: sb-pfm-stg-01
+    legacy_name:
+
+  - id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
+    name: sb-pfm-qa-01
+    legacy_name: Sb-Client-PProd-US-01
+    spokes:
+
+  - id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
+    name: sb-pfm-dev-01
+    legacy_name: Sb-client-Dev-US-01
+
+  # Corporate
+  - id: d0c437f8-266d-4cd9-84cb-df09ee801e26
+    name: sb-cpo-prod-01
+    legacy_name: Sb-Corp-Prod-US
+
+  - id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
+    name: sb-cpo-prod-02
+    legacy_name: Sb-Corp-Prod-IN
+
+  #  Security
+  - id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
+    name: sb-sec-prod-01
+    legacy_name:
+
+  # IT Tools
+  - id: 59d150e5-a66d-418f-8156-9b5b772a1922
+    name:  sb-itt-prod-01
+    legacy_name: Sb_ITTools-Prod-01
+
+  # Identity
+  - id: 99d9c0c8-690d-42ed-85c8-e910aae61413
+    name: sb-id-prod-01
+    legacy_name: Sb-Id-Prod-01
+
+  # DevOps
+  - id: 5a1019fa-917d-4ca0-8580-52ff2469e621
+    name: sb-dvp-prod-01
+    legacy_name: Sb-DevOps-Prod-01
+
+  # IT Monitoring
+  - id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
+    name: sb-itm-prod-01
+    legacy_name:   Sb-ITMon-Prod-01

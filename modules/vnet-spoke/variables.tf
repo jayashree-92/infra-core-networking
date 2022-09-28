@@ -1,9 +1,10 @@
 variable "spoke" {
   description = "Vnet spoke configuration"
   type = object({
-    name             = string
-    legacy_name      = string
-    virtual_hub_name = string
+    name                        = string
+    legacy_name                 = string
+    virtual_hub_name            = string
+    virtual_hub_connection_name = string
     resource_group = object({
       name        = string
       legacy_name = string

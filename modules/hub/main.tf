@@ -1,7 +1,7 @@
 resource "azurerm_virtual_hub" "hub" {
   name                = coalesce(try(var.hub.legacy_name, ""), var.hub.name)
   resource_group_name = var.vwan.rg_name
-  location            = var.hub.location
+  location            = var.location
   virtual_wan_id      = var.vwan.id
   address_prefix      = var.hub.address_prefix #The address prefix subnet cannot be smaller than a /24. Azure recommends using a /23
   sku                 = var.hub.sku
@@ -28,7 +28,7 @@ resource "azurerm_virtual_hub_route_table" "vhrt" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall
 resource "azurerm_firewall" "fw" {
   name                = coalesce(try(var.hub.firewall.legacy_name, ""), var.hub.firewall.name)
-  location            = var.hub.location
+  location            = var.location
   resource_group_name = var.vwan.rg_name
   sku_name            = var.hub.firewall.sku_name
   sku_tier            = var.hub.firewall.sku_tier
@@ -42,7 +42,7 @@ resource "azurerm_firewall" "fw" {
 
 resource "azurerm_resource_group" "rg_fwp" {
   name     = coalesce(try(var.hub.firewall_policy.resource_group.legacy_name, ""), var.hub.firewall_policy.resource_group.name)
-  location = var.hub.firewall_policy.resource_group.location
+  location = coalesce(var.location, var.hub.firewall_policy.resource_group.location)
 }
 
 
@@ -53,6 +53,9 @@ resource "azurerm_firewall_policy" "fwp" {
   location            = coalesce(try(var.hub.firewall_policy.location, ""), azurerm_resource_group.rg_fwp.location)
   tags                = var.hub.firewall_policy.tags
   private_ip_ranges   = var.hub.firewall_policy.private_ip_ranges
+  sku = var.hub.firewall_policy.sku
+
+
   dns {
     proxy_enabled = var.hub.firewall_policy.dns.proxy_enabled
     servers       = var.hub.firewall_policy.dns.servers
@@ -69,16 +72,17 @@ resource "azurerm_firewall_policy" "fwp" {
 }
 
 resource "azurerm_vpn_gateway" "vpng" {
+  count               = try(var.hub.vpn.enabled, false) == true ? 1 : 0
   name                = var.hub.vpn.gateway_name
-  location            = var.hub.location
+  location            = var.location
   resource_group_name = var.vwan.rg_name
   virtual_hub_id      = azurerm_virtual_hub.hub.id
 }
 
 resource "azurerm_vpn_site" "vpn-sites" {
-  for_each            = { for site in var.hub.vpn.sites : site.name => site }
+  for_each            = { for site in var.hub.vpn.sites : site.name => site if(try(site.name, false) != false) }
   name                = each.value.name
-  location            = coalesce(try(each.value.location, ""), var.hub.location)
+  location            = coalesce(try(each.value.location, ""), var.location)
   resource_group_name = var.vwan.rg_name
   virtual_wan_id      = var.vwan.id
   address_cidrs       = each.value.address_cidrs
