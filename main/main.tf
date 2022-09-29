@@ -67,3 +67,33 @@ module "spokes_sb_pfm_stg" {
     azurerm.hub   = azurerm.vwan_hubs
   }
 }
+
+
+module "spokes_sb_pfm_qa" {
+  for_each       = { for spoke in local.spokes.sb_pfm_qa : spoke.name => spoke }
+  source         = "../modules/vnet-spoke"
+  location       = local.config_file.location
+  nsg_rg_name    = local.subscriptions_map.sb_pfm_qa.nsg_rg_name
+  virtual_hub_id = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke          = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_pfm_qa_01
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+
+module "spokes_sb_pfm_dev" {
+  for_each       = { for spoke in local.spokes.sb_pfm_dev : spoke.name => spoke }
+  source         = "../modules/vnet-spoke"
+  location       = local.config_file.location
+  nsg_rg_name    = local.subscriptions_map.sb_pfm_dev.nsg_rg_name
+  virtual_hub_id = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke          = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_pfm_dev_01
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}

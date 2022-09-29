@@ -16,11 +16,15 @@ locals {
   subscriptions_map = {
     sb_pfm_prod = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-prod-1a4d")]
     sb_pfm_stg  = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-stg-01")]
+    sb_pfm_qa   = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-qa-1a4d")]
+    sb_pfm_dev  = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-dev-1a4d")]
 
   }
   spokes = {
     sb_pfm_prod = local.subscriptions_map.sb_pfm_prod.spokes
     sb_pfm_stg  = local.subscriptions_map.sb_pfm_stg.spokes
+    sb_pfm_qa   = local.subscriptions_map.sb_pfm_qa.spokes
+    sb_pfm_dev  = local.subscriptions_map.sb_pfm_dev.spokes
   }
 
   # config_files = fileset("../deployments/${var.location_code}/", "*configs.yaml")

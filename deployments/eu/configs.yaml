@@ -75,8 +75,8 @@ subscriptions:
     spokes:
 
   # Platform
-  - id: b69669b9-6d12-4ada-b44d-5f578b85f46c
-    name: sb-pfm-prod-1a4d
+  - name: sb-pfm-prod-1a4d
+    id: b69669b9-6d12-4ada-b44d-5f578b85f46c
     legacy_name:
     nsg_rg_name: rg-pfm-prod-eu-nsg
     spokes:
@@ -152,8 +152,8 @@ subscriptions:
             delegation:
               name:
 
-  - id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
-    name: sb-pfm-stg-01
+  - name: sb-pfm-stg-01
+    id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
     legacy_name:
     nsg_rg_name: rg-pfm-stg-eu-nsg
     spokes:
@@ -229,14 +229,159 @@ subscriptions:
             delegation:
               name:
 
-  - id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
-    name: sb-pfm-qa-01
+  - name: sb-pfm-qa-1a4d
+    id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
     legacy_name: Sb-Client-PProd-US-01
+    nsg_rg_name: rg-pfm-qa-eu-nsg
     spokes:
+      - name: vnet-pfm-qa-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-qa-eu
+        resource_group:
+          name: rg-pfm-qa-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-qa-eu
+        address_space: ["10.90.32.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-qa-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-qa-dmz-eu
+            nsg_name: nsg-pfm-qa-dmz-eu
+            address_prefixes: ["10.90.32.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-pres-eu
+            nsg_name: nsg-pfm-qa-pres-eu
+            address_prefixes: ["10.90.33.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-app-eu
+            nsg_name: nsg-pfm-qa-app-eu
+            address_prefixes: ["10.90.34.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-data-eu
+            nsg_name: nsg-pfm-qa-data-eu
+            address_prefixes: ["10.90.35.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-int-eu
+            nsg_name: nsg-pfm-qa-int-eu
+            address_prefixes: ["10.90.36.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-priv-eu
+            nsg_name: nsg-pfm-qa-priv-eu
+            address_prefixes: ["10.90.37.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
 
-  - id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
-    name: sb-pfm-dev-01
+  - name: sb-pfm-dev-1a4d
+    id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name: Sb-client-Dev-US-01
+    nsg_rg_name: rg-pfm-dev-eu-nsg
+    spokes:
+      - name: vnet-pfm-dev-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-dev-eu
+        resource_group:
+          name: rg-pfm-dev-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-dev-eu
+        address_space: ["10.90.16.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-dev-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-dev-dmz-eu
+            nsg_name: nsg-pfm-dev-dmz-eu
+            address_prefixes: ["10.90.17.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-pres-eu
+            nsg_name: nsg-pfm-dev-pres-eu
+            address_prefixes: ["10.90.18.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-app-eu
+            nsg_name: nsg-pfm-dev-app-eu
+            address_prefixes: ["10.90.19.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-data-eu
+            nsg_name: nsg-pfm-dev-data-eu
+            address_prefixes: ["10.90.20.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-int-eu
+            nsg_name: nsg-pfm-dev-int-eu
+            address_prefixes: ["10.90.21.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-priv-eu
+            nsg_name: nsg-pfm-dev-priv-eu
+            address_prefixes: ["10.90.22.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
 
   # Corporate
   - id: d0c437f8-266d-4cd9-84cb-df09ee801e26
