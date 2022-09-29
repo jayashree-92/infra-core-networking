@@ -530,8 +530,8 @@ subscriptions:
     legacy_name: Sb_ITTools-Prod-01
 
   # Identity
-  - id: 99d9c0c8-690d-42ed-85c8-e910aae61413
-    name: sb-Id-prod-1a4d
+  - name: sb-Id-prod-1a4d
+    id: 99d9c0c8-690d-42ed-85c8-e910aae61413
     legacy_name:
     nsg_rg_name: rg-id-prod-eu-nsg
     spokes:
@@ -560,7 +560,7 @@ subscriptions:
         subnets:
           - name: snet-id-prod-inf-eu
             nsg_name: nsg-id-prod-inf-eu
-            address_prefixes: ["10.90.144.0/24"]
+            address_prefixes: ["10.90.48.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -568,7 +568,7 @@ subscriptions:
               name:
           - name: snet-id-prod-priv-eu
             nsg_name: nsg-id-prod-priv-eu
-            address_prefixes: ["10.90.147.0/24"]
+            address_prefixes: ["10.90.49.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
