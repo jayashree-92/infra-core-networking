@@ -44,27 +44,38 @@ resource "random_string" "nsg_rg_rids" {
   min_lower   = 2
 }
 
+# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_prod
 resource "azurerm_resource_group" "rg_nsg_prod" {
   provider = azurerm.sb_pfm_prod_01
   name     = "${local.subscriptions_map.sb_pfm_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_prod].result}"
   location = local.config_file.location
 }
 
+# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_stg
 resource "azurerm_resource_group" "rg_nsg_stg" {
   provider = azurerm.sb_pfm_stg_01
   name     = "${local.subscriptions_map.sb_pfm_stg.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_stg].result}"
   location = local.config_file.location
 }
 
+# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_qa
 resource "azurerm_resource_group" "rg_nsg_qa" {
   provider = azurerm.sb_pfm_qa_01
   name     = "${local.subscriptions_map.sb_pfm_qa.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_qa].result}"
   location = local.config_file.location
 }
 
+# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_dev
 resource "azurerm_resource_group" "rg_nsg_dev" {
   provider = azurerm.sb_pfm_dev_01
   name     = "${local.subscriptions_map.sb_pfm_dev.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_dev].result}"
+  location = local.config_file.location
+}
+
+
+resource "azurerm_resource_group" "rg_nsg_id_prod" {
+  provider = azurerm.sb_id_prod
+  name     = "${local.subscriptions_map.sb_id_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_id_prod].result}"
   location = local.config_file.location
 }
 
@@ -127,6 +138,22 @@ module "spokes_sb_pfm_dev" {
 
   providers = {
     azurerm.spoke = azurerm.sb_pfm_dev_01
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+
+module "spokes_sb_id_prod" {
+  for_each        = { for spoke in local.spokes.sb_id_prod : spoke.name => spoke }
+  source          = "../modules/vnet-spoke"
+  location        = local.config_file.location
+  nsg_rg_name     = azurerm_resource_group.rg_nsg_id_prod.name
+  nsg_rg_location = azurerm_resource_group.rg_nsg_id_prod.location
+  virtual_hub_id  = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke           = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_id_prod
     azurerm.hub   = azurerm.vwan_hubs
   }
 }

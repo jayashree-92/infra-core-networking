@@ -531,8 +531,49 @@ subscriptions:
 
   # Identity
   - id: 99d9c0c8-690d-42ed-85c8-e910aae61413
-    name: sb-id-prod-01
-    legacy_name: Sb-Id-Prod-01
+    name: sb-Id-prod-1a4d
+    legacy_name:
+    nsg_rg_name: rg-id-prod-eu-nsg
+    spokes:
+      - name: vnet-id-prod-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-id-prod-eu
+        resource_group:
+          name: rg-id-prod-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-id-prod-eu
+        address_space: ["10.90.48.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-id-prod-eu
+          spoke: true
+        subnets:
+          - name: snet-id-prod-inf-eu
+            nsg_name: nsg-id-prod-inf-eu
+            address_prefixes: ["10.90.144.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-id-prod-priv-eu
+            nsg_name: nsg-id-prod-priv-eu
+            address_prefixes: ["10.90.147.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
 
   # DevOps
   - id: 5a1019fa-917d-4ca0-8580-52ff2469e621

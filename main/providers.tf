@@ -33,21 +33,12 @@ provider "azurerm" {
   }
 }
 
-
-
-# provider "azurerm" {
-#   alias           = "sbclientprodus01"
-#   subscription_id = "b69669b9-6d12-4ada-b44d-5f578b85f46c"
-#   features {
-#   }
-# }
-
-# provider "azurerm" {
-#   alias           = "sbclientdevus01"
-#   subscription_id = "4172118f-0fbf-4130-ba5b-5ad78292ae91"
-#   features {
-#   }
-# }
+provider "azurerm" {
+  alias           = "sb_id_prod"
+  subscription_id = local.subscriptions_map.sb_id_prod.id
+  features {
+  }
+}
 
 provider "azurerm" {
   features {}
