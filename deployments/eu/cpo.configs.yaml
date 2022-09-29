@@ -1,0 +1,9 @@
+subscriptions:
+  # Corporate
+  - id: d0c437f8-266d-4cd9-84cb-df09ee801e26
+    name: sb-cpo-prod-01
+    legacy_name: Sb-Corp-Prod-US
+
+  - id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
+    name: sb-cpo-prod-02
+    legacy_name: Sb-Corp-Prod-IN

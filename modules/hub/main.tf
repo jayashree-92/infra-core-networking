@@ -1,5 +1,15 @@
+resource "random_string" "rids" {
+  for_each    = toset(local.rid_keys)
+  length      = 4
+  special     = false
+  upper       = false
+  numeric     = true
+  min_numeric = 2
+  min_lower   = 2
+}
+
 resource "azurerm_virtual_hub" "hub" {
-  name                = coalesce(try(var.hub.legacy_name, ""), var.hub.name)
+  name                = coalesce(try(var.hub.legacy_name, ""), "${var.hub.name}-${var.rid_hub}")
   resource_group_name = var.vwan.rg_name
   location            = var.location
   virtual_wan_id      = var.vwan.id
@@ -27,7 +37,7 @@ resource "azurerm_virtual_hub_route_table" "vhrt" {
 
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall
 resource "azurerm_firewall" "fw" {
-  name                = coalesce(try(var.hub.firewall.legacy_name, ""), var.hub.firewall.name)
+  name                = coalesce(try(var.hub.firewall.legacy_name, ""), "${var.hub.firewall.name}-${random_string.rids[local.fw_key].result}")
   location            = var.location
   resource_group_name = var.vwan.rg_name
   sku_name            = var.hub.firewall.sku_name
@@ -41,19 +51,19 @@ resource "azurerm_firewall" "fw" {
 }
 
 resource "azurerm_resource_group" "rg_fwp" {
-  name     = coalesce(try(var.hub.firewall_policy.resource_group.legacy_name, ""), var.hub.firewall_policy.resource_group.name)
+  name     = coalesce(try(var.hub.firewall_policy.resource_group.legacy_name, ""), "${var.hub.firewall_policy.resource_group.name}-${random_string.rids[local.rg_fwp_key].result}")
   location = coalesce(var.location, var.hub.firewall_policy.resource_group.location)
 }
 
 
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall-policy
 resource "azurerm_firewall_policy" "fwp" {
-  name                = coalesce(try(var.hub.firewall_policy.legacy_name, ""), var.hub.firewall_policy.name)
+  name                = coalesce(try(var.hub.firewall_policy.legacy_name, ""), "${var.hub.firewall_policy.name}-${random_string.rids[local.fwp_key].result}")
   resource_group_name = azurerm_resource_group.rg_fwp.name
   location            = coalesce(try(var.hub.firewall_policy.location, ""), azurerm_resource_group.rg_fwp.location)
   tags                = var.hub.firewall_policy.tags
   private_ip_ranges   = var.hub.firewall_policy.private_ip_ranges
-  sku = var.hub.firewall_policy.sku
+  sku                 = var.hub.firewall_policy.sku
 
 
   dns {

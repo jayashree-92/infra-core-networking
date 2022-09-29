@@ -1,3 +1,13 @@
+variable "location" {
+  description = "The location of resources"
+  type        = string
+}
+
+variable "nsg_rg_name" {
+  description = "The name of NSG resource group"
+  type        = string
+}
+
 variable "spoke" {
   description = "Vnet spoke configuration"
   type = object({
@@ -20,11 +30,11 @@ variable "spoke" {
     flow_timeout_in_minutes = string
     subnets = list(object({
       name                                      = string
+      nsg_name                                  = string
       address_prefixes                          = list(string)
       service_endpoints                         = list(any)
       service_endpoint_policy_ids               = list(string)
       private_endpoint_network_policies_enabled = bool
-      # for App Gateway
       delegation = object({
         name = string
       })

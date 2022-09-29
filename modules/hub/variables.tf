@@ -7,22 +7,27 @@ variable "vwan" {
   })
 }
 
+variable "rid_hub" {
+  description = "The random id suffixing the hub name"
+  type        = string
+}
+
 variable "location" {
   description = "The location of resources"
-  type = string
+  type        = string
 }
 
 variable "hub" {
   description = "Virtual HUB properties"
   type = object({
-    name            = string
-    legacy_name     = string
-    location        = string
-    address_prefix  = string
-    sku             = string
+    name           = string
+    legacy_name    = string
+    location       = string
+    address_prefix = string
+    sku            = string
 
     vpn = object({
-      enabled = bool
+      enabled      = bool
       gateway_name = string
       sites = list(object({
         name          = string
@@ -82,7 +87,7 @@ variable "hub" {
       tags              = map(string)
       location          = string
       private_ip_ranges = list(string)
-      sku = string
+      sku               = string
       dns = object({
         proxy_enabled = bool
         servers       = list(string)

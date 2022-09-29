@@ -7,14 +7,14 @@ provider "azurerm" {
 
 provider "azurerm" {
   alias           = "sb_pfm_prod_01"
-  subscription_id = local.subscription_ids["sb-pfm-prod-01"]
+  subscription_id = local.subscriptions_map.sb_pfm_prod.id
   features {
   }
 }
 
 provider "azurerm" {
   alias           = "sb_pfm_stg_01"
-  subscription_id = local.subscription_ids["sb-pfm-stg-01"]
+  subscription_id = local.subscriptions_map.sb_pfm_stg.id
   features {
   }
 }

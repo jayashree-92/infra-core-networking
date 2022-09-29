@@ -9,10 +9,27 @@ output "hub" {
   value = module.hubs
 }
 
+output "vnet_spokes" {
+  value = {
+    "sb-pfm-prod-1a4d" = module.spokes_sb_pfm_prod
+  }
+}
+
+# output "config_files" {
+#   value = local.config_files
+# }
+
+# output "merged_yamls" {
+#   value = local.merged_yamls
+# }
+
 output "subscription_ids" {
   value = local.subscription_ids
 }
 
+# output "subscriptions_map" {
+#   value = local.subscriptions_map
+# }
 output "create_vwan" {
   value = local.create_vwan
 }
