@@ -3,9 +3,9 @@ location: East US 2
 
 subscriptions:
   # Network
-  - id: 75641de5-1456-4853-bc77-dd7db76c35a1
+  - name: sb-net-prod-01
     function: network
-    name: sb-net-prod-01
+    id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name: Sb-NetHub-Prd-01
     vwan:
       name: vWan-Prod-USe2-01
@@ -151,6 +151,37 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
+      - name: vnet-pub-prod-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-prod-eu
+        resource_group:
+          name: rg-pfm-prod-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-prod-eu
+        address_space: ["10.90.134.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-prod-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-prod-pub-eu
+            nsg_name: nsg-pfm-prod-pub-eu
+            address_prefixes: ["10.90.134.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
 
   - name: sb-pfm-stg-01
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
@@ -223,6 +254,38 @@ subscriptions:
           - name: snet-pfm-stg-priv-eu
             nsg_name: nsg-pfm-stg-priv-eu
             address_prefixes: ["10.90.101.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-stg-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-stg-eu
+        resource_group:
+          name: rg-pfm-stg-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-stg-eu
+        address_space: ["10.90.132.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-stg-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-stg-pub-eu
+            nsg_name: nsg-pfm-stg-pub-eu
+            address_prefixes: ["10.90.132.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -306,6 +369,38 @@ subscriptions:
             delegation:
               name:
 
+      - name: vnet-pub-qa-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-qa-eu
+        resource_group:
+          name: rg-pfm-qa-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-qa-eu
+        address_space: ["10.90.130.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-qa-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-qa-pub-eu
+            nsg_name: nsg-pfm-qa-pub-eu
+            address_prefixes: ["10.90.130.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
   - name: sb-pfm-dev-1a4d
     id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name: Sb-client-Dev-US-01
@@ -377,6 +472,38 @@ subscriptions:
           - name: snet-pfm-dev-priv-eu
             nsg_name: nsg-pfm-dev-priv-eu
             address_prefixes: ["10.90.22.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-dev-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-pfm-dev-eu
+        resource_group:
+          name: rg-pfm-dev-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-dev-eu
+        address_space: ["10.90.128.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-dev-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-dev-pub-eu
+            nsg_name: nsg-pfm-dev-pub-eu
+            address_prefixes: ["10.90.128.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true

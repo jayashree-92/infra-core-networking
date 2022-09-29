@@ -41,20 +41,14 @@ resource "azurerm_subnet" "subnets" {
   address_prefixes     = each.value.address_prefixes
 }
 
-resource "azurerm_resource_group" "rg_nsg" {
-  provider = azurerm.spoke
-  name     = "${var.nsg_rg_name}-${random_string.rids[local.rg_nsg_key].result}"
-  location = var.location
-  tags     = var.spoke.resource_group.tags
-}
 
 # DO NOT USE NETWORK SECURITY RULES IN-LINE WITHIN THE FOLLOWING RESOURCE
 resource "azurerm_network_security_group" "nsgs" {
   provider            = azurerm.spoke
   for_each            = { for subnet in var.spoke.subnets : subnet.nsg_name => subnet }
   name                = "${each.key}-${random_string.rids[each.key].result}"
-  location            = azurerm_resource_group.rg_nsg.location
-  resource_group_name = azurerm_resource_group.rg_nsg.name
+  location            = var.nsg_rg_location
+  resource_group_name = var.nsg_rg_name
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_associations" {

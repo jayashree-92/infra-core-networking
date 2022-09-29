@@ -13,19 +13,29 @@ locals {
   #     sb_pfm_qa_uc_01 = local.subscriptions[index(local.subscriptions.*.name, "Sb-Client-PProd-US-01")].id
   #   }
 
-  subscriptions_map = {
-    sb_pfm_prod = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-prod-1a4d")]
-    sb_pfm_stg  = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-stg-01")]
-    sb_pfm_qa   = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-qa-1a4d")]
-    sb_pfm_dev  = local.subscriptions[index(local.subscriptions.*.name, "sb-pfm-dev-1a4d")]
-
+  subscription_names = {
+    sb_pfm_prod = "sb-pfm-prod-1a4d"
+    sb_pfm_stg  = "sb-pfm-stg-01"
+    sb_pfm_qa   = "sb-pfm-qa-1a4d"
+    sb_pfm_dev  = "sb-pfm-dev-1a4d"
   }
+
+  subscriptions_map = {
+    sb_pfm_prod = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_prod)]
+    sb_pfm_stg  = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_stg)]
+    sb_pfm_qa   = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_qa)]
+    sb_pfm_dev  = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_dev)]
+  }
+
   spokes = {
     sb_pfm_prod = local.subscriptions_map.sb_pfm_prod.spokes
     sb_pfm_stg  = local.subscriptions_map.sb_pfm_stg.spokes
     sb_pfm_qa   = local.subscriptions_map.sb_pfm_qa.spokes
     sb_pfm_dev  = local.subscriptions_map.sb_pfm_dev.spokes
   }
+
+  nsg_rg_rid_keys = [for sb_name in local.subscription_names : sb_name ]
+
 
   # config_files = fileset("../deployments/${var.location_code}/", "*configs.yaml")
   # yamls        = { for file in local.config_files : file => file("../deployments/${var.location_code}/${file}") }

@@ -8,6 +8,12 @@ variable "nsg_rg_name" {
   type        = string
 }
 
+variable "nsg_rg_location" {
+  description = "The location of NSG resource group"
+  type        = string
+}
+
+
 variable "spoke" {
   description = "Vnet spoke configuration"
   type = object({

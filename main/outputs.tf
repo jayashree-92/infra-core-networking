@@ -11,9 +11,14 @@ output "hub" {
 
 output "vnet_spokes" {
   value = {
-    "sb-pfm-prod-1a4d" = module.spokes_sb_pfm_prod
+    "${local.subscription_names.sb_pfm_prod}" = module.spokes_sb_pfm_prod
   }
 }
+
+output "rid_hubs" {
+  value = random_string.rid_hubs
+}
+
 
 # output "config_files" {
 #   value = local.config_files
