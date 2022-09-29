@@ -581,6 +581,47 @@ subscriptions:
     legacy_name: Sb-DevOps-Prod-01
 
   # IT Monitoring
-  - id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
-    name: sb-itm-prod-01
-    legacy_name: Sb-ITMon-Prod-01
+  - name: sb-itt-prod-1a4d
+    id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
+    legacy_name:
+    nsg_rg_name: rg-itt-prod-eu-nsg
+    spokes:
+      - name: vnet-itt-prod-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-eu
+        virtual_hub_connection_name: peer-vnet-itt-prod-eu
+        resource_group:
+          name: rg-itt-prod-eu
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-itt-prod-eu
+        address_space: ["10.90.144.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-itt-prod-eu
+          spoke: true
+        subnets:
+          - name: snet-itt-prod-inf-eu
+            nsg_name: nsg-itt-prod-inf-eu
+            address_prefixes: ["10.90.144.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-itt-prod-priv-eu
+            nsg_name: nsg-itt-prod-priv-eu
+            address_prefixes: ["10.90.147.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:

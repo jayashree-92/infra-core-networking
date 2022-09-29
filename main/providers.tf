@@ -41,5 +41,12 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  alias           = "sb_itt_prod"
+  subscription_id = local.subscriptions_map.sb_itt_prod.id
+  features {
+  }
+}
+
+provider "azurerm" {
   features {}
 }

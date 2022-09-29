@@ -19,6 +19,7 @@ locals {
     sb_pfm_qa   = "sb-pfm-qa-1a4d"
     sb_pfm_dev  = "sb-pfm-dev-1a4d"
     sb_id_prod  = "sb-Id-prod-1a4d"
+    sb_itt_prod  = "sb-itt-prod-1a4d"
   }
 
   subscriptions_map = {
@@ -27,6 +28,7 @@ locals {
     sb_pfm_qa   = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_qa)]
     sb_pfm_dev  = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_dev)]
     sb_id_prod  = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_id_prod)]
+    sb_itt_prod  = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_itt_prod)]
   }
 
   spokes = {
@@ -35,6 +37,7 @@ locals {
     sb_pfm_qa   = local.subscriptions_map.sb_pfm_qa.spokes
     sb_pfm_dev  = local.subscriptions_map.sb_pfm_dev.spokes
     sb_id_prod  = local.subscriptions_map.sb_id_prod.spokes
+    sb_itt_prod  = local.subscriptions_map.sb_itt_prod.spokes
   }
 
   nsg_rg_rid_keys = [for sb_name in local.subscription_names : sb_name ]
