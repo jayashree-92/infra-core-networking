@@ -31,8 +31,7 @@ resource "azurerm_monitor_diagnostic_setting" "mdg" {
   log_analytics_workspace_id = var.log_analytics_workspace.resource_id
 
   log {
-    category = "AuditEvent"
-    enabled  = true
+    enabled = true
 
     retention_policy {
       enabled = false
