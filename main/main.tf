@@ -79,8 +79,32 @@ resource "azurerm_resource_group" "rg_nsg_id_prod" {
 }
 
 resource "azurerm_resource_group" "rg_nsg_itt_prod" {
-  provider = azurerm.sb_id_prod
+  provider = azurerm.sb_itt_prod
   name     = "${local.subscriptions_map.sb_itt_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_itt_prod].result}"
+  location = local.config_file.location
+}
+
+resource "azurerm_resource_group" "rg_nsg_dvp_prod" {
+  provider = azurerm.sb_dvp_prod
+  name     = "${local.subscriptions_map.sb_dvp_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_dvp_prod].result}"
+  location = local.config_file.location
+}
+
+resource "azurerm_resource_group" "rg_nsg_itm_prod" {
+  provider = azurerm.sb_itm_prod
+  name     = "${local.subscriptions_map.sb_itm_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_itm_prod].result}"
+  location = local.config_file.location
+}
+
+resource "azurerm_resource_group" "rg_nsg_sec_prod" {
+  provider = azurerm.sb_sec_prod
+  name     = "${local.subscriptions_map.sb_sec_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_sec_prod].result}"
+  location = local.config_file.location
+}
+
+resource "azurerm_resource_group" "rg_nsg_cpo_prod_us" {
+  provider = azurerm.sb_cpo_prod_us
+  name     = "${local.subscriptions_map.sb_cpo_prod_us.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_cpo_prod_us].result}"
   location = local.config_file.location
 }
 
@@ -172,6 +196,69 @@ module "spokes_sb_itt_prod" {
 
   providers = {
     azurerm.spoke = azurerm.sb_itt_prod
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+
+module "spokes_sb_dvp_prod" {
+  for_each        = { for spoke in local.spokes.sb_dvp_prod : spoke.name => spoke }
+  source          = "../modules/vnet-spoke"
+  location        = local.config_file.location
+  nsg_rg_name     = azurerm_resource_group.rg_nsg_dvp_prod.name
+  nsg_rg_location = azurerm_resource_group.rg_nsg_dvp_prod.location
+  virtual_hub_id  = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke           = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_dvp_prod
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+module "spokes_sb_itm_prod" {
+  for_each        = { for spoke in local.spokes.sb_itm_prod : spoke.name => spoke }
+  source          = "../modules/vnet-spoke"
+  location        = local.config_file.location
+  nsg_rg_name     = azurerm_resource_group.rg_nsg_itm_prod.name
+  nsg_rg_location = azurerm_resource_group.rg_nsg_itm_prod.location
+  virtual_hub_id  = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke           = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_itm_prod
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+
+module "spokes_sb_sec_prod" {
+  for_each        = { for spoke in local.spokes.sb_sec_prod : spoke.name => spoke }
+  source          = "../modules/vnet-spoke"
+  location        = local.config_file.location
+  nsg_rg_name     = azurerm_resource_group.rg_nsg_sec_prod.name
+  nsg_rg_location = azurerm_resource_group.rg_nsg_sec_prod.location
+  virtual_hub_id  = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke           = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_sec_prod
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}
+
+
+module "spokes_sb_cpo_prod_us" {
+  for_each        = { for spoke in local.spokes.sb_cpo_prod_us : spoke.name => spoke }
+  source          = "../modules/vnet-spoke"
+  location        = local.config_file.location
+  nsg_rg_name     = azurerm_resource_group.rg_nsg_cpo_prod_us.name
+  nsg_rg_location = azurerm_resource_group.rg_nsg_cpo_prod_us.location
+  virtual_hub_id  = module.hubs[each.value.virtual_hub_name].hub.id
+  spoke           = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_cpo_prod_us
     azurerm.hub   = azurerm.vwan_hubs
   }
 }

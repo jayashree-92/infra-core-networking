@@ -48,5 +48,33 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  alias           = "sb_dvp_prod"
+  subscription_id = local.subscriptions_map.sb_dvp_prod.id
+  features {
+  }
+}
+
+provider "azurerm" {
+  alias           = "sb_itm_prod"
+  subscription_id = local.subscriptions_map.sb_itm_prod.id
+  features {
+  }
+}
+
+provider "azurerm" {
+  alias           = "sb_sec_prod"
+  subscription_id = local.subscriptions_map.sb_sec_prod.id
+  features {
+  }
+}
+
+provider "azurerm" {
+  alias           = "sb_cpo_prod_us"
+  subscription_id = local.subscriptions_map.sb_cpo_prod_us.id
+  features {
+  }
+}
+
+provider "azurerm" {
   features {}
 }
