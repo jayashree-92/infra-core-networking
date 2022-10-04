@@ -35,7 +35,36 @@ resource "azurerm_monitor_diagnostic_setting" "mdg" {
     enabled  = true
 
     retention_policy {
-      enabled = false
+      enabled = true
+      days    = 90
+    }
+  }
+
+  log {
+    category = "NetworkSecurityGroupRuleCounter"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+      days    = 90
+    }
+  }
+}
+
+
+resource "azurerm_monitor_diagnostic_setting" "spoke_mdg" {
+  name                       = "diag-${var.spoke.vnet.name}"
+  target_resource_id         = var.spoke.vnet.id
+  storage_account_id         = var.storage_account_id
+  log_analytics_workspace_id = var.log_analytics_workspace.resource_id
+
+  log {
+    category = "VMProtectionAlerts"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+      days    = 90
     }
   }
 }

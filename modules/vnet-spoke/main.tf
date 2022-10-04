@@ -21,7 +21,7 @@ resource "azurerm_virtual_network" "vnet" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = var.spoke.address_space
-  dns_servers         = var.spoke.dns_servers
+  dns_servers         = concat(var.spoke.dns_servers, formatlist(var.virtual_hub_firewall_private_ip_address))
   tags                = var.spoke.tags
 }
 

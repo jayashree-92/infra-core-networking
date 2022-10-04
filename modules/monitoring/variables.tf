@@ -24,6 +24,11 @@ variable "nsgs" {
   }))
 }
 
+variable "spoke" {
+  description = "The spoke for network fatcher diagnosting settings"
+  type        = any
+}
+
 variable "log_analytics_workspace" {
   description = ""
   type = object({

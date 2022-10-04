@@ -52,3 +52,8 @@ variable "virtual_hub_id" {
   description = "Resource ID of the virtual hub to connect to spoke to."
   type        = string
 }
+
+variable "virtual_hub_firewall_private_ip_address" {
+  description = "Ip adress used as dns server for the spoke"
+  type        = string
+}

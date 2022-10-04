@@ -75,9 +75,9 @@ resource "azurerm_firewall_policy" "fwp" {
     mode = var.hub.firewall_policy.intrusion_detection.mode
   }
 
-  threat_intelligence_allowlist {
-    fqdns        = var.hub.firewall_policy.threat_intelligence_allowlist.fqdns
-    ip_addresses = var.hub.firewall_policy.threat_intelligence_allowlist.ip_addresses
+  insights {
+    enabled                            = true
+    default_log_analytics_workspace_id = var.log_analytics_workspace.resource_id
   }
 }
 

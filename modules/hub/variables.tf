@@ -133,3 +133,13 @@ variable "hub" {
     tags = map(string)
   })
 }
+
+variable "log_analytics_workspace" {
+  description = ""
+  type = object({
+    id          = string
+    resource_id = string
+    location    = string
+  })
+}
+

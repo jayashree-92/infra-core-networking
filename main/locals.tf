@@ -55,6 +55,11 @@ locals {
   sb_rid_keys = [for sb_name in local.subscription_names : sb_name]
 
 
+  netw_rg_key       = "netw_rg_key"
+  sa_key            = "sa_key"
+  netw_key          = "netw_key"
+  vwan_hub_rid_keys = [local.netw_rg_key, local.sa_key, local.netw_key]
+
   # config_files = fileset("../deployments/${var.location_code}/", "*configs.yaml")
   # yamls        = { for file in local.config_files : file => file("../deployments/${var.location_code}/${file}") }
   # merged_yamls = merge(local.yamls)

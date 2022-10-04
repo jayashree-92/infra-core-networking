@@ -11,6 +11,9 @@ subscriptions:
     function: network
     id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name: Sb-NetHub-Prd-01
+    netw_rg_name: rg-net-prod-eu-netw
+    netw_name: netw-net-prod-eu
+    netw_sa_acc_name: sanetnetprodeu
     vwan:
       name: vWan-Prod-USe2-01
       subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
@@ -101,7 +104,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -172,7 +175,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -211,7 +214,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -283,7 +286,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -322,7 +325,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -394,7 +397,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -433,7 +436,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -505,7 +508,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -545,7 +548,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -637,7 +640,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -685,7 +688,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -733,7 +736,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -751,7 +754,7 @@ subscriptions:
               name:
           - name: snet-id-prod-priv-eu
             nsg_name: nsg-id-prod-priv-eu
-            address_prefixes: ["10.90.2011.0/24"]
+            address_prefixes: ["10.90.211.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -781,7 +784,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -829,7 +832,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
+        dns_servers: []
         edge_zone:
         flow_timeout_in_minutes:
         tags:
