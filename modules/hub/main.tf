@@ -52,7 +52,7 @@ resource "azurerm_firewall" "fw" {
 
 resource "azurerm_resource_group" "rg_fwp" {
   name     = coalesce(try(var.hub.firewall_policy.resource_group.legacy_name, ""), "${var.hub.firewall_policy.resource_group.name}-${random_string.rids[local.rg_fwp_key].result}")
-  location = coalesce(var.location, var.hub.firewall_policy.resource_group.location)
+  location = coalesce(var.hub.firewall_policy.resource_group.location, var.location)
 }
 
 
@@ -78,6 +78,7 @@ resource "azurerm_firewall_policy" "fwp" {
   insights {
     enabled                            = true
     default_log_analytics_workspace_id = var.log_analytics_workspace.resource_id
+    retention_in_days                  = 30
   }
 }
 

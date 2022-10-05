@@ -9,6 +9,7 @@ subscriptions:
   # Network
   - name: sb-net-prod-01
     function: network
+    contains_vwan: true
     id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name: Sb-NetHub-Prd-01
     netw_rg_name: rg-net-prod-eu-netw
@@ -94,12 +95,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-prod-eu
         resource_group:
-          name: rg-pfm-prod-eu
+          name: rg-pfm-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-pfm-prod-eu
+            resource-name: rg-pfm-prod-eu-vnet
         address_space: ["10.90.192.0/20"]
         location:
         bgp_community:
@@ -113,6 +114,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-prod-dmz-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-dmz-eu
             address_prefixes: ["10.90.192.0/24"]
             service_endpoints:
@@ -121,6 +123,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-prod-pres-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-pres-eu
             address_prefixes: ["10.90.193.0/24"]
             service_endpoints:
@@ -129,6 +132,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-prod-app-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-app-eu
             address_prefixes: ["10.90.194.0/24"]
             service_endpoints:
@@ -137,6 +141,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-prod-data-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-data-eu
             address_prefixes: ["10.90.195.0/24"]
             service_endpoints:
@@ -145,6 +150,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-prod-int-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-int-eu
             address_prefixes: ["10.90.196.0/24"]
             service_endpoints:
@@ -153,6 +159,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-priv-eu
             address_prefixes: ["10.90.197.0/24"]
             service_endpoints:
@@ -184,6 +191,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-prod-pub-eu
+            legacy_name:
             nsg_name: nsg-pfm-prod-pub-eu
             address_prefixes: ["10.90.234.0/24"]
             service_endpoints:
@@ -204,12 +212,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-stg-eu
         resource_group:
-          name: rg-pfm-stg-eu
+          name: rg-pfm-stg-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-pfm-stg-eu
+            resource-name: rg-pfm-stg-eu-vnet
         address_space: ["10.90.176.0/20"]
         location:
         bgp_community:
@@ -223,6 +231,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-stg-dmz-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-dmz-eu
             address_prefixes: ["10.90.176.0/24"]
             service_endpoints:
@@ -231,6 +240,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-stg-pres-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-pres-eu
             address_prefixes: ["10.90.177.0/24"]
             service_endpoints:
@@ -239,6 +249,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-stg-app-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-app-eu
             address_prefixes: ["10.90.178.0/24"]
             service_endpoints:
@@ -247,6 +258,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-stg-data-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-data-eu
             address_prefixes: ["10.90.179.0/24"]
             service_endpoints:
@@ -255,6 +267,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-stg-int-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-int-eu
             address_prefixes: ["10.90.180.0/24"]
             service_endpoints:
@@ -263,6 +276,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-stg-priv-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-priv-eu
             address_prefixes: ["10.90.181.0/24"]
             service_endpoints:
@@ -295,6 +309,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-stg-pub-eu
+            legacy_name:
             nsg_name: nsg-pfm-stg-pub-eu
             address_prefixes: ["10.90.232.0/24"]
             service_endpoints:
@@ -315,12 +330,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-qa-eu
         resource_group:
-          name: rg-pfm-qa-eu
+          name: rg-pfm-qa-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-pfm-qa-eu
+            resource-name: rg-pfm-qa-eu-vnet
         address_space: ["10.90.160.0/20"]
         location:
         bgp_community:
@@ -334,6 +349,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-qa-dmz-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-dmz-eu
             address_prefixes: ["10.90.160.0/24"]
             service_endpoints:
@@ -342,6 +358,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-qa-pres-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-pres-eu
             address_prefixes: ["10.90.161.0/24"]
             service_endpoints:
@@ -350,6 +367,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-qa-app-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-app-eu
             address_prefixes: ["10.90.162.0/24"]
             service_endpoints:
@@ -358,6 +376,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-qa-data-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-data-eu
             address_prefixes: ["10.90.163.0/24"]
             service_endpoints:
@@ -366,6 +385,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-qa-int-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-int-eu
             address_prefixes: ["10.90.164.0/24"]
             service_endpoints:
@@ -374,6 +394,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-qa-priv-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-priv-eu
             address_prefixes: ["10.90.165.0/24"]
             service_endpoints:
@@ -406,6 +427,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-qa-pub-eu
+            legacy_name:
             nsg_name: nsg-pfm-qa-pub-eu
             address_prefixes: ["10.90.230.0/24"]
             service_endpoints:
@@ -426,12 +448,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-dev-eu
         resource_group:
-          name: rg-pfm-dev-eu
+          name: rg-pfm-dev-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-pfm-dev-eu
+            resource-name: rg-pfm-dev-eu-vnet
         address_space: ["10.90.144.0/20"]
         location:
         bgp_community:
@@ -445,6 +467,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-dev-dmz-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-dmz-eu
             address_prefixes: ["10.90.144.0/24"]
             service_endpoints:
@@ -453,6 +476,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-dev-pres-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-pres-eu
             address_prefixes: ["10.90.145.0/24"]
             service_endpoints:
@@ -461,6 +485,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-dev-app-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-app-eu
             address_prefixes: ["10.90.146.0/24"]
             service_endpoints:
@@ -469,6 +494,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-dev-data-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-data-eu
             address_prefixes: ["10.90.147.0/24"]
             service_endpoints:
@@ -477,6 +503,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-dev-int-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-int-eu
             address_prefixes: ["10.90.148.0/24"]
             service_endpoints:
@@ -485,6 +512,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-pfm-dev-priv-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-priv-eu
             address_prefixes: ["10.90.149.0/24"]
             service_endpoints:
@@ -517,6 +545,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-pfm-dev-pub-eu
+            legacy_name:
             nsg_name: nsg-pfm-dev-pub-eu
             address_prefixes: ["10.90.228.0/24"]
             service_endpoints:
@@ -538,13 +567,13 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-cpo-prod-eu
         resource_group:
-          name: rg-cpo-prod-eu
+          name: rg-cpo-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-cpo-prod-eu
-        address_space: ["10.46.0.0/19"]
+            resource-name: rg-cpo-prod-eu-vnet
+        address_space: ["10.42.0.0/19"]
         location:
         bgp_community:
         ddos_protection_plan:
@@ -557,56 +586,63 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-cpo-prod-vdiitadmin-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-vdiitadmin-eu
-            address_prefixes: ["10.46.0.0/23"]
+            address_prefixes: ["10.42.0.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-vdifunc-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-vdifunc-eu
-            address_prefixes: ["10.46.2.0/23"]
+            address_prefixes: ["10.42.2.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-vdibsops-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-vdibsops-eu
-            address_prefixes: ["10.46.4.0/23"]
+            address_prefixes: ["10.42.4.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-vdidev-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-vdidev-eu
-            address_prefixes: ["10.46.6.0/23"]
+            address_prefixes: ["10.42.6.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-vdidatas-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-vdidatas-eu
-            address_prefixes: ["10.46.8.0/23"]
+            address_prefixes: ["10.42.8.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-app-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-app-eu
-            address_prefixes: ["10.46.10.0/23"]
+            address_prefixes: ["10.42.10.0/23"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
           - name: snet-cpo-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-cpo-prod-priv-eu
-            address_prefixes: ["10.46.13.0/24"]
+            address_prefixes: ["10.42.13.0/24"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -630,12 +666,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-sec-prod-eu
         resource_group:
-          name: rg-sec-prod-eu
+          name: rg-sec-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-sec-prod-eu
+            resource-name: rg-sec-prod-eu-vnet
         address_space: ["10.90.212.0/22"]
         location:
         bgp_community:
@@ -649,6 +685,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-sec-prod-inf-eu
+            legacy_name:
             nsg_name: nsg-sec-prod-inf-eu
             address_prefixes: ["10.90.212.0/24"]
             service_endpoints:
@@ -657,6 +694,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-sec-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-sec-prod-priv-eu
             address_prefixes: ["10.90.215.0/24"]
             service_endpoints:
@@ -678,12 +716,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-itt-prod-eu
         resource_group:
-          name: rg-itt-prod-eu
+          name: rg-itt-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-itt-prod-eu
+            resource-name: rg-itt-prod-eu-vnet
         address_space: ["10.90.216.0/22"]
         location:
         bgp_community:
@@ -697,6 +735,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-itt-prod-inf-eu
+            legacy_name:
             nsg_name: nsg-itt-prod-inf-eu
             address_prefixes: ["10.90.216.0/24"]
             service_endpoints:
@@ -705,6 +744,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-itt-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-itt-prod-priv-eu
             address_prefixes: ["10.90.219.0/24"]
             service_endpoints:
@@ -726,12 +766,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-id-prod-eu
         resource_group:
-          name: rg-id-prod-eu
+          name: rg-id-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-id-prod-eu
+            resource-name: rg-id-prod-eu-vnet
         address_space: ["10.90.208.0/22"]
         location:
         bgp_community:
@@ -745,6 +785,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-id-prod-inf-eu
+            legacy_name:
             nsg_name: nsg-id-prod-inf-eu
             address_prefixes: ["10.90.208.0/24"]
             service_endpoints:
@@ -753,6 +794,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-id-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-id-prod-priv-eu
             address_prefixes: ["10.90.211.0/24"]
             service_endpoints:
@@ -774,12 +816,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-dvp-prod-eu
         resource_group:
-          name: rg-dvp-prod-eu
+          name: rg-dvp-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-dvp-prod-eu
+            resource-name: rg-dvp-prod-eu-vnet
         address_space: ["10.90.220.0/22"]
         location:
         bgp_community:
@@ -793,6 +835,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-dvp-prod-inf-eu
+            legacy_name:
             nsg_name: nsg-dvp-prod-inf-eu
             address_prefixes: ["10.90.220.0/24"]
             service_endpoints:
@@ -801,6 +844,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-dvp-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-dvp-prod-priv-eu
             address_prefixes: ["10.90.223.0/24"]
             service_endpoints:
@@ -822,12 +866,12 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-itm-prod-eu
         resource_group:
-          name: rg-itm-prod-eu
+          name: rg-itm-prod-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-itm-prod-eu
+            resource-name: rg-itm-prod-eu-vnet
         address_space: ["10.90.224.0/22"]
         location:
         bgp_community:
@@ -841,6 +885,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-itm-prod-inf-eu
+            legacy_name:
             nsg_name: nsg-itm-prod-inf-eu
             address_prefixes: ["10.90.224.0/24"]
             service_endpoints:
@@ -849,6 +894,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-itm-prod-priv-eu
+            legacy_name:
             nsg_name: nsg-itm-prod-priv-eu
             address_prefixes: ["10.90.227.0/24"]
             service_endpoints:

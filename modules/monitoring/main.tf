@@ -49,6 +49,16 @@ resource "azurerm_monitor_diagnostic_setting" "mdg" {
       days    = 90
     }
   }
+
+  # metric {
+  #   category = "AllMetrics"
+  #   enabled  = false
+
+  #   retention_policy {
+  #       days    = 0
+  #       enabled = false
+  #     }
+  # }
 }
 
 
@@ -67,4 +77,14 @@ resource "azurerm_monitor_diagnostic_setting" "spoke_mdg" {
       days    = 90
     }
   }
+
+  # metric {
+  #   category = "AllMetrics"
+  #   enabled  = false
+
+  #   retention_policy {
+  #       days    = 0
+  #       enabled = false
+  #     }
+  # }
 }

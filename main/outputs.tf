@@ -5,6 +5,10 @@ output "vwan" {
   }
 }
 
+output "haha" {
+  value = local.haha
+}
+
 output "hub" {
   value = module.hubs
 }
@@ -16,7 +20,9 @@ output "vnet_spokes" {
 }
 
 output "rid_hubs" {
-  value = random_string.rid_hubs
+  value = {
+    "1" = local.haha
+  "2" = random_string.rid_hubs }
 }
 
 

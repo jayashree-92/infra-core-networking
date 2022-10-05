@@ -25,8 +25,8 @@ module "hubs" {
   hub                     = each.value
   log_analytics_workspace = local.config_file.log_analytics_workspace
   vwan = {
-    id      = local.create_vwan == true ? module.vwan[0].vwan_id : data.terraform_remote_state.vwan[0].outputs.vwan.vwan_id
-    rg_name = local.create_vwan == true ? module.vwan[0].vwan_rg_name : data.terraform_remote_state.vwan[0].outputs.vwan.vwan_rg_name
+    id      = local.create_vwan == true ? module.vwan[0].vwan_id : data.terraform_remote_state.vwan[0].outputs.vwan.id
+    rg_name = local.create_vwan == true ? module.vwan[0].vwan_rg_name : data.terraform_remote_state.vwan[0].outputs.vwan.rg_name
   }
 
   providers = {
@@ -217,4 +217,14 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
       days    = 90
     }
   }
+
+  # metric {
+  #   category = "AllMetrics"
+  #   enabled  = false
+
+  #   retention_policy {
+  #     days   = 0
+  #     enabled = false
+  #   }
+  # }
 }

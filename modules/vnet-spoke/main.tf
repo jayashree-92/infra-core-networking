@@ -27,18 +27,26 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_virtual_hub_connection" "vhc" {
   provider                  = azurerm.hub
-  name                      = "${var.spoke.virtual_hub_connection_name}-${random_string.rids[local.vhc_key].result}"
+  name                      = coalesce(try(var.spoke.legacy_virtual_hub_connection_name, ""),"${var.spoke.virtual_hub_connection_name}-${random_string.rids[local.vhc_key].result}")
   remote_virtual_network_id = trimsuffix(azurerm_virtual_network.vnet.id, "/")
   virtual_hub_id            = var.virtual_hub_id
+
+  depends_on = [
+    azurerm_virtual_network.vnet
+  ]
 }
 
 resource "azurerm_subnet" "subnets" {
   provider             = azurerm.spoke
   for_each             = { for subnet in var.spoke.subnets : subnet.name => subnet }
-  name                 = "${each.key}-${random_string.rids[each.key].result}"
+  name                 = coalesce(try(each.value.legacy_name, ""),"${each.key}-${random_string.rids[each.key].result}")
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = each.value.address_prefixes
+
+  depends_on = [
+    azurerm_virtual_network.vnet
+  ]
 }
 
 

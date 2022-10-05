@@ -59,23 +59,23 @@ variable "hub" {
             peering_address = string
           })
 
-          connection = object({
-            bgp_enabled          = bool
-            egress_nat_rule_ids  = list(string)
-            ingress_nat_rule_ids = list(string)
-            shared_key           = string
-            ipsec_policy = object({
-              dh_group                 = string
-              encryption_algorithm     = string
-              ike_encryption_algorithm = string
-              ike_integrity_algorithm  = string
-              integrity_algorithm      = string
-              pfs_group                = string
-              sa_data_size_kb          = number
-              sa_lifetime_sec          = number
-            })
+          # connection = object({
+          #   bgp_enabled          = bool
+          #   egress_nat_rule_ids  = list(string)
+          #   ingress_nat_rule_ids = list(string)
+          #   shared_key           = string
+          #   ipsec_policy = object({
+          #     dh_group                 = string
+          #     encryption_algorithm     = string
+          #     ike_encryption_algorithm = string
+          #     ike_integrity_algorithm  = string
+          #     integrity_algorithm      = string
+          #     pfs_group                = string
+          #     sa_data_size_kb          = number
+          #     sa_lifetime_sec          = number
+          #   })
 
-          })
+          # })
           ip_address = string
         }))
       }))

@@ -2,9 +2,10 @@ locals {
   config_file       = yamldecode(file("../deployments/${var.location_code}/configs.yaml"))
   location_code     = local.config_file.location_code
   subscriptions     = local.config_file.subscriptions
-  vwan_subscription = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null)
-  create_vwan       = local.vwan_subscription != null
+  vwan_subscription = try({ for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }[0], null)
+  create_vwan       = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null) != null
   subscription_ids  = { for sub in local.subscriptions : sub.name => sub.id }
+  haha              = { for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }
 
   #   vwan          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].vwan
   #   hubs          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].hubs

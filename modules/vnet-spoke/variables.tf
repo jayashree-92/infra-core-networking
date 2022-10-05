@@ -36,6 +36,7 @@ variable "spoke" {
     flow_timeout_in_minutes = string
     subnets = list(object({
       name                                      = string
+      legacy_name                                      = string
       nsg_name                                  = string
       address_prefixes                          = list(string)
       service_endpoints                         = list(any)
