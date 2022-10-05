@@ -750,7 +750,7 @@ subscriptions:
             "10.60.48.4",
             "10.60.48.5",
             "10.70.48.4",
-            "10.70.48.5",
+            "10.70.48.4",
             "10.33.4.21",
             "10.33.4.22",
           ]
@@ -774,7 +774,7 @@ subscriptions:
           - name: Snet-Dev-App-UsC-02
             legacy_name: Snet-Dev-App-UsC-02
             nsg_name: nsg-Snet-Dev-App-UsC-02
-            address_prefixes: [10.60.66.0/25"]
+            address_prefixes: ["10.60.66.0/25"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -820,6 +820,7 @@ subscriptions:
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-cpo-prod-cu
+        legacy_virtual_hub_connection_name:
         resource_group:
           name: rg-cpo-prod-cu
           legacy_name:
@@ -919,6 +920,7 @@ subscriptions:
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-sec-prod-cu
+        legacy_virtual_hub_connection_name:
         resource_group:
           name: rg-sec-prod-cu
           legacy_name:
@@ -969,6 +971,7 @@ subscriptions:
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itt-prod-cu
+        legacy_virtual_hub_connection_name:
         resource_group:
           name: rg-itt-prod-cu
           legacy_name:
@@ -1019,6 +1022,7 @@ subscriptions:
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-id-prod-cu
+        legacy_virtual_hub_connection_name:
         resource_group:
           name: rg-id-prod-cu
           legacy_name:
@@ -1171,6 +1175,7 @@ subscriptions:
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itm-prod-cu
+        legacy_virtual_hub_connection_name:
         resource_group:
           name: rg-itm-prod-cu
           legacy_name:

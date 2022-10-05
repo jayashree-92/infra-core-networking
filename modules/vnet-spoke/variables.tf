@@ -21,6 +21,7 @@ variable "spoke" {
     legacy_name                 = string
     virtual_hub_name            = string
     virtual_hub_connection_name = string
+    legacy_virtual_hub_connection_name = string
     resource_group = object({
       name        = string
       legacy_name = string
