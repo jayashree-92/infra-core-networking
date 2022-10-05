@@ -931,7 +931,7 @@ subscriptions:
             "10.60.48.4",
             "10.60.48.5",
             "10.70.48.4",
-            "10.70.48.5",
+            "10.70.48.4",
             "10.33.4.21",
             "10.33.4.22",
           ]
@@ -947,7 +947,7 @@ subscriptions:
             legacy_name: Snet-Corp-Srvs-UsC-01
             nsg_name: nsg-Snet-Corp-Srvs-UsC-01
             address_prefixes: ["10.45.8.0/24"]
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -955,8 +955,8 @@ subscriptions:
           - name: Snet-Corp-VDIBsOps-UsC-01
             legacy_name: Snet-Corp-VDIBsOps-UsC-01
             nsg_name: nsg-Snet-Corp-VDIBsOps-UsC-01
-            address_prefixes: ["10.45.10.0/24"]
-            service_endpoints:
+            address_prefixes: ["10.45.10.0/23"]
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -964,8 +964,8 @@ subscriptions:
           - name: Snet-Corp-VDIDataS-UsC-01
             legacy_name: Snet-Corp-VDIDataS-UsC-01
             nsg_name: nsg-Snet-Corp-VDIDataS-UsC-01
-            address_prefixes: ["10.45.12.0/24"]
-            service_endpoints:
+            address_prefixes: ["10.45.12.0/23"]
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -974,7 +974,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIFunc-UsC-01
             nsg_name: nsg-Snet-Corp-VDIFunc-UsC-01
             address_prefixes: ["10.45.14.0/24"]
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -983,7 +983,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIITadmin-UsC-01
             nsg_name: nsg-Snet-Corp-VDIITadmin-UsC-01
             address_prefixes: ["10.45.15.0/24"]
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -992,7 +992,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIDev-UsC-01
             nsg_name: nsg-Snet-Corp-VDIDev-UsC-01
             address_prefixes: ["10.45.16.0/24"]
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
@@ -1181,15 +1181,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
-          [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.5",
-            "10.33.4.21",
-            "10.33.4.22",
-          ]
+        dns_servers: ["10.60.48.4", "10.60.48.5", "10.70.48.4", "10.70.48.5"]
         edge_zone:
         flow_timeout_in_minutes:
         tags:
