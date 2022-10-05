@@ -107,9 +107,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-prod-cu
+          name: rg-pfm-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-prod-cu
@@ -186,9 +186,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-prod-cu
+          name: rg-pfm-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-prod-cu
@@ -221,8 +221,8 @@ subscriptions:
         legacy_virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
         resource_group:
           name: rg-vnet-platform-prod-usc-01
-          legacy_name:
-          location: Central US
+          legacy_name: rg-vnet-platform-prod-usc-01
+          location:
           tags:
             resource-type: legacy
             managed-by: terraform
@@ -249,7 +249,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-dmz-platform-prod-usc
-            legacy_name:
+            legacy_name: snet-dmz-platform-prod-usc
             nsg_name: nsg-snet-dmz-platform-prod-usc
             address_prefixes: ["10.60.16.0/24"]
             service_endpoints:
@@ -258,7 +258,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-web-platform-prod-usc
-            legacy_name:
+            legacy_name: snet-web-platform-prod-usc
             nsg_name: nsg-snet-web-platform-prod-usc
             address_prefixes: ["10.60.17.0/24"]
             service_endpoints:
@@ -267,7 +267,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-int-platform-prod-usc
-            legacy_name:
+            legacy_name: snet-int-platform-prod-usc
             nsg_name: nsg-snet-int-platform-prod-usc
             address_prefixes: ["10.60.18.0/24"]
             service_endpoints:
@@ -276,7 +276,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-data-platform-prod-usc
-            legacy_name:
+            legacy_name: snet-data-platform-prod-usc
             nsg_name: nsg-snet-data-platform-prod-usc
             address_prefixes: ["10.60.22.0/24"]
             service_endpoints:
@@ -285,7 +285,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-priv-platform-prod-usc
-            legacy_name:
+            legacy_name: snet-priv-platform-prod-usc
             nsg_name: nsg-snet-priv-platform-prod-usc
             address_prefixes: ["10.60.23.0/24"]
             service_endpoints:
@@ -307,9 +307,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-stg-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-stg-cu
+          name: rg-pfm-stg-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-stg-cu
@@ -386,9 +386,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-stg-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-stg-cu
+          name: rg-pfm-stg-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-stg-cu
@@ -427,9 +427,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-qa-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-qa-cu
+          name: rg-pfm-qa-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-qa-cu
@@ -506,9 +506,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-qa-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-qa-cu
+          name: rg-pfm-qa-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-qa-cu
@@ -542,7 +542,7 @@ subscriptions:
         resource_group:
           name: rg-vnet-platform-preprod-usc-01
           legacy_name: rg-vnet-platform-preprod-usc-01
-          location: East US 2
+          location:
           tags:
             resource-type: legacy
             managed-by: terraform
@@ -626,9 +626,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-dev-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-dev-cu
+          name: rg-pfm-dev-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-dev-cu
@@ -705,9 +705,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-pfm-dev-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-pfm-dev-cu
+          name: rg-pfm-dev-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-pfm-dev-cu
@@ -827,9 +827,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-cpo-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-cpo-prod-cu
+          name: rg-cpo-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-cpo-prod-cu
@@ -927,9 +927,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-sec-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-sec-prod-cu
+          name: rg-sec-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-sec-prod-cu
@@ -978,9 +978,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-itt-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-itt-prod-cu
+          name: rg-itt-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-itt-prod-cu
@@ -1029,9 +1029,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-id-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-id-prod-cu
+          name: rg-id-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-id-prod-cu
@@ -1080,9 +1080,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-dvp-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-dvp-prod-cu
+          name: rg-dvp-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-dvp-prod-cu
@@ -1152,7 +1152,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-main-devops-prod-usc
-            legacy_name:
+            legacy_name: snet-main-devops-prod-usc
             nsg_name: nsg-snet-main-devops-prod-usc
             address_prefixes: ["10.60.128.0/24"]
             service_endpoints:
@@ -1161,7 +1161,7 @@ subscriptions:
             delegation:
               name:
           - name: AzureBastionSubnet
-            legacy_name:
+            legacy_name: AzureBastionSubnet
             nsg_name: nsg-AzureBastionSubnet
             address_prefixes: ["10.60.129.0/26"]
             service_endpoints:
@@ -1184,9 +1184,9 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-itm-prod-cu
         legacy_virtual_hub_connection_name:
         resource_group:
-          name: rg-itm-prod-cu
+          name: rg-itm-prod-cu-vnet
           legacy_name:
-          location: East US 2
+          location:
           tags:
             managed-by: terraform
             resource-name: rg-itm-prod-cu
