@@ -1147,6 +1147,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-main-devops-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-main-devops-prod-usc
             address_prefixes: ["10.60.128.0/24"]
             service_endpoints:
@@ -1155,6 +1156,7 @@ subscriptions:
             delegation:
               name:
           - name: AzureBastionSubnet
+            legacy_name:
             nsg_name: nsg-AzureBastionSubnet
             address_prefixes: ["10.60.129.0/26"]
             service_endpoints:
