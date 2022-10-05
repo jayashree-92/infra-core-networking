@@ -569,7 +569,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-dmz-platform-preprod-usc
-            legacy_name:
+            legacy_name: snet-dmz-platform-preprod-usc
             nsg_name: nsg-pfm-qa-dmz-cu-legacy
             address_prefixes: ["10.60.32.0/24"]
             service_endpoints:
@@ -578,7 +578,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-web-platform-preprod-usc
-            legacy_name:
+            legacy_name: snet-web-platform-preprod-usc
             nsg_name: nsg-pfm-qa-web-cu-legacy
             address_prefixes: ["10.60.33.0/24"]
             service_endpoints:
@@ -587,7 +587,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-int-platform-preprod-usc
-            legacy_name:
+            legacy_name: snet-int-platform-preprod-usc
             nsg_name: nsg-pfm-qa-int-cu-legacy
             address_prefixes: ["10.60.34.0/24"]
             service_endpoints:
@@ -596,7 +596,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-data-platform-preprod-usc
-            legacy_name:
+            legacy_name: snet-data-platform-preprod-usc
             nsg_name: nsg-pfm-qa-data-cu-legacy
             address_prefixes: ["10.60.38.0/24"]
             service_endpoints:
@@ -605,7 +605,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-priv-platform-preprod-usc
-            legacy_name:
+            legacy_name: snet-priv-platform-preprod-usc
             nsg_name: nsg-pfm-qa-priv-cu-legacy
             address_prefixes: ["10.60.39.0/24"]
             service_endpoints:
@@ -1060,6 +1060,59 @@ subscriptions:
             legacy_name:
             nsg_name: nsg-id-prod-priv-cu
             address_prefixes: ["10.60.211.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: Vnet-Id-Prod-UsC-01
+        legacy_name: Vnet-Id-Prod-UsC-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        legacy_virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        resource_group:
+          name: Rg-Id-Net-Prod-UsC-01
+          legacy_name: Rg-Id-Net-Prod-UsC-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: Rg-Id-Net-Prod-UsC-01
+        address_space: ["10.60.48.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.5",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: Vnet-Id-Prod-UsC-01
+          spoke: true
+        subnets:
+          - name: Snet-Id-Prod-UsC-01
+            legacy_name: Snet-Id-Prod-UsC-01
+            nsg_name: nsg-Snet-Id-Prod-UsC-01
+            address_prefixes: ["10.60.48.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: AzureBastionSubnet
+            legacy_name: AzureBastionSubnet
+            nsg_name: nsg-AzureBastionSubnet
+            address_prefixes: ["10.60.49.0/26"]
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
