@@ -125,55 +125,71 @@ subscriptions:
           resource-name: vnet-pfm-prod-cu
           spoke: true
         subnets:
-          - name: snet-pfm-prod-dmz-cu
+          - name: snet-pfm-prod-cu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-prod-dmz-cu
+            nsg_name: nsg-pfm-prod-cu-dmz
             address_prefixes: ["10.60.192.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-pres-cu
+          - name: snet-pfm-prod-cu-pres
             legacy_name:
-            nsg_name: nsg-pfm-prod-pres-cu
+            nsg_name: nsg-pfm-prod-cu-pres
             address_prefixes: ["10.60.193.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-app-cu
+          - name: snet-pfm-prod-cu-app
             legacy_name:
-            nsg_name: nsg-pfm-prod-app-cu
+            nsg_name: nsg-pfm-prod-cu-app
             address_prefixes: ["10.60.194.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-data-cu
+          - name: snet-pfm-prod-cu-data
             legacy_name:
-            nsg_name: nsg-pfm-prod-data-cu
+            nsg_name: nsg-pfm-prod-cu-data
             address_prefixes: ["10.60.195.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-int-cu
+          - name: snet-pfm-prod-cu-int
             legacy_name:
-            nsg_name: nsg-pfm-prod-int-cu
+            nsg_name: nsg-pfm-prod-cu-int
             address_prefixes: ["10.60.196.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-priv-cu
+          - name: snet-pfm-prod-cu-web
             legacy_name:
-            nsg_name: nsg-pfm-prod-priv-cu
+            nsg_name: nsg-pfm-prod-cu-web
             address_prefixes: ["10.60.197.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-priv
+            address_prefixes: ["10.60.198.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -204,10 +220,11 @@ subscriptions:
           resource-name: vnet-pfm-prod-cu
           spoke: true
         subnets:
-          - name: snet-pfm-prod-pub-cu
+          - name: snet-pfm-prod-cu-pub
             legacy_name:
-            nsg_name: nsg-pfm-prod-pub-cu
+            nsg_name: nsg-pfm-prod-cu-pub
             address_prefixes: ["10.60.234.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -252,6 +269,7 @@ subscriptions:
             legacy_name: snet-dmz-platform-prod-usc
             nsg_name: nsg-snet-dmz-platform-prod-usc
             address_prefixes: ["10.60.16.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -261,6 +279,7 @@ subscriptions:
             legacy_name: snet-web-platform-prod-usc
             nsg_name: nsg-snet-web-platform-prod-usc
             address_prefixes: ["10.60.17.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -270,6 +289,7 @@ subscriptions:
             legacy_name: snet-int-platform-prod-usc
             nsg_name: nsg-snet-int-platform-prod-usc
             address_prefixes: ["10.60.18.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -279,6 +299,7 @@ subscriptions:
             legacy_name: snet-data-platform-prod-usc
             nsg_name: nsg-snet-data-platform-prod-usc
             address_prefixes: ["10.60.22.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -288,6 +309,7 @@ subscriptions:
             legacy_name: snet-priv-platform-prod-usc
             nsg_name: nsg-snet-priv-platform-prod-usc
             address_prefixes: ["10.60.23.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -325,55 +347,71 @@ subscriptions:
           resource-name: vnet-pfm-stg-cu
           spoke: true
         subnets:
-          - name: snet-pfm-stg-dmz-cu
+          - name: snet-pfm-stg-cu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-stg-dmz-cu
+            nsg_name: nsg-pfm-stg-cu-dmz
             address_prefixes: ["10.60.176.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-pres-cu
+          - name: snet-pfm-stg-cu-pres
             legacy_name:
-            nsg_name: nsg-pfm-stg-pres-cu
+            nsg_name: nsg-pfm-stg-cu-pres
             address_prefixes: ["10.60.177.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-app-cu
+          - name: snet-pfm-stg-cu-app
             legacy_name:
-            nsg_name: nsg-pfm-stg-app-cu
+            nsg_name: nsg-pfm-stg-cu-app
             address_prefixes: ["10.60.178.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-data-cu
+          - name: snet-pfm-stg-cu-data
             legacy_name:
-            nsg_name: nsg-pfm-stg-data-cu
+            nsg_name: nsg-pfm-stg-cu-data
             address_prefixes: ["10.60.179.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-int-cu
+          - name: snet-pfm-stg-cu-int
             legacy_name:
-            nsg_name: nsg-pfm-stg-int-cu
+            nsg_name: nsg-pfm-stg-cu-int
             address_prefixes: ["10.60.180.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-priv-cu
+          - name: snet-pfm-stg-cu-web
             legacy_name:
-            nsg_name: nsg-pfm-stg-priv-cu
+            nsg_name: nsg-pfm-stg-cu-web
             address_prefixes: ["10.60.181.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-priv
+            address_prefixes: ["10.60.182.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -404,10 +442,11 @@ subscriptions:
           resource-name: vnet-pfm-stg-cu
           spoke: true
         subnets:
-          - name: snet-pfm-stg-pub-cu
+          - name: snet-pfm-stg-cu-pub
             legacy_name:
-            nsg_name: nsg-pfm-stg-pub-cu
+            nsg_name: nsg-pfm-stg-cu-pub
             address_prefixes: ["10.60.232.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -445,55 +484,71 @@ subscriptions:
           resource-name: vnet-pfm-qa-cu
           spoke: true
         subnets:
-          - name: snet-pfm-qa-dmz-cu
+          - name: snet-pfm-qa-cu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-qa-dmz-cu
+            nsg_name: nsg-pfm-qa-cu-dmz
             address_prefixes: ["10.60.160.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-pres-cu
+          - name: snet-pfm-qa-cu-pres
             legacy_name:
-            nsg_name: nsg-pfm-qa-pres-cu
+            nsg_name: nsg-pfm-qa-cu-pres
             address_prefixes: ["10.60.161.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-app-cu
+          - name: snet-pfm-qa-cu-app
             legacy_name:
-            nsg_name: nsg-pfm-qa-app-cu
+            nsg_name: nsg-pfm-qa-cu-app
             address_prefixes: ["10.60.162.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-data-cu
+          - name: snet-pfm-qa-cu-data
             legacy_name:
-            nsg_name: nsg-pfm-qa-data-cu
+            nsg_name: nsg-pfm-qa-cu-data
             address_prefixes: ["10.60.163.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-int-cu
+          - name: snet-pfm-qa-cu-int
             legacy_name:
-            nsg_name: nsg-pfm-qa-int-cu
+            nsg_name: nsg-pfm-qa-cu-int
             address_prefixes: ["10.60.164.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-priv-cu
+          - name: snet-pfm-qa-cu-web
             legacy_name:
-            nsg_name: nsg-pfm-qa-priv-cu
+            nsg_name: nsg-pfm-qa-cu-web
             address_prefixes: ["10.60.165.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-priv
+            address_prefixes: ["10.60.166.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -524,10 +579,11 @@ subscriptions:
           resource-name: vnet-pfm-qa-cu
           spoke: true
         subnets:
-          - name: snet-pfm-qa-pub-cu
+          - name: snet-pfm-qa-cu-pub
             legacy_name:
-            nsg_name: nsg-pfm-qa-pub-cu
+            nsg_name: nsg-pfm-qa-cu-pub
             address_prefixes: ["10.60.230.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -570,8 +626,9 @@ subscriptions:
         subnets:
           - name: snet-dmz-platform-preprod-usc
             legacy_name: snet-dmz-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-dmz-cu-legacy
+            nsg_name: nsg-pfm-qa-cu-dmz-legacy
             address_prefixes: ["10.60.32.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -581,6 +638,7 @@ subscriptions:
             legacy_name: snet-web-platform-preprod-usc
             nsg_name: nsg-pfm-qa-web-cu-legacy
             address_prefixes: ["10.60.33.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -588,8 +646,9 @@ subscriptions:
               name:
           - name: snet-int-platform-preprod-usc
             legacy_name: snet-int-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-int-cu-legacy
+            nsg_name: nsg-pfm-qa-cu-int-legacy
             address_prefixes: ["10.60.34.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -597,8 +656,9 @@ subscriptions:
               name:
           - name: snet-data-platform-preprod-usc
             legacy_name: snet-data-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-data-cu-legacy
+            nsg_name: nsg-pfm-qa-cu-data-legacy
             address_prefixes: ["10.60.38.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -606,8 +666,9 @@ subscriptions:
               name:
           - name: snet-priv-platform-preprod-usc
             legacy_name: snet-priv-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-priv-cu-legacy
+            nsg_name: nsg-pfm-qa-cu-priv-legacy
             address_prefixes: ["10.60.39.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -644,55 +705,71 @@ subscriptions:
           resource-name: vnet-pfm-dev-cu
           spoke: true
         subnets:
-          - name: snet-pfm-dev-dmz-cu
+          - name: snet-pfm-dev-cu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-dev-dmz-cu
+            nsg_name: nsg-pfm-dev-cu-dmz
             address_prefixes: ["10.60.144.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-pres-cu
+          - name: snet-pfm-dev-cu-pres
             legacy_name:
-            nsg_name: nsg-pfm-dev-pres-cu
+            nsg_name: nsg-pfm-dev-cu-pres
             address_prefixes: ["10.60.145.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-app-cu
+          - name: snet-pfm-dev-cu-app
             legacy_name:
-            nsg_name: nsg-pfm-dev-app-cu
+            nsg_name: nsg-pfm-dev-cu-app
             address_prefixes: ["10.60.146.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-data-cu
+          - name: snet-pfm-dev-cu-data
             legacy_name:
-            nsg_name: nsg-pfm-dev-data-cu
+            nsg_name: nsg-pfm-dev-cu-data
             address_prefixes: ["10.60.147.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-int-cu
+          - name: snet-pfm-dev-cu-int
             legacy_name:
-            nsg_name: nsg-pfm-dev-int-cu
+            nsg_name: nsg-pfm-dev-cu-int
             address_prefixes: ["10.60.148.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-priv-cu
+          - name: snet-pfm-dev-cu-web
             legacy_name:
-            nsg_name: nsg-pfm-dev-priv-cu
+            nsg_name: nsg-pfm-dev-cu-web
             address_prefixes: ["10.60.149.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-priv
+            address_prefixes: ["10.60.150.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -723,10 +800,11 @@ subscriptions:
           resource-name: vnet-pfm-dev-cu
           spoke: true
         subnets:
-          - name: snet-pfm-dev-pub-cu
+          - name: snet-pfm-dev-cu-pub
             legacy_name:
-            nsg_name: nsg-pfm-dev-pub-cu
+            nsg_name: nsg-pfm-dev-cu-pub
             address_prefixes: ["10.60.228.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -771,6 +849,7 @@ subscriptions:
             legacy_name: Snet-Dev-App-UsC-01
             nsg_name: nsg-Snet-Dev-App-UsC-01
             address_prefixes: ["10.60.65.0/25"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -780,6 +859,7 @@ subscriptions:
             legacy_name: Snet-Dev-App-UsC-02
             nsg_name: nsg-Snet-Dev-App-UsC-02
             address_prefixes: ["10.60.66.0/25"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -789,6 +869,7 @@ subscriptions:
             legacy_name: Snet-Dev-Data-UsC-01
             nsg_name: nsg-Snet-Dev-Data-UsC-01
             address_prefixes: ["10.60.68.0/25"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -798,6 +879,7 @@ subscriptions:
             legacy_name: Snet-Dev-PrivLink-UsC-01
             nsg_name: nsg-Snet-Dev-PrivLink-UsC-01
             address_prefixes: ["10.60.69.0/25"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -807,6 +889,7 @@ subscriptions:
             legacy_name: snet-dev-agw-usc-01
             nsg_name: nsg-snet-dev-agw-usc-01
             address_prefixes: ["10.60.70.0/27"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -847,62 +930,69 @@ subscriptions:
         subnets:
           - name: snet-cpo-prod-vdiitadmin-cu
             legacy_name:
-            nsg_name: nsg-cpo-prod-vdiitadmin-cu
+            nsg_name: nsg-cpo-prod-cu-vdiitadmin
             address_prefixes: ["10.41.0.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-vdifunc-cu
+          - name: snet-cpo-prod-cu-vdifunc
             legacy_name:
-            nsg_name: nsg-cpo-prod-vdifunc-cu
+            nsg_name: nsg-cpo-prod-cu-vdifunc
             address_prefixes: ["10.41.2.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-vdibsops-cu
+          - name: snet-cpo-prod-cu-vdibsops
             legacy_name:
-            nsg_name: nsg-cpo-prod-vdibsops-cu
+            nsg_name: nsg-cpo-prod-cu-vdibsops
             address_prefixes: ["10.41.4.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-vdidev-cu
+          - name: snet-cpo-prod-cu-vdidev
             legacy_name:
-            nsg_name: nsg-cpo-prod-vdidev-cu
+            nsg_name: nsg-cpo-prod-cu-vdidev
             address_prefixes: ["10.41.6.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-vdidatas-cu
+          - name: snet-cpo-prod-cu-vdidatas
             legacy_name:
-            nsg_name: nsg-cpo-prod-vdidatas-cu
+            nsg_name: nsg-cpo-prod-cu-vdidatas
             address_prefixes: ["10.41.8.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-app-cu
+          - name: snet-cpo-prod-cu-app
             legacy_name:
-            nsg_name: nsg-cpo-prod-app-cu
+            nsg_name: nsg-cpo-prod-cu-app
             address_prefixes: ["10.41.10.0/23"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-priv-cu
+          - name: snet-cpo-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-cpo-prod-priv-cu
+            nsg_name: nsg-cpo-prod-cu-priv
             address_prefixes: ["10.41.13.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -947,6 +1037,7 @@ subscriptions:
             legacy_name: Snet-Corp-Srvs-UsC-01
             nsg_name: nsg-Snet-Corp-Srvs-UsC-01
             address_prefixes: ["10.45.8.0/24"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -956,6 +1047,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIBsOps-UsC-01
             nsg_name: nsg-Snet-Corp-VDIBsOps-UsC-01
             address_prefixes: ["10.45.10.0/23"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -965,6 +1057,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIDataS-UsC-01
             nsg_name: nsg-Snet-Corp-VDIDataS-UsC-01
             address_prefixes: ["10.45.12.0/23"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -974,6 +1067,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIFunc-UsC-01
             nsg_name: nsg-Snet-Corp-VDIFunc-UsC-01
             address_prefixes: ["10.45.14.0/24"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -983,6 +1077,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIITadmin-UsC-01
             nsg_name: nsg-Snet-Corp-VDIITadmin-UsC-01
             address_prefixes: ["10.45.15.0/24"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -992,6 +1087,7 @@ subscriptions:
             legacy_name: Snet-Corp-VDIDev-UsC-01
             nsg_name: nsg-Snet-Corp-VDIDev-UsC-01
             address_prefixes: ["10.45.16.0/24"]
+            nsg_enabled: true
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1001,6 +1097,7 @@ subscriptions:
             legacy_name: AzureBastionSubnet
             nsg_name: nsg-AzureBastionSubnet
             address_prefixes: ["10.45.63.0/26"]
+            nsg_enabled: false
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1043,19 +1140,21 @@ subscriptions:
           resource-name: vnet-sec-prod-cu
           spoke: true
         subnets:
-          - name: snet-sec-prod-inf-cu
+          - name: snet-sec-prod-cu-inf
             legacy_name:
-            nsg_name: nsg-sec-prod-inf-cu
+            nsg_name: nsg-sec-prod-cu-inf
             address_prefixes: ["10.60.212.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-sec-prod-priv-cu
+          - name: snet-sec-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-sec-prod-priv-cu
+            nsg_name: nsg-sec-prod-cu-priv
             address_prefixes: ["10.60.215.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1094,19 +1193,21 @@ subscriptions:
           resource-name: vnet-itt-prod-cu
           spoke: true
         subnets:
-          - name: snet-itt-prod-inf-cu
+          - name: snet-itt-prod-cu-inf
             legacy_name:
-            nsg_name: nsg-itt-prod-inf-cu
+            nsg_name: nsg-itt-prod-cu-inf
             address_prefixes: ["10.60.216.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-itt-prod-priv-cu
+          - name: snet-itt-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-itt-prod-priv-cu
+            nsg_name: nsg-itt-prod-cu-priv
             address_prefixes: ["10.60.219.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1145,19 +1246,21 @@ subscriptions:
           resource-name: vnet-id-prod-cu
           spoke: true
         subnets:
-          - name: snet-id-prod-inf-cu
+          - name: snet-id-prod-cu-inf
             legacy_name:
-            nsg_name: nsg-id-prod-inf-cu
+            nsg_name: nsg-id-prod-cu-inf
             address_prefixes: ["10.60.208.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-id-prod-priv-cu
+          - name: snet-id-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-id-prod-priv-cu
+            nsg_name: nsg-id-prod-cu-priv
             address_prefixes: ["10.60.211.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1194,6 +1297,7 @@ subscriptions:
             legacy_name: Snet-Id-Prod-UsC-01
             nsg_name: nsg-Snet-Id-Prod-UsC-01
             address_prefixes: ["10.60.48.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1203,6 +1307,7 @@ subscriptions:
             legacy_name: AzureBastionSubnet
             nsg_name: nsg-AzureBastionSubnet
             address_prefixes: ["10.60.49.0/26"]
+            nsg_enabled: false
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1241,19 +1346,21 @@ subscriptions:
           resource-name: vnet-dvp-prod-cu
           spoke: true
         subnets:
-          - name: snet-dvp-prod-inf-cu
+          - name: snet-dvp-prod-cu-inf
             legacy_name:
-            nsg_name: nsg-dvp-prod-inf-cu
+            nsg_name: nsg-dvp-prod-cu-inf
             address_prefixes: ["10.60.220.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-dvp-prod-priv-cu
+          - name: snet-dvp-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-dvp-prod-priv-cu
+            nsg_name: nsg-dvp-prod-cu-priv
             address_prefixes: ["10.60.223.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1298,6 +1405,7 @@ subscriptions:
             legacy_name: snet-main-devops-prod-usc
             nsg_name: nsg-snet-main-devops-prod-usc
             address_prefixes: ["10.60.128.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1307,6 +1415,7 @@ subscriptions:
             legacy_name: AzureBastionSubnet
             nsg_name: nsg-AzureBastionSubnet
             address_prefixes: ["10.60.129.0/26"]
+            nsg_enabled: false
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
@@ -1345,19 +1454,21 @@ subscriptions:
           resource-name: vnet-itm-prod-cu
           spoke: true
         subnets:
-          - name: snet-itm-prod-inf-cu
+          - name: snet-itm-prod-cu-inf
             legacy_name:
-            nsg_name: nsg-itm-prod-inf-cu
+            nsg_name: nsg-itm-prod-cu-inf
             address_prefixes: ["10.60.224.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-itm-prod-priv-cu
+          - name: snet-itm-prod-cu-priv
             legacy_name:
-            nsg_name: nsg-itm-prod-priv-cu
+            nsg_name: nsg-itm-prod-cu-priv
             address_prefixes: ["10.60.227.0/24"]
+            nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
