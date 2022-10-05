@@ -249,6 +249,7 @@ subscriptions:
           spoke: true
         subnets:
           - name: snet-dmz-platform-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-dmz-platform-prod-usc
             address_prefixes: ["10.60.16.0/24"]
             service_endpoints:
@@ -257,6 +258,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-web-platform-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-web-platform-prod-usc
             address_prefixes: ["10.60.17.0/24"]
             service_endpoints:
@@ -265,6 +267,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-int-platform-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-int-platform-prod-usc
             address_prefixes: ["10.60.18.0/24"]
             service_endpoints:
@@ -273,6 +276,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-data-platform-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-data-platform-prod-usc
             address_prefixes: ["10.60.22.0/24"]
             service_endpoints:
@@ -281,6 +285,7 @@ subscriptions:
             delegation:
               name:
           - name: snet-priv-platform-prod-usc
+            legacy_name:
             nsg_name: nsg-snet-priv-platform-prod-usc
             address_prefixes: ["10.60.23.0/24"]
             service_endpoints:
