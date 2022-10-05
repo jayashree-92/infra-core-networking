@@ -909,6 +909,104 @@ subscriptions:
             delegation:
               name:
 
+      - name: Vnet-Corp-Prod-UsC-01
+        legacy_name: Vnet-Corp-Prod-UsC-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        legacy_virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        resource_group:
+          name: Rg-Vnet-Corp-Prod-UsC-01
+          legacy_name: Rg-Vnet-Corp-Prod-UsC-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: Rg-Vnet-Corp-Prod-UsC-01
+        address_space: ["10.45.0.0/18"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.5",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: Vnet-Corp-Prod-UsC-01
+          spoke: true
+        subnets:
+          - name: Snet-Corp-Srvs-UsC-01
+            legacy_name: Snet-Corp-Srvs-UsC-01
+            nsg_name: nsg-Snet-Corp-Srvs-UsC-01
+            address_prefixes: ["10.45.8.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIBsOps-UsC-01
+            legacy_name: Snet-Corp-VDIBsOps-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIBsOps-UsC-01
+            address_prefixes: ["10.45.10.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIDataS-UsC-01
+            legacy_name: Snet-Corp-VDIDataS-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIDataS-UsC-01
+            address_prefixes: ["10.45.12.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIFunc-UsC-01
+            legacy_name: Snet-Corp-VDIFunc-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIFunc-UsC-01
+            address_prefixes: ["10.45.14.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIITadmin-UsC-01
+            legacy_name: Snet-Corp-VDIITadmin-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIITadmin-UsC-01
+            address_prefixes: ["10.45.15.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIDev-UsC-01
+            legacy_name: Snet-Corp-VDIDev-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIDev-UsC-01
+            address_prefixes: ["10.45.16.0/24"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: AzureBastionSubnet
+            legacy_name: AzureBastionSubnet
+            nsg_name: nsg-AzureBastionSubnet
+            address_prefixes: ["10.45.63.0/26"]
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
   - name: sb-cpo-prod-02
     id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
     legacy_name: Sb-Corp-Prod-IN
