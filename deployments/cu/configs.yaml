@@ -626,7 +626,7 @@ subscriptions:
         subnets:
           - name: snet-dmz-platform-preprod-usc
             legacy_name: snet-dmz-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-cu-dmz-legacy
+            nsg_name: nsg-snet-dmz-platform-preprod-usc
             address_prefixes: ["10.60.32.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -636,7 +636,7 @@ subscriptions:
               name:
           - name: snet-web-platform-preprod-usc
             legacy_name: snet-web-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-web-cu-legacy
+            nsg_name: nsg-snet-web-platform-preprod-usc
             address_prefixes: ["10.60.33.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -646,7 +646,7 @@ subscriptions:
               name:
           - name: snet-int-platform-preprod-usc
             legacy_name: snet-int-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-cu-int-legacy
+            nsg_name: nsg-snet-int-platform-preprod-usc
             address_prefixes: ["10.60.34.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -656,7 +656,7 @@ subscriptions:
               name:
           - name: snet-data-platform-preprod-usc
             legacy_name: snet-data-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-cu-data-legacy
+            nsg_name: nsg-snet-data-platform-preprod-usc
             address_prefixes: ["10.60.38.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -666,7 +666,7 @@ subscriptions:
               name:
           - name: snet-priv-platform-preprod-usc
             legacy_name: snet-priv-platform-preprod-usc
-            nsg_name: nsg-pfm-qa-cu-priv-legacy
+            nsg_name: nsg-snet-priv-platform-preprod-usc
             address_prefixes: ["10.60.39.0/24"]
             nsg_enabled: true
             service_endpoints:
