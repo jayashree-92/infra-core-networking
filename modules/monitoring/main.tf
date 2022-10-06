@@ -78,13 +78,13 @@ resource "azurerm_monitor_diagnostic_setting" "spoke_mdg" {
     }
   }
 
-  # metric {
-  #   category = "AllMetrics"
-  #   enabled  = false
+  metric {
+    category = "AllMetrics"
+    enabled  = false
 
-  #   retention_policy {
-  #       days    = 0
-  #       enabled = false
-  #     }
-  # }
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
 }

@@ -72,11 +72,12 @@ resource "azurerm_network_watcher" "netw_sb_net_prod" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
-  provider                   = azurerm.vwan_hubs
-  name                       = "diag-${module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.name}"
-  target_resource_id         = module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.id
-  storage_account_id         = azurerm_storage_account.netw_sb_net_prod.id
-  log_analytics_workspace_id = local.config_file.log_analytics_workspace.resource_id
+  provider                       = azurerm.vwan_hubs
+  name                           = "diag-${module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.name}"
+  target_resource_id             = module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.id
+  storage_account_id             = azurerm_storage_account.netw_sb_net_prod.id
+  log_analytics_workspace_id     = local.config_file.log_analytics_workspace.resource_id
+  log_analytics_destination_type = "AzureDiagnostics"
 
   log {
     category = "AZFWApplicationRule"
@@ -218,13 +219,13 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
     }
   }
 
-  # metric {
-  #   category = "AllMetrics"
-  #   enabled  = false
+  metric {
+    category = "AllMetrics"
+    enabled  = false
 
-  #   retention_policy {
-  #     days   = 0
-  #     enabled = false
-  #   }
-  # }
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
 }

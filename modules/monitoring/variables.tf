@@ -22,6 +22,8 @@ variable "nsgs" {
     resource_group_name = string
 
   }))
+
+  default = {}
 }
 
 variable "spoke" {
