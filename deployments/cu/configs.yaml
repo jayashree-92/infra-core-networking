@@ -1095,9 +1095,13 @@ subscriptions:
             delegation:
               name:
 
-  - name: sb-cpo-prod-02
+  - name: sb-cpo-prod-ci-1a4d
     id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
     legacy_name: Sb-Corp-Prod-IN
+    nsg_rg_name: rg-cpo-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetcpoprodcu
+    spokes: []
 
   #  Security
   - name: sb-sec-prod-01
