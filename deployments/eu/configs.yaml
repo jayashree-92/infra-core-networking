@@ -64,7 +64,7 @@ subscriptions:
               resource-name: rg-fwp-net-prod-eu
           dns:
             proxy_enabled: true
-            servers: []
+            servers: ["10.90.48.4", "10.90.48.5"]
           intrusion_detection:
             mode: Alert
           threat_intelligence_allowlist:
@@ -76,7 +76,7 @@ subscriptions:
           location: East US 2
           sku_tier: Premium
           sku_name: AZFW_Hub
-          dns_servers: ["10.90.48.4", "10.90.48.5"]
+          dns_servers: []
           tags:
             managed-by: terraform
             resource-name: fw-net-prod-uc
