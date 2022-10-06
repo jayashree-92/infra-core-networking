@@ -23,20 +23,20 @@ subscriptions:
         sku: Standard
         tags:
           managed-by: terraform
-          resource-name: vhub-net-prod-uc-01
+          resource-name: vhub-net-prod-cu-01
         firewall_policy:
-          name: fwp-net-prod-uc-01
+          name: fwp-net-prod-cu-01
           legacy_name: FwPol-Prod-UsC-01
           location: Canada Central
           sku: Premium
           private_ip_ranges: ["255.255.255.255/32"]
           resource_group:
-            name: rg-fwp-net-prod-uc-01
+            name: rg-fwp-net-prod-cu-01
             legacy_name: Rg-FwPol-Prod-US-01
             location: East US 2
             tags:
               managed-by: terraform
-              resource-name: rg-fwp-net-prod-uc-01
+              resource-name: rg-fwp-net-prod-cu-01
           dns:
             proxy_enabled: false
             servers: []
@@ -47,7 +47,7 @@ subscriptions:
             ip_addresses: []
           tags:
             managed-by: terraform
-            resource-name: fwp-net-prod-uc-01
+            resource-name: fwp-net-prod-cu-01
         vpn:
           gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
           enabled: false
@@ -82,14 +82,14 @@ subscriptions:
                     peering_address: 169.254.17.133
 
         firewall:
-          name: fw-net-prod-uc-01
+          name: fw-net-prod-cu-01
           legacy_name: AzureFirewall_HubNet-Prod-UsC-01
           location: Central US
           sku_tier: Premium
           sku_name: AZFW_Hub
           tags:
             managed-by: terraform
-            resource-name: fw-net-prod-uc-01
+            resource-name: fw-net-prod-cu-01
         route_tables: []
     spokes:
 
@@ -99,7 +99,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-pfm-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetpfmprodeu
+    netw_sa_acc_name: sanetpfmprodcu
     spokes:
       - name: vnet-pfm-prod-cu
         legacy_name:
@@ -321,7 +321,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-pfm-stg-cu-nsg
     netw_name: netw-net-stg-cu
-    netw_sa_acc_name: sanetpfmstgeu
+    netw_sa_acc_name: sanetpfmstgcu
     spokes:
       - name: vnet-pfm-stg-cu
         legacy_name:
@@ -458,7 +458,7 @@ subscriptions:
     legacy_name: Sb-Client-PProd-US-01
     nsg_rg_name: rg-pfm-qa-cu-nsg
     netw_name: netw-net-qa-cu
-    netw_sa_acc_name: sanetpfmqaeu
+    netw_sa_acc_name: sanetpfmqacu
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
@@ -679,7 +679,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-pfm-dev-cu-nsg
     netw_name: netw-net-dev-cu
-    netw_sa_acc_name: sanetpfmdeveu
+    netw_sa_acc_name: sanetpfmdevcu
     spokes:
       - name: vnet-pfm-dev-cu
         legacy_name:
@@ -902,7 +902,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-cpo-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetcpoprodeu
+    netw_sa_acc_name: sanetcpoprodcu
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
@@ -1104,7 +1104,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-sec-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetsecprodeu
+    netw_sa_acc_name: sanetsecprodcu
     spokes:
       - name: vnet-sec-prod-cu
         legacy_name:
@@ -1157,7 +1157,7 @@ subscriptions:
     legacy_name: Sb_ITTools-Prod-01
     nsg_rg_name: rg-itt-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetittprodeu
+    netw_sa_acc_name: sanetittprodcu
     spokes:
       - name: vnet-itt-prod-cu
         legacy_name:
@@ -1210,7 +1210,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-id-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetidprodeu
+    netw_sa_acc_name: sanetidprodcu
     spokes:
       - name: vnet-id-prod-cu
         legacy_name:
@@ -1300,7 +1300,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-dvp-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetdvpprodeu
+    netw_sa_acc_name: sanetdvpprodcu
     spokes:
       - name: vnet-dvp-prod-cu
         legacy_name:
@@ -1398,7 +1398,7 @@ subscriptions:
     legacy_name:
     nsg_rg_name: rg-itm-prod-cu-nsg
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetitmprodeu
+    netw_sa_acc_name: sanetitmprodcu
     spokes:
       - name: vnet-itm-prod-cu
         legacy_name:
