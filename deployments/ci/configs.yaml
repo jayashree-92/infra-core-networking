@@ -618,6 +618,7 @@ subscriptions:
   - name: sb-cpo-prod-us-1a4d
     id: d0c437f8-266d-4cd9-84cb-df09ee801e26
     legacy_name:
+    nsg_rg_name: rg-cpo-prod-ci-nsg
     netw_name: netw-net-prod-in
     netw_sa_acc_name: sanetcpoprodin
     spokes: []
@@ -741,7 +742,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers: ["10.70.48.4", "10.70.48.5", "10.70.48.4", "10.70.48.5"]
+        dns_servers: ["10.70.48.4", "10.70.48.5", "10.60.48.4", "10.60.48.5"]
         edge_zone:
         flow_timeout_in_minutes:
         tags:
@@ -977,7 +978,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers: ["10.70.48.4", "10.70.48.5", "10.70.48.4", "10.70.48.5"]
+        dns_servers: ["10.70.48.4", "10.70.48.5", "10.60.48.4", "10.60.48.5"]
         edge_zone:
         flow_timeout_in_minutes:
         tags:
