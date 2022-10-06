@@ -113,6 +113,7 @@ variable "hub" {
       legacy_name = string
       sku_tier    = string
       sku_name    = string
+      dns_servers = list(string)
       tags        = map(string)
     })
 

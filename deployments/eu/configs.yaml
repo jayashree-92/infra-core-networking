@@ -76,6 +76,7 @@ subscriptions:
           location: East US 2
           sku_tier: Premium
           sku_name: AZFW_Hub
+          dns_servers: ["10.90.48.4", "10.90.48.5"]
           tags:
             managed-by: terraform
             resource-name: fw-net-prod-uc
