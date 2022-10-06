@@ -5,15 +5,6 @@ locals {
   vwan_subscription = try({ for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }[0], null)
   create_vwan       = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null) != null
   subscription_ids  = { for sub in local.subscriptions : sub.name => sub.id }
-  haha              = { for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }
-
-  #   vwan          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].vwan
-  #   hubs          = local.subscriptions[index(local.subscriptions.*.name, "Sb-NetHub-Prd-01")].hubs
-  #   subscription_ids = {
-  #     hubs            = local.vwan.subscription_id
-  #     sb_pfm_qa_uc_01 = local.subscriptions[index(local.subscriptions.*.name, "Sb-Client-PProd-US-01")].id
-  #   }
-
   subscription_names = {
     sb_pfm_prod    = "sb-pfm-prod-1a4d"
     sb_pfm_stg     = "sb-pfm-stg-01"
@@ -25,6 +16,7 @@ locals {
     sb_itm_prod    = "sb-itm-prod-1a4d"
     sb_sec_prod    = "sb-sec-prod-01"
     sb_cpo_prod_us = "sb-cpo-prod-us-1a4d"
+    sb_cpo_prod_ci = "sb-cpo-prod-ci-1a4d"
   }
 
   subscriptions_map = {
@@ -38,6 +30,7 @@ locals {
     sb_itm_prod    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_itm_prod)]
     sb_sec_prod    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_sec_prod)]
     sb_cpo_prod_us = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_cpo_prod_us)]
+    sb_cpo_prod_ci = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_cpo_prod_ci)]
   }
 
   spokes = {
@@ -51,6 +44,7 @@ locals {
     sb_itm_prod    = local.subscriptions_map.sb_itm_prod.spokes
     sb_sec_prod    = local.subscriptions_map.sb_sec_prod.spokes
     sb_cpo_prod_us = local.subscriptions_map.sb_cpo_prod_us.spokes
+    sb_cpo_prod_ci = local.subscriptions_map.sb_cpo_prod_ci.spokes
   }
 
   sb_rid_keys = [for sb_name in local.subscription_names : sb_name]

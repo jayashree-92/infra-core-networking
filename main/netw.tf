@@ -355,7 +355,6 @@ module "nsg_log_sec_prod" {
 }
 
 
-
 resource "azurerm_storage_account" "netw_sa_cpo_prod_us" {
   provider            = azurerm.sb_cpo_prod_us
   name                = "${local.subscriptions_map.sb_cpo_prod_us.netw_sa_acc_name}${random_string.sa_netw_rids[local.subscription_names.sb_cpo_prod_us].result}"
@@ -389,5 +388,42 @@ module "nsg_log_cpo_prod_us" {
 
   providers = {
     azurerm = azurerm.sb_cpo_prod_us
+  }
+}
+
+
+resource "azurerm_storage_account" "netw_sa_cpo_prod_ci" {
+  provider            = azurerm.sb_cpo_prod_ci
+  name                = "${local.subscriptions_map.sb_cpo_prod_ci.netw_sa_acc_name}${random_string.sa_netw_rids[local.subscription_names.sb_cpo_prod_ci].result}"
+  resource_group_name = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
+  location            = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
+
+  account_tier              = "Standard"
+  account_kind              = "StorageV2"
+  account_replication_type  = "LRS"
+  enable_https_traffic_only = true
+}
+
+
+resource "azurerm_network_watcher" "netw_cpo_prod_ci" {
+  provider            = azurerm.sb_cpo_prod_ci
+  name                = "${local.subscriptions_map.sb_cpo_prod_ci.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_cpo_prod_ci].result}"
+  resource_group_name = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
+  location            = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
+}
+
+
+module "nsg_log_cpo_prod_ci" {
+  for_each                = { for spoke in local.spokes.sb_cpo_prod_ci : spoke.name => spoke }
+  source                  = "../modules/monitoring"
+  network_watcher_name    = azurerm_network_watcher.netw_cpo_prod_ci.name
+  storage_account_id      = azurerm_storage_account.netw_sa_cpo_prod_ci.id
+  location                = local.config_file.location
+  log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsgs                    = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke.nsgs
+  spoke                   = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke
+
+  providers = {
+    azurerm = azurerm.sb_cpo_prod_ci
   }
 }

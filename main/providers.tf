@@ -76,5 +76,12 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  alias           = "sb_cpo_prod_ci"
+  subscription_id = local.subscriptions_map.sb_cpo_prod_ci.id
+  features {
+  }
+}
+
+provider "azurerm" {
   features {}
 }

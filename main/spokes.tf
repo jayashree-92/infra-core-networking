@@ -164,3 +164,20 @@ module "spokes_sb_cpo_prod_us" {
     azurerm.hub   = azurerm.vwan_hubs
   }
 }
+
+
+module "spokes_sb_cpo_prod_ci" {
+  for_each                                = { for spoke in local.spokes.sb_cpo_prod_ci : spoke.name => spoke }
+  source                                  = "../modules/vnet-spoke"
+  location                                = local.config_file.location
+  nsg_rg_name                             = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
+  nsg_rg_location                         = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
+  virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
+  virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
+  spoke                                   = each.value
+
+  providers = {
+    azurerm.spoke = azurerm.sb_cpo_prod_ci
+    azurerm.hub   = azurerm.vwan_hubs
+  }
+}

@@ -5,10 +5,6 @@ output "vwan" {
   }
 }
 
-output "haha" {
-  value = local.haha
-}
-
 output "hub" {
   value = module.hubs
 }
@@ -19,13 +15,6 @@ output "vnet_spokes" {
   }
 }
 
-output "rid_hubs" {
-  value = {
-    "1" = local.haha
-  "2" = random_string.rid_hubs }
-}
-
-
 # output "config_files" {
 #   value = local.config_files
 # }
@@ -34,9 +23,9 @@ output "rid_hubs" {
 #   value = local.merged_yamls
 # }
 
-output "subscription_ids" {
-  value = local.subscription_ids
-}
+# output "subscription_ids" {
+#   value = local.subscription_ids
+# }
 
 # output "subscriptions_map" {
 #   value = local.subscriptions_map
