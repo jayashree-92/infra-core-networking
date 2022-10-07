@@ -38,7 +38,7 @@ subscriptions:
               managed-by: terraform
               resource-name: rg-fwp-net-prod-cu-01
           dns:
-            proxy_enabled: false
+            proxy_enabled: true
             servers: ["10.60.48.4", "10.60.48.5"]
           intrusion_detection:
             mode: Alert
