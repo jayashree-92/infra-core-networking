@@ -44,8 +44,6 @@ resource "azurerm_firewall" "fw" {
   sku_tier            = var.hub.firewall.sku_tier
   firewall_policy_id  = azurerm_firewall_policy.fwp.id
   tags                = var.hub.firewall.tags
-  # Temporarily disabled
-  # dns_servers         = var.hub.firewall.dns_servers
 
   virtual_hub {
     virtual_hub_id = azurerm_virtual_hub.hub.id
