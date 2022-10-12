@@ -13,6 +13,7 @@ pr: none
 
 stages:
   - stage: terraform_ci
+    condition: false
     displayName: Terraform CI
     jobs:
       - job: Terraform_Plan
