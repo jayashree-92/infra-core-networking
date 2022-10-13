@@ -1,0 +1,1451 @@
+location_code: cu
+location: Central US
+log_analytics_workspace:
+  id: afb8616d-c841-4c0b-994b-515a22076234
+  location: Central US
+  resource_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itmon-log-prod-usc-01/providers/Microsoft.OperationalInsights/workspaces/log-itmon-shared-prod-usc-01
+
+subscriptions:
+  # Network
+  - name: sb-net-prod-01
+    function: network
+    contains_vwan: true
+    id: 75641de5-1456-4853-bc77-dd7db76c35a1
+    legacy_name: Sb-NetHub-Prd-01
+    netw_rg_name: rg-net-prod-cu-netw
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetnetprodcu
+    hubs:
+      - name: vhub-net-prod-cu
+        legacy_name: HubNet-Prod-UsC-01
+        location: Central US
+        address_prefix: 10.60.0.0/23
+        sku: Standard
+        tags:
+          managed-by: terraform
+          resource-name: vhub-net-prod-cu-01
+        firewall_policy:
+          name: fwp-net-prod-cu-01
+          legacy_name: FwPol-Prod-UsC-01
+          location: Canada Central
+          sku: Premium
+          private_ip_ranges: ["255.255.255.255/32"]
+          resource_group:
+            name: rg-fwp-net-prod-cu-01
+            legacy_name: Rg-FwPol-Prod-US-01
+            location: East US 2
+            tags:
+              managed-by: terraform
+              resource-name: rg-fwp-net-prod-cu-01
+          dns:
+            proxy_enabled: true
+            servers: ["10.60.48.4", "10.60.48.5"]
+          intrusion_detection:
+            mode: Alert
+          threat_intelligence_allowlist:
+            fqdns: []
+            ip_addresses: []
+          tags:
+            managed-by: terraform
+            resource-name: fwp-net-prod-cu-01
+        vpn:
+          gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
+          enabled: false
+          sites:
+            - name: LegAzure-Prod-CAE-01
+              location: canadaeast # ?? to validate
+              address_cidrs: ["10.32.0.0/16", "10.33.0.0/16"]
+              device_vendor: FortiGate
+              routing:
+                associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable
+                propagated_route_table:
+                  labels: ["default"]
+                  route_table_ids:
+                    [
+                      "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable",
+                    ]
+              o365_policy:
+                traffic_category:
+                  allow_endpoint_enabled: false
+                  default_endpoint_enabled: false
+                  optimize_endpoint_enabled: false
+              tags:
+                managed-by: terraform
+              links:
+                - name: LegProdCAE01
+                  ip_address: null
+                  fqdn: vpn.innocap.com
+                  provider_name: Azure
+                  speed_in_mbps: 100
+                  bgp:
+                    asn: 65309
+                    peering_address: 169.254.17.133
+
+        firewall:
+          name: fw-net-prod-cu-01
+          legacy_name: AzureFirewall_HubNet-Prod-UsC-01
+          location: Central US
+          sku_tier: Premium
+          sku_name: AZFW_Hub
+          dns_servers: []
+          tags:
+            managed-by: terraform
+            resource-name: fw-net-prod-cu-01
+        route_tables: []
+    spokes:
+
+  # Platform
+  - name: sb-pfm-prod-1a4d
+    id: b69669b9-6d12-4ada-b44d-5f578b85f46c
+    legacy_name:
+    nsg_rg_name: rg-pfm-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetpfmprodcu
+    spokes:
+      - name: vnet-pfm-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pfm-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pfm-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-prod-cu
+        address_space: ["10.60.192.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-pfm-prod-cu-dmz
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-dmz
+            address_prefixes: ["10.60.192.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-pres
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-pres
+            address_prefixes: ["10.60.193.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-app
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-app
+            address_prefixes: ["10.60.194.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-data
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-data
+            address_prefixes: ["10.60.195.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-int
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-int
+            address_prefixes: ["10.60.196.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-web
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-web
+            address_prefixes: ["10.60.197.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-prod-cu-priv
+            address_prefixes: ["10.60.198.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pub-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pub-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-prod-cu-vnet
+        address_space: ["10.60.234.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-pub-prod-cu-pub
+            legacy_name:
+            nsg_name: nsg-pub-prod-cu-pub
+            address_prefixes: ["10.60.234.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-platform-prod-usc-01
+        legacy_name: vnet-platform-prod-usc-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
+        legacy_virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
+        resource_group:
+          name: rg-vnet-platform-prod-usc-01
+          legacy_name: rg-vnet-platform-prod-usc-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: rg-vnet-platform-prod-usc-01
+        address_space: ["10.60.16.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.5",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: vnet-platform-prod-usc-01
+          spoke: true
+        subnets:
+          - name: snet-dmz-platform-prod-usc
+            legacy_name: snet-dmz-platform-prod-usc
+            nsg_name: nsg-snet-dmz-platform-prod-usc
+            address_prefixes: ["10.60.16.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-web-platform-prod-usc
+            legacy_name: snet-web-platform-prod-usc
+            nsg_name: nsg-snet-web-platform-prod-usc
+            address_prefixes: ["10.60.17.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-int-platform-prod-usc
+            legacy_name: snet-int-platform-prod-usc
+            nsg_name: nsg-snet-int-platform-prod-usc
+            address_prefixes: ["10.60.18.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-data-platform-prod-usc
+            legacy_name: snet-data-platform-prod-usc
+            nsg_name: nsg-snet-data-platform-prod-usc
+            address_prefixes: ["10.60.22.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-priv-platform-prod-usc
+            legacy_name: snet-priv-platform-prod-usc
+            nsg_name: nsg-snet-priv-platform-prod-usc
+            address_prefixes: ["10.60.23.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  - name: sb-pfm-stg-01
+    id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
+    legacy_name:
+    nsg_rg_name: rg-pfm-stg-cu-nsg
+    netw_name: netw-net-stg-cu
+    netw_sa_acc_name: sanetpfmstgcu
+    spokes:
+      - name: vnet-pfm-stg-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pfm-stg-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pfm-stg-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-stg-cu
+        address_space: ["10.60.176.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-stg-cu
+          spoke: true
+        subnets:
+          - name: snet-pfm-stg-cu-dmz
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-dmz
+            address_prefixes: ["10.60.176.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-pres
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-pres
+            address_prefixes: ["10.60.177.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-app
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-app
+            address_prefixes: ["10.60.178.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-data
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-data
+            address_prefixes: ["10.60.179.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-int
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-int
+            address_prefixes: ["10.60.180.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-web
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-web
+            address_prefixes: ["10.60.181.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-stg-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-stg-cu-priv
+            address_prefixes: ["10.60.182.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-stg-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pub-stg-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pub-stg-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-stg-cu-vnet
+        address_space: ["10.60.232.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-stg-cu
+          spoke: true
+        subnets:
+          - name: snet-pub-stg-cu-pub
+            legacy_name:
+            nsg_name: nsg-pub-stg-cu-pub
+            address_prefixes: ["10.60.232.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  - name: sb-pfm-qa-1a4d
+    id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
+    legacy_name: Sb-Client-PProd-US-01
+    nsg_rg_name: rg-pfm-qa-cu-nsg
+    netw_name: netw-net-qa-cu
+    netw_sa_acc_name: sanetpfmqacu
+    spokes:
+      - name: vnet-pfm-qa-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pfm-qa-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pfm-qa-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-qa-cu
+        address_space: ["10.60.160.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-qa-cu
+          spoke: true
+        subnets:
+          - name: snet-pfm-qa-cu-dmz
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-dmz
+            address_prefixes: ["10.60.160.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-pres
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-pres
+            address_prefixes: ["10.60.161.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-app
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-app
+            address_prefixes: ["10.60.162.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-data
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-data
+            address_prefixes: ["10.60.163.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-int
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-int
+            address_prefixes: ["10.60.164.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-web
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-web
+            address_prefixes: ["10.60.165.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-qa-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-qa-cu-priv
+            address_prefixes: ["10.60.166.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-qa-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pub-qa-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pub-qa-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-qa-cu-vnet
+        address_space: ["10.60.230.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-qa-cu
+          spoke: true
+        subnets:
+          - name: snet-pub-qa-cu-pub
+            legacy_name:
+            nsg_name: nsg-pub-qa-cu-pub
+            address_prefixes: ["10.60.230.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-platform-preprod-usc-01
+        legacy_name: vnet-platform-preprod-usc-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
+        legacy_virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
+        resource_group:
+          name: rg-vnet-platform-preprod-usc-01
+          legacy_name: rg-vnet-platform-preprod-usc-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: rg-vnet-platform-preprod-usc-01
+        address_space: ["10.60.32.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.5",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: vnet-platform-preprod-usc-01
+          spoke: true
+        subnets:
+          - name: snet-dmz-platform-preprod-usc
+            legacy_name: snet-dmz-platform-preprod-usc
+            nsg_name: nsg-snet-dmz-platform-preprod-usc
+            address_prefixes: ["10.60.32.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-web-platform-preprod-usc
+            legacy_name: snet-web-platform-preprod-usc
+            nsg_name: nsg-snet-web-platform-preprod-usc
+            address_prefixes: ["10.60.33.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-int-platform-preprod-usc
+            legacy_name: snet-int-platform-preprod-usc
+            nsg_name: nsg-snet-int-platform-preprod-usc
+            address_prefixes: ["10.60.34.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-data-platform-preprod-usc
+            legacy_name: snet-data-platform-preprod-usc
+            nsg_name: nsg-snet-data-platform-preprod-usc
+            address_prefixes: ["10.60.38.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-priv-platform-preprod-usc
+            legacy_name: snet-priv-platform-preprod-usc
+            nsg_name: nsg-snet-priv-platform-preprod-usc
+            address_prefixes: ["10.60.39.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+
+  - name: sb-pfm-dev-1a4d
+    id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
+    legacy_name:
+    nsg_rg_name: rg-pfm-dev-cu-nsg
+    netw_name: netw-net-dev-cu
+    netw_sa_acc_name: sanetpfmdevcu
+    spokes:
+      - name: vnet-pfm-dev-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pfm-dev-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pfm-dev-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-dev-cu
+        address_space: ["10.60.144.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-dev-cu
+          spoke: true
+        subnets:
+          - name: snet-pfm-dev-cu-dmz
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-dmz
+            address_prefixes: ["10.60.144.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-pres
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-pres
+            address_prefixes: ["10.60.145.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-app
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-app
+            address_prefixes: ["10.60.146.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-data
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-data
+            address_prefixes: ["10.60.147.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-int
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-int
+            address_prefixes: ["10.60.148.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-web
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-web
+            address_prefixes: ["10.60.149.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-pfm-dev-cu-priv
+            legacy_name:
+            nsg_name: nsg-pfm-dev-cu-priv
+            address_prefixes: ["10.60.150.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-pub-dev-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-pub-dev-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-pub-dev-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-dev-cu-vnet
+        address_space: ["10.60.228.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-dev-cu
+          spoke: true
+        subnets:
+          - name: snet-pub-dev-cu-pub
+            legacy_name:
+            nsg_name: nsg-pub-dev-cu-pub
+            address_prefixes: ["10.60.228.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: Vnet-Dev-UsC-01
+        legacy_name: Vnet-Dev-UsC-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
+        legacy_virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
+        resource_group:
+          name: Rg-Vnet-Dev-UsC-01
+          legacy_name: Rg-Vnet-Dev-UsC-01
+          location: Central US
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: Rg-Vnet-Dev-UsC-01
+        address_space: ["10.60.64.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.4",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: Vnet-Dev-UsC-01
+          spoke: true
+        subnets:
+          - name: Snet-Dev-App-UsC-01
+            legacy_name: Snet-Dev-App-UsC-01
+            nsg_name: nsg-Snet-Dev-App-UsC-01
+            address_prefixes: ["10.60.65.0/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Dev-App-UsC-02
+            legacy_name: Snet-Dev-App-UsC-02
+            nsg_name: nsg-Snet-Dev-App-UsC-02
+            address_prefixes: ["10.60.66.0/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Dev-Data-UsC-01
+            legacy_name: Snet-Dev-Data-UsC-01
+            nsg_name: nsg-Snet-Dev-Data-UsC-01
+            address_prefixes: ["10.60.68.0/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Dev-PrivLink-UsC-01
+            legacy_name: Snet-Dev-PrivLink-UsC-01
+            nsg_name: nsg-Snet-Dev-PrivLink-UsC-01
+            address_prefixes: ["10.60.69.0/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-dev-agw-usc-01
+            legacy_name: snet-dev-agw-usc-01
+            nsg_name: nsg-snet-dev-agw-usc-01
+            address_prefixes: ["10.60.70.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  # Corporate
+  - name: sb-cpo-prod-us-1a4d
+    id: d0c437f8-266d-4cd9-84cb-df09ee801e26
+    legacy_name:
+    nsg_rg_name: rg-cpo-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetcpoprodcu
+    spokes:
+      - name: vnet-cpo-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-cpo-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-cpo-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-cpo-prod-cu
+        address_space: ["10.41.0.0/19"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-cpo-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-cpo-prod-vdiitadmin-cu
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-vdiitadmin
+            address_prefixes: ["10.41.0.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-vdifunc
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-vdifunc
+            address_prefixes: ["10.41.2.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-vdibsops
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-vdibsops
+            address_prefixes: ["10.41.4.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-vdidev
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-vdidev
+            address_prefixes: ["10.41.6.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-vdidatas
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-vdidatas
+            address_prefixes: ["10.41.8.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-app
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-app
+            address_prefixes: ["10.41.10.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-cpo-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-cpo-prod-cu-priv
+            address_prefixes: ["10.41.13.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: Vnet-Corp-Prod-UsC-01
+        legacy_name: Vnet-Corp-Prod-UsC-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        legacy_virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        resource_group:
+          name: Rg-Vnet-Corp-Prod-UsC-01
+          legacy_name: Rg-Vnet-Corp-Prod-UsC-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: Rg-Vnet-Corp-Prod-UsC-01
+        address_space: ["10.45.0.0/18"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.4",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: Vnet-Corp-Prod-UsC-01
+          spoke: true
+        subnets:
+          - name: Snet-Corp-Srvs-UsC-01
+            legacy_name: Snet-Corp-Srvs-UsC-01
+            nsg_name: nsg-Snet-Corp-Srvs-UsC-01
+            address_prefixes: ["10.45.8.0/24"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIBsOps-UsC-01
+            legacy_name: Snet-Corp-VDIBsOps-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIBsOps-UsC-01
+            address_prefixes: ["10.45.10.0/23"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIDataS-UsC-01
+            legacy_name: Snet-Corp-VDIDataS-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIDataS-UsC-01
+            address_prefixes: ["10.45.12.0/23"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIFunc-UsC-01
+            legacy_name: Snet-Corp-VDIFunc-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIFunc-UsC-01
+            address_prefixes: ["10.45.14.0/24"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIITadmin-UsC-01
+            legacy_name: Snet-Corp-VDIITadmin-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIITadmin-UsC-01
+            address_prefixes: ["10.45.15.0/24"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: Snet-Corp-VDIDev-UsC-01
+            legacy_name: Snet-Corp-VDIDev-UsC-01
+            nsg_name: nsg-Snet-Corp-VDIDev-UsC-01
+            address_prefixes: ["10.45.16.0/24"]
+            nsg_enabled: true
+            service_endpoints: ["Microsoft.Storage"]
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  - name: sb-cpo-prod-ci-1a4d
+    id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
+    legacy_name: Sb-Corp-Prod-IN
+    nsg_rg_name: rg-cpo-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetcpoprodcu
+    spokes: []
+
+  #  Security
+  - name: sb-sec-prod-01
+    id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
+    legacy_name:
+    nsg_rg_name: rg-sec-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetsecprodcu
+    spokes:
+      - name: vnet-sec-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-sec-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-sec-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-sec-prod-cu
+        address_space: ["10.60.212.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-sec-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-sec-prod-cu-inf
+            legacy_name:
+            nsg_name: nsg-sec-prod-cu-inf
+            address_prefixes: ["10.60.212.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-sec-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-sec-prod-cu-priv
+            address_prefixes: ["10.60.215.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  # IT Tools
+  - name: sb-itt-prod-1a4d
+    id: 59d150e5-a66d-418f-8156-9b5b772a1922
+    legacy_name: Sb_ITTools-Prod-01
+    nsg_rg_name: rg-itt-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetittprodcu
+    spokes:
+      - name: vnet-itt-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-itt-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-itt-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-itt-prod-cu
+        address_space: ["10.60.216.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-itt-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-itt-prod-cu-inf
+            legacy_name:
+            nsg_name: nsg-itt-prod-cu-inf
+            address_prefixes: ["10.60.216.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-itt-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-itt-prod-cu-priv
+            address_prefixes: ["10.60.219.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  # Identity
+  - name: sb-Id-prod-1a4d
+    id: 99d9c0c8-690d-42ed-85c8-e910aae61413
+    legacy_name:
+    nsg_rg_name: rg-id-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetidprodcu
+    spokes:
+      - name: vnet-id-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-id-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-id-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-id-prod-cu
+        address_space: ["10.60.208.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-id-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-id-prod-cu-inf
+            legacy_name:
+            nsg_name: nsg-id-prod-cu-inf
+            address_prefixes: ["10.60.208.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-id-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-id-prod-cu-priv
+            address_prefixes: ["10.60.211.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: Vnet-Id-Prod-UsC-01
+        legacy_name: Vnet-Id-Prod-UsC-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        legacy_virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        resource_group:
+          name: Rg-Id-Net-Prod-UsC-01
+          legacy_name: Rg-Id-Net-Prod-UsC-01
+          location:
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: Rg-Id-Net-Prod-UsC-01
+        address_space: ["10.60.48.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: ["10.60.48.4", "10.60.48.5", "10.70.48.4", "10.70.48.5"]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: Vnet-Id-Prod-UsC-01
+          spoke: true
+        subnets:
+          - name: Snet-Id-Prod-UsC-01
+            legacy_name: Snet-Id-Prod-UsC-01
+            nsg_name: nsg-Snet-Id-Prod-UsC-01
+            address_prefixes: ["10.60.48.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  # DevOps
+  - name: sb-dvp-prod-1a4d
+    id: 5a1019fa-917d-4ca0-8580-52ff2469e621
+    legacy_name:
+    nsg_rg_name: rg-dvp-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetdvpprodcu
+    spokes:
+      - name: vnet-dvp-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-dvp-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-dvp-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-dvp-prod-cu
+        address_space: ["10.60.220.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-dvp-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-dvp-prod-cu-inf
+            legacy_name:
+            nsg_name: nsg-dvp-prod-cu-inf
+            address_prefixes: ["10.60.220.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-dvp-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-dvp-prod-cu-priv
+            address_prefixes: ["10.60.223.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+      - name: vnet-devops-prod-usc-01
+        legacy_name: vnet-devops-prod-usc-01
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
+        legacy_virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
+        resource_group:
+          name: rg-vnet-devops-prod-usc-01
+          legacy_name: rg-vnet-devops-prod-usc-01
+          location: Central US
+          tags:
+            resource-type: legacy
+            managed-by: terraform
+            resource-name: rg-vnet-devops-prod-usc-01
+        address_space: ["10.60.128.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers:
+          [
+            "10.60.48.4",
+            "10.60.48.5",
+            "10.70.48.4",
+            "10.70.48.5",
+            "10.33.4.21",
+            "10.33.4.22",
+          ]
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          resource-type: legacy
+          managed-by: terraform
+          resource-name: vnet-devops-prod-usc-01
+          spoke: true
+        subnets:
+          - name: snet-main-devops-prod-usc
+            legacy_name: snet-main-devops-prod-usc
+            nsg_name: nsg-snet-main-devops-prod-usc
+            address_prefixes: ["10.60.128.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+
+  # IT Monitoring
+  - name: sb-itm-prod-1a4d
+    id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
+    legacy_name:
+    nsg_rg_name: rg-itm-prod-cu-nsg
+    netw_name: netw-net-prod-cu
+    netw_sa_acc_name: sanetitmprodcu
+    spokes:
+      - name: vnet-itm-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-itm-prod-cu
+        legacy_virtual_hub_connection_name:
+        resource_group:
+          name: rg-itm-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-itm-prod-cu
+        address_space: ["10.60.224.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        edge_zone:
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-itm-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-itm-prod-cu-inf
+            legacy_name:
+            nsg_name: nsg-itm-prod-cu-inf
+            address_prefixes: ["10.60.224.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:
+          - name: snet-itm-prod-cu-priv
+            legacy_name:
+            nsg_name: nsg-itm-prod-cu-priv
+            address_prefixes: ["10.60.227.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            delegation:
+              name:

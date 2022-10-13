@@ -1,5 +1,9 @@
 locals {
-  resource_group_name = element(coalescelist(data.azurerm_resource_group.rgrp.*.name, azurerm_resource_group.rg.*.name, [""]), 0)
-  location            = element(coalescelist(data.azurerm_resource_group.rgrp.*.location, azurerm_resource_group.rg.*.location, [""]), 0)
-  if_ddos_enabled     = var.create_ddos_plan ? [{}] : []
+  rg_vnet_key = "rg_vnet"
+  vnet_key    = "vnet"
+  vhc_key     = "vhc"
+  rg_nsg_key  = "rg_nsg"
+  snet_keys   = var.spoke.subnets[*].name
+  nsg_keys    = var.spoke.subnets[*].nsg_name
+  rid_keys    = concat([local.rg_vnet_key, local.vnet_key, local.vhc_key, local.rg_nsg_key], local.snet_keys, local.nsg_keys)
 }

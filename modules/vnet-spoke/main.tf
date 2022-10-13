@@ -1,58 +1,69 @@
-data "azurerm_resource_group" "rgrp" {
-  provider = azurerm.spoke
-  count    = var.create_resource_group == false ? 1 : 0
-  name     = var.resource_group_name
+resource "random_string" "rids" {
+  for_each    = toset(local.rid_keys)
+  length      = 4
+  special     = false
+  upper       = false
+  numeric     = true
+  min_numeric = 2
+  min_lower   = 2
 }
 
 resource "azurerm_resource_group" "rg" {
   provider = azurerm.spoke
-  count    = var.create_resource_group ? 1 : 0
-  name     = format("rg-vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}")
+  name     = coalesce(try(var.spoke.resource_group.legacy_name, ""), "${var.spoke.resource_group.name}-${random_string.rids[local.rg_vnet_key].result}")
   location = var.location
-  tags     = merge({ "ResourceName" = format("%s", var.resource_group_name) }, var.tags, )
+  tags     = var.spoke.resource_group.tags
 }
 
 resource "azurerm_virtual_network" "vnet" {
   provider            = azurerm.spoke
-  name                = lower("vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}")
-  location            = local.location
-  resource_group_name = local.resource_group_name
-  address_space       = var.vnet_address_space
-  dns_servers         = var.dns_servers
-  tags                = merge({ "ResourceName" = lower("vnet-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}-${var.suffix_number}") }, var.tags, )
-
-  dynamic "ddos_protection_plan" {
-    for_each = local.if_ddos_enabled
-
-    content {
-      id     = azurerm_network_ddos_protection_plan.ddos[0].id
-      enable = true
-    }
-  }
-}
-
-resource "azurerm_subnet" "snet" {
-  provider             = azurerm.spoke
-  for_each             = var.subnets
-  name                 = lower(format("snet-%s-${var.spoke_vnet_name}-${var.dep_generic_map.full_env_code}", each.value.subnet_name))
-  resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = each.value.subnet_address_prefix
-}
-
-resource "azurerm_network_ddos_protection_plan" "ddos" {
-  provider            = azurerm.spoke
-  count               = var.create_ddos_plan ? 1 : 0
-  name                = lower("${var.spoke_vnet_name}-ddos-protection-plan")
-  resource_group_name = local.resource_group_name
-  location            = local.location
-  tags                = merge({ "ResourceName" = lower("${var.spoke_vnet_name}-ddos-protection-plan") }, var.tags, )
+  name                = coalesce(try(var.spoke.legacy_name, ""), "${var.spoke.name}-${random_string.rids[local.vnet_key].result}")
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  address_space       = var.spoke.address_space
+  dns_servers         = concat(var.spoke.dns_servers, formatlist(var.virtual_hub_firewall_private_ip_address))
+  tags                = var.spoke.tags
 }
 
 resource "azurerm_virtual_hub_connection" "vhc" {
   provider                  = azurerm.hub
-  count                     = var.create_hub_connection ? 1 : 0
-  name                      = "peer-${azurerm_virtual_network.vnet.name}"
-  remote_virtual_network_id = azurerm_virtual_network.vnet.id
+  name                      = coalesce(try(var.spoke.legacy_virtual_hub_connection_name, ""), "${var.spoke.virtual_hub_connection_name}-${random_string.rids[local.vhc_key].result}")
+  remote_virtual_network_id = trimsuffix(azurerm_virtual_network.vnet.id, "/")
   virtual_hub_id            = var.virtual_hub_id
+
+  depends_on = [
+    azurerm_virtual_network.vnet
+  ]
+}
+
+resource "azurerm_subnet" "subnets" {
+  provider             = azurerm.spoke
+  for_each             = { for subnet in var.spoke.subnets : subnet.name => subnet }
+  name                 = coalesce(try(each.value.legacy_name, ""), "${each.key}-${random_string.rids[each.key].result}")
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = each.value.address_prefixes
+  service_endpoints    = each.value.service_endpoints
+
+  depends_on = [
+    azurerm_virtual_network.vnet
+  ]
+}
+
+
+# DO NOT USE NETWORK SECURITY RULES IN-LINE WITHIN THE FOLLOWING RESOURCE
+resource "azurerm_network_security_group" "nsgs" {
+  provider            = azurerm.spoke
+  for_each            = { for subnet in var.spoke.subnets : subnet.nsg_name => subnet }
+  name                = "${each.key}-${random_string.rids[each.key].result}"
+  location            = var.nsg_rg_location
+  resource_group_name = var.nsg_rg_name
+}
+
+# Currently there is a bug with subnets in vnet-platform-prod-usc-01, their is is suffixed with "1" on every plan/apply
+resource "azurerm_subnet_network_security_group_association" "nsg_associations" {
+  provider                  = azurerm.spoke
+  for_each                  = { for subnet in var.spoke.subnets : subnet.name => subnet }
+  subnet_id                 = "${azurerm_virtual_network.vnet.id}/subnets/${azurerm_subnet.subnets[each.key].name}" # Building the id because of a bug in subnet id sometimes it plan with a wrong id and ends up recreating the same association
+  network_security_group_id = azurerm_network_security_group.nsgs[each.value.nsg_name].id
 }

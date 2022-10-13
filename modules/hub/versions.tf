@@ -3,10 +3,6 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 3.24.0"
-      configuration_aliases = [
-        azurerm.hub,
-        azurerm.spoke
-      ]
     }
     random = {
       source = "hashicorp/random"

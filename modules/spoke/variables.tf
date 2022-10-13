@@ -1,0 +1,7 @@
+variable "hub" {
+
+}
+
+variable "spoke" {
+
+}
