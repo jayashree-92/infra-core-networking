@@ -8,3 +8,17 @@ output "vnet_spoke" {
     nsg_associations = azurerm_subnet_network_security_group_association.nsg_associations
   }
 }
+
+output "nsg_nsr_map" {
+  value = {
+    "${var.sb_function}" = {
+      "vnet-${local.vnet_function}" = { for subnet in var.spoke.subnets :
+        "${subnet.workload_tier}" => {
+          "enable_nsr"  = "${var.spoke.function != null}"
+          "nsg_name"    = "${azurerm_network_security_group.nsgs[subnet.nsg_name].name}"
+          "nsg_rg_name" = "${var.nsg_rg_name}"
+        }... if subnet.workload_tier != null
+      }
+    }
+  }
+}

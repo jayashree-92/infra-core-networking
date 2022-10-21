@@ -8,13 +8,14 @@ log_analytics_workspace:
 subscriptions:
   # Network
   - name: sb-net-prod-01
-    function: network
     contains_vwan: true
     id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name: Sb-NetHub-Prd-01
     netw_rg_name: rg-net-prod-eu-netw
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetnetprodeu
+    environment: prod
+    function: net
     vwan:
       name: vWan-Prod-USe2-01
       subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
@@ -90,12 +91,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetpfmprodeu
+    environment: prod
+    function: pfm
     spokes:
       - name: vnet-pfm-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-prod-eu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-prod-eu-vnet
           legacy_name:
@@ -115,9 +119,10 @@ subscriptions:
           resource-name: vnet-pfm-prod-eu
           spoke: true
         subnets:
-          - name: snet-pfm-prod-cu-dmz
+          - name: snet-pfm-prod-eu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-dmz
+            workload_tier: dmz
+            nsg_name: nsg-pfm-prod-eu-dmz
             address_prefixes: ["10.90.192.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -125,9 +130,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-pres
+          - name: snet-pfm-prod-eu-pres
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-pres
+            workload_tier: pres
+            nsg_name: nsg-pfm-prod-eu-pres
             address_prefixes: ["10.90.193.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -135,9 +141,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-app
+          - name: snet-pfm-prod-eu-app
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-app
+            workload_tier: app
+            nsg_name: nsg-pfm-prod-eu-app
             address_prefixes: ["10.90.194.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -145,9 +152,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-data
+          - name: snet-pfm-prod-eu-data
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-data
+            workload_tier: data
+            nsg_name: nsg-pfm-prod-eu-data
             address_prefixes: ["10.90.195.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -155,9 +163,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-int
+          - name: snet-pfm-prod-eu-int
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-int
+            workload_tier: int
+            nsg_name: nsg-pfm-prod-eu-int
             address_prefixes: ["10.90.196.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -165,9 +174,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-web
+          - name: snet-pfm-prod-eu-web
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-web
+            workload_tier: web
+            nsg_name: nsg-pfm-prod-eu-web
             address_prefixes: ["10.90.197.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -175,9 +185,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-prod-cu-priv
+          - name: snet-pfm-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-pfm-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-pfm-prod-eu-priv
             address_prefixes: ["10.90.198.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -191,6 +202,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pub-prod-eu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-prod-eu-vnet
           legacy_name:
@@ -210,9 +222,10 @@ subscriptions:
           resource-name: vnet-pub-prod-eu
           spoke: true
         subnets:
-          - name: snet-pub-prod-cu-pub
+          - name: snet-pub-prod-eu-pub
             legacy_name:
-            nsg_name: nsg-pub-prod-cu-pub
+            workload_tier: pub
+            nsg_name: nsg-pub-prod-eu-pub
             address_prefixes: ["10.90.234.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -227,12 +240,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-stg-eu-nsg
     netw_name: netw-net-stg-eu
     netw_sa_acc_name: sanetpfmstgeu
+    environment: stg
+    function: pfm
     spokes:
       - name: vnet-pfm-stg-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-stg-eu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-stg-eu-vnet
           legacy_name:
@@ -252,9 +268,10 @@ subscriptions:
           resource-name: vnet-pfm-stg-eu
           spoke: true
         subnets:
-          - name: snet-pfm-stg-cu-dmz
+          - name: snet-pfm-stg-eu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-dmz
+            workload_tier: dmz
+            nsg_name: nsg-pfm-stg-eu-dmz
             address_prefixes: ["10.90.176.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -262,9 +279,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-pres
+          - name: snet-pfm-stg-eu-pres
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-pres
+            workload_tier: pres
+            nsg_name: nsg-pfm-stg-eu-pres
             address_prefixes: ["10.90.177.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -272,9 +290,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-app
+          - name: snet-pfm-stg-eu-app
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-app
+            workload_tier: app
+            nsg_name: nsg-pfm-stg-eu-app
             address_prefixes: ["10.90.178.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -282,9 +301,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-data
+          - name: snet-pfm-stg-eu-data
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-data
+            workload_tier: data
+            nsg_name: nsg-pfm-stg-eu-data
             address_prefixes: ["10.90.179.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -292,9 +312,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-int
+          - name: snet-pfm-stg-eu-int
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-int
+            workload_tier: int
+            nsg_name: nsg-pfm-stg-eu-int
             address_prefixes: ["10.90.180.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -302,9 +323,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-web
+          - name: snet-pfm-stg-eu-web
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-web
+            workload_tier: web
+            nsg_name: nsg-pfm-stg-eu-web
             address_prefixes: ["10.90.181.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -312,9 +334,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-stg-cu-priv
+          - name: snet-pfm-stg-eu-priv
             legacy_name:
-            nsg_name: nsg-pfm-stg-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-pfm-stg-eu-priv
             address_prefixes: ["10.90.182.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -328,6 +351,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pub-stg-eu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-stg-eu-vnet
           legacy_name:
@@ -347,9 +371,10 @@ subscriptions:
           resource-name: vnet-pub-stg-eu-vnet
           spoke: true
         subnets:
-          - name: snet-pub-stg-cu-pub
+          - name: snet-pub-stg-eu-pub
             legacy_name:
-            nsg_name: nsg-pub-stg-cu-pub
+            workload_tier: pub
+            nsg_name: nsg-pub-stg-eu-pub
             address_prefixes: ["10.90.232.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -364,12 +389,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-qa-eu-nsg
     netw_name: netw-net-qa-eu
     netw_sa_acc_name: sanetpfmqaeu
+    environment: qa
+    function: pfm
     spokes:
       - name: vnet-pfm-qa-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-qa-eu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-qa-eu-vnet
           legacy_name:
@@ -389,9 +417,10 @@ subscriptions:
           resource-name: vnet-pfm-qa-eu
           spoke: true
         subnets:
-          - name: snet-pfm-qa-cu-dmz
+          - name: snet-pfm-qa-eu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-dmz
+            workload_tier: dmz
+            nsg_name: nsg-pfm-qa-eu-dmz
             address_prefixes: ["10.90.160.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -399,9 +428,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-pres
+          - name: snet-pfm-qa-eu-pres
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-pres
+            workload_tier: pres
+            nsg_name: nsg-pfm-qa-eu-pres
             address_prefixes: ["10.90.161.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -409,9 +439,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-app
+          - name: snet-pfm-qa-eu-app
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-app
+            workload_tier: app
+            nsg_name: nsg-pfm-qa-eu-app
             address_prefixes: ["10.90.162.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -419,9 +450,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-data
+          - name: snet-pfm-qa-eu-data
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-data
+            workload_tier: data
+            nsg_name: nsg-pfm-qa-eu-data
             address_prefixes: ["10.90.163.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -429,9 +461,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-int
+          - name: snet-pfm-qa-eu-int
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-int
+            workload_tier: int
+            nsg_name: nsg-pfm-qa-eu-int
             address_prefixes: ["10.90.164.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -439,9 +472,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-web
+          - name: snet-pfm-qa-eu-web
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-web
+            workload_tier: web
+            nsg_name: nsg-pfm-qa-eu-web
             address_prefixes: ["10.90.165.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -449,9 +483,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-qa-cu-priv
+          - name: snet-pfm-qa-eu-priv
             legacy_name:
-            nsg_name: nsg-pfm-qa-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-pfm-qa-eu-priv
             address_prefixes: ["10.90.166.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -465,6 +500,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pub-qa-eu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-qa-eu-vnet
           legacy_name:
@@ -484,9 +520,10 @@ subscriptions:
           resource-name: vnet-pub-qa-eu-vnet
           spoke: true
         subnets:
-          - name: snet-pub-qa-cu-pub
+          - name: snet-pub-qa-eu-pub
             legacy_name:
-            nsg_name: nsg-pub-qa-cu-pub
+            workload_tier: pub
+            nsg_name: nsg-pub-qa-eu-pub
             address_prefixes: ["10.90.230.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -501,12 +538,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-dev-eu-nsg
     netw_name: netw-net-dev-eu
     netw_sa_acc_name: sanetpfmdeveu
+    environment: dev
+    function: pfm
     spokes:
       - name: vnet-pfm-dev-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pfm-dev-eu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-dev-eu-vnet
           legacy_name:
@@ -526,9 +566,10 @@ subscriptions:
           resource-name: vnet-pfm-dev-eu
           spoke: true
         subnets:
-          - name: snet-pfm-dev-cu-dmz
+          - name: snet-pfm-dev-eu-dmz
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-dmz
+            workload_tier: dmz
+            nsg_name: nsg-pfm-dev-eu-dmz
             address_prefixes: ["10.90.144.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -536,9 +577,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-pres
+          - name: snet-pfm-dev-eu-pres
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-pres
+            workload_tier: pres
+            nsg_name: nsg-pfm-dev-eu-pres
             address_prefixes: ["10.90.145.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -546,9 +588,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-app
+          - name: snet-pfm-dev-eu-app
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-app
+            workload_tier: app
+            nsg_name: nsg-pfm-dev-eu-app
             address_prefixes: ["10.90.146.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -556,9 +599,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-data
+          - name: snet-pfm-dev-eu-data
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-data
+            workload_tier: data
+            nsg_name: nsg-pfm-dev-eu-data
             address_prefixes: ["10.90.147.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -566,9 +610,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-int
+          - name: snet-pfm-dev-eu-int
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-int
+            workload_tier: int
+            nsg_name: nsg-pfm-dev-eu-int
             address_prefixes: ["10.90.148.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -576,9 +621,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-web
+          - name: snet-pfm-dev-eu-web
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-web
+            workload_tier: web
+            nsg_name: nsg-pfm-dev-eu-web
             address_prefixes: ["10.90.149.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -586,9 +632,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-pfm-dev-cu-priv
+          - name: snet-pfm-dev-eu-priv
             legacy_name:
-            nsg_name: nsg-pfm-dev-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-pfm-dev-eu-priv
             address_prefixes: ["10.90.150.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -602,6 +649,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-pub-dev-eu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-dev-eu-vnet
           legacy_name:
@@ -621,9 +669,10 @@ subscriptions:
           resource-name: vnet-pub-dev-eu
           spoke: true
         subnets:
-          - name: snet-pfm-dev-cu-pub
+          - name: snet-pfm-dev-eu-pub
             legacy_name:
-            nsg_name: nsg-pub-dev-cu-pub
+            workload_tier: pub
+            nsg_name: nsg-pub-dev-eu-pub
             address_prefixes: ["10.90.228.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -639,12 +688,15 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetcpoprodeu
+    environment: prod
+    function: cpo
     spokes:
       - name: vnet-cpo-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-cpo-prod-eu
         legacy_virtual_hub_connection_name:
+        function: cpo
         resource_group:
           name: rg-cpo-prod-eu-vnet
           legacy_name:
@@ -664,9 +716,10 @@ subscriptions:
           resource-name: vnet-cpo-prod-eu
           spoke: true
         subnets:
-          - name: snet-cpo-prod-cu-vdiitadmin
+          - name: snet-cpo-prod-eu-vdiitadmin
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-vdiitadmin
+            workload_tier: vdiitadmin
+            nsg_name: nsg-cpo-prod-eu-vdiitadmin
             address_prefixes: ["10.42.0.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -674,9 +727,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-vdifunc
+          - name: snet-cpo-prod-eu-vdifunc
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-vdifunc
+            workload_tier: vdifunc
+            nsg_name: nsg-cpo-prod-eu-vdifunc
             address_prefixes: ["10.42.2.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -684,9 +738,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-vdibsops
+          - name: snet-cpo-prod-eu-vdibsops
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-vdibsops
+            workload_tier: vdibsops
+            nsg_name: nsg-cpo-prod-eu-vdibsops
             address_prefixes: ["10.42.4.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -694,9 +749,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-vdidev
+          - name: snet-cpo-prod-eu-vdidev
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-vdidev
+            workload_tier: vdidev
+            nsg_name: nsg-cpo-prod-eu-vdidev
             address_prefixes: ["10.42.6.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -704,9 +760,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-vdidatas
+          - name: snet-cpo-prod-eu-vdidatas
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-vdidatas
+            workload_tier: vdidatas
+            nsg_name: nsg-cpo-prod-eu-vdidatas
             address_prefixes: ["10.42.8.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -714,9 +771,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-app
+          - name: snet-cpo-prod-eu-app
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-app
+            workload_tier: app
+            nsg_name: nsg-cpo-prod-eu-app
             address_prefixes: ["10.42.10.0/23"]
             nsg_enabled: true
             service_endpoints:
@@ -724,9 +782,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-cpo-prod-cu-priv
+          - name: snet-cpo-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-cpo-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-cpo-prod-eu-priv
             address_prefixes: ["10.42.13.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -741,6 +800,8 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetcpoprodeu
+    environment: prod
+    function: cpo
     spokes: []
 
   #  Security
@@ -750,12 +811,15 @@ subscriptions:
     nsg_rg_name: rg-sec-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetsecprodeu
+    environment: prod
+    function: sec
     spokes:
       - name: vnet-sec-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-sec-prod-eu
         legacy_virtual_hub_connection_name:
+        function: sec
         resource_group:
           name: rg-sec-prod-eu-vnet
           legacy_name:
@@ -775,9 +839,10 @@ subscriptions:
           resource-name: vnet-sec-prod-eu
           spoke: true
         subnets:
-          - name: snet-sec-prod-cu-inf
+          - name: snet-sec-prod-eu-inf
             legacy_name:
-            nsg_name: nsg-sec-prod-cu-inf
+            workload_tier: inf
+            nsg_name: nsg-sec-prod-eu-inf
             address_prefixes: ["10.90.212.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -785,9 +850,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-sec-prod-cu-priv
+          - name: snet-sec-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-sec-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-sec-prod-eu-priv
             address_prefixes: ["10.90.215.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -803,12 +869,15 @@ subscriptions:
     nsg_rg_name: rg-itt-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetittprodeu
+    environment: prod
+    function: itt
     spokes:
       - name: vnet-itt-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-itt-prod-eu
         legacy_virtual_hub_connection_name:
+        function: itt
         resource_group:
           name: rg-itt-prod-eu-vnet
           legacy_name:
@@ -828,9 +897,10 @@ subscriptions:
           resource-name: vnet-itt-prod-eu
           spoke: true
         subnets:
-          - name: snet-itt-prod-cu-inf
+          - name: snet-itt-prod-eu-inf
             legacy_name:
-            nsg_name: nsg-itt-prod-cu-inf
+            workload_tier: inf
+            nsg_name: nsg-itt-prod-eu-inf
             address_prefixes: ["10.90.216.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -838,9 +908,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-itt-prod-cu-priv
+          - name: snet-itt-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-itt-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-itt-prod-eu-priv
             address_prefixes: ["10.90.219.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -856,12 +927,15 @@ subscriptions:
     nsg_rg_name: rg-id-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetidprodeu
+    environment: prod
+    function: id
     spokes:
       - name: vnet-id-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-id-prod-eu
         legacy_virtual_hub_connection_name:
+        function: id
         resource_group:
           name: rg-id-prod-eu-vnet
           legacy_name:
@@ -881,9 +955,10 @@ subscriptions:
           resource-name: vnet-id-prod-eu
           spoke: true
         subnets:
-          - name: snet-id-prod-cu-inf
+          - name: snet-id-prod-eu-inf
             legacy_name:
-            nsg_name: nsg-id-prod-cu-inf
+            workload_tier: inf
+            nsg_name: nsg-id-prod-eu-inf
             address_prefixes: ["10.90.208.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -891,9 +966,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-id-prod-cu-priv
+          - name: snet-id-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-id-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-id-prod-eu-priv
             address_prefixes: ["10.90.211.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -909,12 +985,15 @@ subscriptions:
     nsg_rg_name: rg-dvp-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetdvpprodeu
+    environment: prod
+    function: dvp
     spokes:
       - name: vnet-dvp-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-dvp-prod-eu
         legacy_virtual_hub_connection_name:
+        function: dvp
         resource_group:
           name: rg-dvp-prod-eu-vnet
           legacy_name:
@@ -934,9 +1013,10 @@ subscriptions:
           resource-name: vnet-dvp-prod-eu
           spoke: true
         subnets:
-          - name: snet-dvp-prod-cu-inf
+          - name: snet-dvp-prod-eu-inf
             legacy_name:
-            nsg_name: nsg-dvp-prod-cu-inf
+            workload_tier: inf
+            nsg_name: nsg-dvp-prod-eu-inf
             address_prefixes: ["10.90.220.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -944,9 +1024,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-dvp-prod-cu-priv
+          - name: snet-dvp-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-dvp-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-dvp-prod-eu-priv
             address_prefixes: ["10.90.223.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -962,12 +1043,15 @@ subscriptions:
     nsg_rg_name: rg-itm-prod-eu-nsg
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetitmprodeu
+    environment: prod
+    function: itm
     spokes:
       - name: vnet-itm-prod-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
         virtual_hub_connection_name: peer-vnet-itm-prod-eu
         legacy_virtual_hub_connection_name:
+        function: itm
         resource_group:
           name: rg-itm-prod-eu-vnet
           legacy_name:
@@ -987,9 +1071,10 @@ subscriptions:
           resource-name: vnet-itm-prod-eu
           spoke: true
         subnets:
-          - name: snet-itm-prod-cu-inf
+          - name: snet-itm-prod-eu-inf
             legacy_name:
-            nsg_name: nsg-itm-prod-cu-inf
+            workload_tier: inf
+            nsg_name: nsg-itm-prod-eu-inf
             address_prefixes: ["10.90.224.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -997,9 +1082,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             delegation:
               name:
-          - name: snet-itm-prod-cu-priv
+          - name: snet-itm-prod-eu-priv
             legacy_name:
-            nsg_name: nsg-itm-prod-cu-priv
+            workload_tier: priv
+            nsg_name: nsg-itm-prod-eu-priv
             address_prefixes: ["10.90.227.0/24"]
             nsg_enabled: true
             service_endpoints:

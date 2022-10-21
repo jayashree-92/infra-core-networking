@@ -9,6 +9,7 @@ module "spokes_sb_pfm_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_pfm_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_pfm_prod_01
@@ -25,6 +26,8 @@ module "spokes_sb_pfm_stg" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  environment                             = local.subscriptions_map.sb_pfm_stg.environment
+  sb_function                             = local.subscriptions_map.sb_pfm_stg.function
 
   providers = {
     azurerm.spoke = azurerm.sb_pfm_stg_01
@@ -42,6 +45,8 @@ module "spokes_sb_pfm_qa" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  environment                             = local.subscriptions_map.sb_pfm_qa.environment
+  sb_function                             = local.subscriptions_map.sb_pfm_qa.function
 
   providers = {
     azurerm.spoke = azurerm.sb_pfm_qa_01
@@ -59,6 +64,8 @@ module "spokes_sb_pfm_dev" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  environment                             = local.subscriptions_map.sb_pfm_dev.environment
+  sb_function                             = local.subscriptions_map.sb_pfm_dev.function
 
   providers = {
     azurerm.spoke = azurerm.sb_pfm_dev_01
@@ -75,6 +82,7 @@ module "spokes_sb_id_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_id_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_id_prod
@@ -91,6 +99,7 @@ module "spokes_sb_itt_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_itt_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_itt_prod
@@ -108,6 +117,7 @@ module "spokes_sb_dvp_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_dvp_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_dvp_prod
@@ -124,6 +134,7 @@ module "spokes_sb_itm_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_itm_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_itm_prod
@@ -141,6 +152,7 @@ module "spokes_sb_sec_prod" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_sec_prod.function
 
   providers = {
     azurerm.spoke = azurerm.sb_sec_prod
@@ -158,6 +170,7 @@ module "spokes_sb_cpo_prod_us" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_cpo_prod_us.function
 
   providers = {
     azurerm.spoke = azurerm.sb_cpo_prod_us
@@ -175,6 +188,7 @@ module "spokes_sb_cpo_prod_ci" {
   virtual_hub_id                          = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   spoke                                   = each.value
+  sb_function                             = local.subscriptions_map.sb_cpo_prod_ci.function
 
   providers = {
     azurerm.spoke = azurerm.sb_cpo_prod_ci

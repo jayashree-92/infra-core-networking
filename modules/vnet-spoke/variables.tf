@@ -17,11 +17,12 @@ variable "nsg_rg_location" {
 variable "spoke" {
   description = "Vnet spoke configuration"
   type = object({
-    name                        = string
-    legacy_name                 = string
-    virtual_hub_name            = string
-    virtual_hub_connection_name = string
+    name                               = string
+    legacy_name                        = string
+    virtual_hub_name                   = string
+    virtual_hub_connection_name        = string
     legacy_virtual_hub_connection_name = string
+    function                           = string
     resource_group = object({
       name        = string
       legacy_name = string
@@ -37,7 +38,8 @@ variable "spoke" {
     flow_timeout_in_minutes = string
     subnets = list(object({
       name                                      = string
-      legacy_name                                      = string
+      legacy_name                               = string
+      workload_tier                             = string
       nsg_name                                  = string
       address_prefixes                          = list(string)
       service_endpoints                         = list(any)
@@ -58,4 +60,13 @@ variable "virtual_hub_id" {
 variable "virtual_hub_firewall_private_ip_address" {
   description = "Ip adress used as dns server for the spoke"
   type        = string
+}
+
+variable "environment" {
+  description = "Environment"
+  default     = "prod"
+}
+
+variable "sb_function" {
+  description = "The function of the subscription."
 }

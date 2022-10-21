@@ -8,13 +8,14 @@ log_analytics_workspace:
 subscriptions:
   # Network
   - name: sb-net-prod-01
-    function: network
     contains_vwan: true
     id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name: Sb-NetHub-Prd-01
     netw_rg_name: rg-net-prod-cu-netw
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetnetprodcu
+    environment: prod
+    function: net
     hubs:
       - name: vhub-net-prod-cu
         legacy_name: HubNet-Prod-UsC-01
@@ -101,12 +102,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetpfmprodcu
+    environment: prod
+    function: pfm
     spokes:
       - name: vnet-pfm-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-prod-cu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-prod-cu-vnet
           legacy_name:
@@ -128,6 +132,7 @@ subscriptions:
         subnets:
           - name: snet-pfm-prod-cu-dmz
             legacy_name:
+            workload_tier: dmz
             nsg_name: nsg-pfm-prod-cu-dmz
             address_prefixes: ["10.60.192.0/24"]
             nsg_enabled: true
@@ -138,6 +143,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-pres
             legacy_name:
+            workload_tier: pres
             nsg_name: nsg-pfm-prod-cu-pres
             address_prefixes: ["10.60.193.0/24"]
             nsg_enabled: true
@@ -148,6 +154,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-app
             legacy_name:
+            workload_tier: app
             nsg_name: nsg-pfm-prod-cu-app
             address_prefixes: ["10.60.194.0/24"]
             nsg_enabled: true
@@ -158,6 +165,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-data
             legacy_name:
+            workload_tier: data
             nsg_name: nsg-pfm-prod-cu-data
             address_prefixes: ["10.60.195.0/24"]
             nsg_enabled: true
@@ -168,6 +176,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-int
             legacy_name:
+            workload_tier: int
             nsg_name: nsg-pfm-prod-cu-int
             address_prefixes: ["10.60.196.0/24"]
             nsg_enabled: true
@@ -178,6 +187,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-web
             legacy_name:
+            workload_tier: web
             nsg_name: nsg-pfm-prod-cu-web
             address_prefixes: ["10.60.197.0/24"]
             nsg_enabled: true
@@ -188,6 +198,7 @@ subscriptions:
               name:
           - name: snet-pfm-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-pfm-prod-cu-priv
             address_prefixes: ["10.60.198.0/24"]
             nsg_enabled: true
@@ -202,6 +213,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-prod-cu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-prod-cu-vnet
           legacy_name:
@@ -223,6 +235,7 @@ subscriptions:
         subnets:
           - name: snet-pub-prod-cu-pub
             legacy_name:
+            workload_tier: pub
             nsg_name: nsg-pub-prod-cu-pub
             address_prefixes: ["10.60.234.0/24"]
             nsg_enabled: true
@@ -237,6 +250,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
+        function:
         resource_group:
           name: rg-vnet-platform-prod-usc-01
           legacy_name: rg-vnet-platform-prod-usc-01
@@ -268,6 +282,7 @@ subscriptions:
         subnets:
           - name: snet-dmz-platform-prod-usc
             legacy_name: snet-dmz-platform-prod-usc
+            workload_tier: dmz
             nsg_name: nsg-snet-dmz-platform-prod-usc
             address_prefixes: ["10.60.16.0/24"]
             nsg_enabled: true
@@ -278,6 +293,7 @@ subscriptions:
               name:
           - name: snet-web-platform-prod-usc
             legacy_name: snet-web-platform-prod-usc
+            workload_tier: web
             nsg_name: nsg-snet-web-platform-prod-usc
             address_prefixes: ["10.60.17.0/24"]
             nsg_enabled: true
@@ -288,6 +304,7 @@ subscriptions:
               name:
           - name: snet-int-platform-prod-usc
             legacy_name: snet-int-platform-prod-usc
+            workload_tier: int
             nsg_name: nsg-snet-int-platform-prod-usc
             address_prefixes: ["10.60.18.0/24"]
             nsg_enabled: true
@@ -298,6 +315,7 @@ subscriptions:
               name:
           - name: snet-data-platform-prod-usc
             legacy_name: snet-data-platform-prod-usc
+            workload_tier: data
             nsg_name: nsg-snet-data-platform-prod-usc
             address_prefixes: ["10.60.22.0/24"]
             nsg_enabled: true
@@ -308,6 +326,7 @@ subscriptions:
               name:
           - name: snet-priv-platform-prod-usc
             legacy_name: snet-priv-platform-prod-usc
+            workload_tier: priv
             nsg_name: nsg-snet-priv-platform-prod-usc
             address_prefixes: ["10.60.23.0/24"]
             nsg_enabled: true
@@ -323,12 +342,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-stg-cu-nsg
     netw_name: netw-net-stg-cu
     netw_sa_acc_name: sanetpfmstgcu
+    environment: stg
+    function: pfm
     spokes:
       - name: vnet-pfm-stg-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-stg-cu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-stg-cu-vnet
           legacy_name:
@@ -350,6 +372,7 @@ subscriptions:
         subnets:
           - name: snet-pfm-stg-cu-dmz
             legacy_name:
+            workload_tier: dmz
             nsg_name: nsg-pfm-stg-cu-dmz
             address_prefixes: ["10.60.176.0/24"]
             nsg_enabled: true
@@ -360,6 +383,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-pres
             legacy_name:
+            workload_tier: pres
             nsg_name: nsg-pfm-stg-cu-pres
             address_prefixes: ["10.60.177.0/24"]
             nsg_enabled: true
@@ -370,6 +394,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-app
             legacy_name:
+            workload_tier: app
             nsg_name: nsg-pfm-stg-cu-app
             address_prefixes: ["10.60.178.0/24"]
             nsg_enabled: true
@@ -380,6 +405,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-data
             legacy_name:
+            workload_tier: data
             nsg_name: nsg-pfm-stg-cu-data
             address_prefixes: ["10.60.179.0/24"]
             nsg_enabled: true
@@ -390,6 +416,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-int
             legacy_name:
+            workload_tier: int
             nsg_name: nsg-pfm-stg-cu-int
             address_prefixes: ["10.60.180.0/24"]
             nsg_enabled: true
@@ -400,6 +427,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-web
             legacy_name:
+            workload_tier: web
             nsg_name: nsg-pfm-stg-cu-web
             address_prefixes: ["10.60.181.0/24"]
             nsg_enabled: true
@@ -410,6 +438,7 @@ subscriptions:
               name:
           - name: snet-pfm-stg-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-pfm-stg-cu-priv
             address_prefixes: ["10.60.182.0/24"]
             nsg_enabled: true
@@ -424,6 +453,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-stg-cu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-stg-cu-vnet
           legacy_name:
@@ -445,6 +475,7 @@ subscriptions:
         subnets:
           - name: snet-pub-stg-cu-pub
             legacy_name:
+            workload_tier: pub
             nsg_name: nsg-pub-stg-cu-pub
             address_prefixes: ["10.60.232.0/24"]
             nsg_enabled: true
@@ -460,12 +491,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-qa-cu-nsg
     netw_name: netw-net-qa-cu
     netw_sa_acc_name: sanetpfmqacu
+    environment: qa
+    function: pfm
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-qa-cu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-qa-cu-vnet
           legacy_name:
@@ -487,6 +521,7 @@ subscriptions:
         subnets:
           - name: snet-pfm-qa-cu-dmz
             legacy_name:
+            workload_tier: dmz
             nsg_name: nsg-pfm-qa-cu-dmz
             address_prefixes: ["10.60.160.0/24"]
             nsg_enabled: true
@@ -497,6 +532,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-pres
             legacy_name:
+            workload_tier: pres
             nsg_name: nsg-pfm-qa-cu-pres
             address_prefixes: ["10.60.161.0/24"]
             nsg_enabled: true
@@ -507,6 +543,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-app
             legacy_name:
+            workload_tier: app
             nsg_name: nsg-pfm-qa-cu-app
             address_prefixes: ["10.60.162.0/24"]
             nsg_enabled: true
@@ -517,6 +554,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-data
             legacy_name:
+            workload_tier: data
             nsg_name: nsg-pfm-qa-cu-data
             address_prefixes: ["10.60.163.0/24"]
             nsg_enabled: true
@@ -527,6 +565,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-int
             legacy_name:
+            workload_tier: int
             nsg_name: nsg-pfm-qa-cu-int
             address_prefixes: ["10.60.164.0/24"]
             nsg_enabled: true
@@ -537,6 +576,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-web
             legacy_name:
+            workload_tier: web
             nsg_name: nsg-pfm-qa-cu-web
             address_prefixes: ["10.60.165.0/24"]
             nsg_enabled: true
@@ -547,6 +587,7 @@ subscriptions:
               name:
           - name: snet-pfm-qa-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-pfm-qa-cu-priv
             address_prefixes: ["10.60.166.0/24"]
             nsg_enabled: true
@@ -561,6 +602,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-qa-cu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-qa-cu-vnet
           legacy_name:
@@ -582,6 +624,7 @@ subscriptions:
         subnets:
           - name: snet-pub-qa-cu-pub
             legacy_name:
+            workload_tier: pub
             nsg_name: nsg-pub-qa-cu-pub
             address_prefixes: ["10.60.230.0/24"]
             nsg_enabled: true
@@ -596,6 +639,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
+        function:
         resource_group:
           name: rg-vnet-platform-preprod-usc-01
           legacy_name: rg-vnet-platform-preprod-usc-01
@@ -627,6 +671,7 @@ subscriptions:
         subnets:
           - name: snet-dmz-platform-preprod-usc
             legacy_name: snet-dmz-platform-preprod-usc
+            workload_tier: dmz
             nsg_name: nsg-snet-dmz-platform-preprod-usc
             address_prefixes: ["10.60.32.0/24"]
             nsg_enabled: true
@@ -637,6 +682,7 @@ subscriptions:
               name:
           - name: snet-web-platform-preprod-usc
             legacy_name: snet-web-platform-preprod-usc
+            workload_tier: web
             nsg_name: nsg-snet-web-platform-preprod-usc
             address_prefixes: ["10.60.33.0/24"]
             nsg_enabled: true
@@ -647,6 +693,7 @@ subscriptions:
               name:
           - name: snet-int-platform-preprod-usc
             legacy_name: snet-int-platform-preprod-usc
+            workload_tier: int
             nsg_name: nsg-snet-int-platform-preprod-usc
             address_prefixes: ["10.60.34.0/24"]
             nsg_enabled: true
@@ -657,6 +704,7 @@ subscriptions:
               name:
           - name: snet-data-platform-preprod-usc
             legacy_name: snet-data-platform-preprod-usc
+            workload_tier: data
             nsg_name: nsg-snet-data-platform-preprod-usc
             address_prefixes: ["10.60.38.0/24"]
             nsg_enabled: true
@@ -667,6 +715,7 @@ subscriptions:
               name:
           - name: snet-priv-platform-preprod-usc
             legacy_name: snet-priv-platform-preprod-usc
+            workload_tier: priv
             nsg_name: nsg-snet-priv-platform-preprod-usc
             address_prefixes: ["10.60.39.0/24"]
             nsg_enabled: true
@@ -681,12 +730,15 @@ subscriptions:
     nsg_rg_name: rg-pfm-dev-cu-nsg
     netw_name: netw-net-dev-cu
     netw_sa_acc_name: sanetpfmdevcu
+    environment: dev
+    function: pfm
     spokes:
       - name: vnet-pfm-dev-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-dev-cu
         legacy_virtual_hub_connection_name:
+        function: pfm
         resource_group:
           name: rg-pfm-dev-cu-vnet
           legacy_name:
@@ -708,6 +760,7 @@ subscriptions:
         subnets:
           - name: snet-pfm-dev-cu-dmz
             legacy_name:
+            workload_tier: dmz
             nsg_name: nsg-pfm-dev-cu-dmz
             address_prefixes: ["10.60.144.0/24"]
             nsg_enabled: true
@@ -718,6 +771,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-pres
             legacy_name:
+            workload_tier: pres
             nsg_name: nsg-pfm-dev-cu-pres
             address_prefixes: ["10.60.145.0/24"]
             nsg_enabled: true
@@ -728,6 +782,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-app
             legacy_name:
+            workload_tier: app
             nsg_name: nsg-pfm-dev-cu-app
             address_prefixes: ["10.60.146.0/24"]
             nsg_enabled: true
@@ -738,6 +793,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-data
             legacy_name:
+            workload_tier: data
             nsg_name: nsg-pfm-dev-cu-data
             address_prefixes: ["10.60.147.0/24"]
             nsg_enabled: true
@@ -748,6 +804,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-int
             legacy_name:
+            workload_tier: int
             nsg_name: nsg-pfm-dev-cu-int
             address_prefixes: ["10.60.148.0/24"]
             nsg_enabled: true
@@ -758,6 +815,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-web
             legacy_name:
+            workload_tier: web
             nsg_name: nsg-pfm-dev-cu-web
             address_prefixes: ["10.60.149.0/24"]
             nsg_enabled: true
@@ -768,6 +826,7 @@ subscriptions:
               name:
           - name: snet-pfm-dev-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-pfm-dev-cu-priv
             address_prefixes: ["10.60.150.0/24"]
             nsg_enabled: true
@@ -782,6 +841,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-dev-cu
         legacy_virtual_hub_connection_name:
+        function: pub
         resource_group:
           name: rg-pub-dev-cu-vnet
           legacy_name:
@@ -803,6 +863,7 @@ subscriptions:
         subnets:
           - name: snet-pub-dev-cu-pub
             legacy_name:
+            workload_tier: pub
             nsg_name: nsg-pub-dev-cu-pub
             address_prefixes: ["10.60.228.0/24"]
             nsg_enabled: true
@@ -817,6 +878,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
+        function:
         resource_group:
           name: Rg-Vnet-Dev-UsC-01
           legacy_name: Rg-Vnet-Dev-UsC-01
@@ -848,6 +910,7 @@ subscriptions:
         subnets:
           - name: Snet-Dev-App-UsC-01
             legacy_name: Snet-Dev-App-UsC-01
+            workload_tier: app
             nsg_name: nsg-Snet-Dev-App-UsC-01
             address_prefixes: ["10.60.65.0/25"]
             nsg_enabled: true
@@ -858,6 +921,7 @@ subscriptions:
               name:
           - name: Snet-Dev-App-UsC-02
             legacy_name: Snet-Dev-App-UsC-02
+            workload_tier: app
             nsg_name: nsg-Snet-Dev-App-UsC-02
             address_prefixes: ["10.60.66.0/25"]
             nsg_enabled: true
@@ -868,6 +932,7 @@ subscriptions:
               name:
           - name: Snet-Dev-Data-UsC-01
             legacy_name: Snet-Dev-Data-UsC-01
+            workload_tier: data
             nsg_name: nsg-Snet-Dev-Data-UsC-01
             address_prefixes: ["10.60.68.0/25"]
             nsg_enabled: true
@@ -878,6 +943,7 @@ subscriptions:
               name:
           - name: Snet-Dev-PrivLink-UsC-01
             legacy_name: Snet-Dev-PrivLink-UsC-01
+            workload_tier: priv
             nsg_name: nsg-Snet-Dev-PrivLink-UsC-01
             address_prefixes: ["10.60.69.0/25"]
             nsg_enabled: true
@@ -888,6 +954,7 @@ subscriptions:
               name:
           - name: snet-dev-agw-usc-01
             legacy_name: snet-dev-agw-usc-01
+            workload_tier: dmz
             nsg_name: nsg-snet-dev-agw-usc-01
             address_prefixes: ["10.60.70.0/27"]
             nsg_enabled: true
@@ -904,12 +971,15 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetcpoprodcu
+    environment: prod
+    function: cpo
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-cpo-prod-cu
         legacy_virtual_hub_connection_name:
+        function: cpo
         resource_group:
           name: rg-cpo-prod-cu-vnet
           legacy_name:
@@ -929,8 +999,9 @@ subscriptions:
           resource-name: vnet-cpo-prod-cu
           spoke: true
         subnets:
-          - name: snet-cpo-prod-vdiitadmin-cu
+          - name: snet-cpo-prod-cu-vdiitadmin
             legacy_name:
+            workload_tier: vdiitadmin
             nsg_name: nsg-cpo-prod-cu-vdiitadmin
             address_prefixes: ["10.41.0.0/23"]
             nsg_enabled: true
@@ -941,6 +1012,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-vdifunc
             legacy_name:
+            workload_tier: vdifunc
             nsg_name: nsg-cpo-prod-cu-vdifunc
             address_prefixes: ["10.41.2.0/23"]
             nsg_enabled: true
@@ -951,6 +1023,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-vdibsops
             legacy_name:
+            workload_tier: vdibsops
             nsg_name: nsg-cpo-prod-cu-vdibsops
             address_prefixes: ["10.41.4.0/23"]
             nsg_enabled: true
@@ -961,6 +1034,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-vdidev
             legacy_name:
+            workload_tier: vdidev
             nsg_name: nsg-cpo-prod-cu-vdidev
             address_prefixes: ["10.41.6.0/23"]
             nsg_enabled: true
@@ -971,6 +1045,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-vdidatas
             legacy_name:
+            workload_tier: vdidatas
             nsg_name: nsg-cpo-prod-cu-vdidatas
             address_prefixes: ["10.41.8.0/23"]
             nsg_enabled: true
@@ -981,6 +1056,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-app
             legacy_name:
+            workload_tier: app
             nsg_name: nsg-cpo-prod-cu-app
             address_prefixes: ["10.41.10.0/23"]
             nsg_enabled: true
@@ -991,6 +1067,7 @@ subscriptions:
               name:
           - name: snet-cpo-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-cpo-prod-cu-priv
             address_prefixes: ["10.41.13.0/24"]
             nsg_enabled: true
@@ -1005,6 +1082,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        function:
         resource_group:
           name: Rg-Vnet-Corp-Prod-UsC-01
           legacy_name: Rg-Vnet-Corp-Prod-UsC-01
@@ -1036,6 +1114,7 @@ subscriptions:
         subnets:
           - name: Snet-Corp-Srvs-UsC-01
             legacy_name: Snet-Corp-Srvs-UsC-01
+            workload_tier:
             nsg_name: nsg-Snet-Corp-Srvs-UsC-01
             address_prefixes: ["10.45.8.0/24"]
             nsg_enabled: true
@@ -1046,6 +1125,7 @@ subscriptions:
               name:
           - name: Snet-Corp-VDIBsOps-UsC-01
             legacy_name: Snet-Corp-VDIBsOps-UsC-01
+            workload_tier: vdibsops
             nsg_name: nsg-Snet-Corp-VDIBsOps-UsC-01
             address_prefixes: ["10.45.10.0/23"]
             nsg_enabled: true
@@ -1056,6 +1136,7 @@ subscriptions:
               name:
           - name: Snet-Corp-VDIDataS-UsC-01
             legacy_name: Snet-Corp-VDIDataS-UsC-01
+            workload_tier: vdidatas
             nsg_name: nsg-Snet-Corp-VDIDataS-UsC-01
             address_prefixes: ["10.45.12.0/23"]
             nsg_enabled: true
@@ -1066,6 +1147,7 @@ subscriptions:
               name:
           - name: Snet-Corp-VDIFunc-UsC-01
             legacy_name: Snet-Corp-VDIFunc-UsC-01
+            workload_tier: vdifunc
             nsg_name: nsg-Snet-Corp-VDIFunc-UsC-01
             address_prefixes: ["10.45.14.0/24"]
             nsg_enabled: true
@@ -1076,6 +1158,7 @@ subscriptions:
               name:
           - name: Snet-Corp-VDIITadmin-UsC-01
             legacy_name: Snet-Corp-VDIITadmin-UsC-01
+            workload_tier: vdiitadmin
             nsg_name: nsg-Snet-Corp-VDIITadmin-UsC-01
             address_prefixes: ["10.45.15.0/24"]
             nsg_enabled: true
@@ -1086,6 +1169,7 @@ subscriptions:
               name:
           - name: Snet-Corp-VDIDev-UsC-01
             legacy_name: Snet-Corp-VDIDev-UsC-01
+            workload_tier: vdidev
             nsg_name: nsg-Snet-Corp-VDIDev-UsC-01
             address_prefixes: ["10.45.16.0/24"]
             nsg_enabled: true
@@ -1101,6 +1185,8 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetcpoprodcu
+    environment: prod
+    function: cpo
     spokes: []
 
   #  Security
@@ -1110,12 +1196,15 @@ subscriptions:
     nsg_rg_name: rg-sec-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetsecprodcu
+    environment: prod
+    function: sec
     spokes:
       - name: vnet-sec-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-sec-prod-cu
         legacy_virtual_hub_connection_name:
+        function: sec
         resource_group:
           name: rg-sec-prod-cu-vnet
           legacy_name:
@@ -1137,6 +1226,7 @@ subscriptions:
         subnets:
           - name: snet-sec-prod-cu-inf
             legacy_name:
+            workload_tier: inf
             nsg_name: nsg-sec-prod-cu-inf
             address_prefixes: ["10.60.212.0/24"]
             nsg_enabled: true
@@ -1147,6 +1237,7 @@ subscriptions:
               name:
           - name: snet-sec-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-sec-prod-cu-priv
             address_prefixes: ["10.60.215.0/24"]
             nsg_enabled: true
@@ -1163,12 +1254,15 @@ subscriptions:
     nsg_rg_name: rg-itt-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetittprodcu
+    environment: prod
+    function: itt
     spokes:
       - name: vnet-itt-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itt-prod-cu
         legacy_virtual_hub_connection_name:
+        function: itt
         resource_group:
           name: rg-itt-prod-cu-vnet
           legacy_name:
@@ -1190,6 +1284,7 @@ subscriptions:
         subnets:
           - name: snet-itt-prod-cu-inf
             legacy_name:
+            workload_tier: inf
             nsg_name: nsg-itt-prod-cu-inf
             address_prefixes: ["10.60.216.0/24"]
             nsg_enabled: true
@@ -1200,6 +1295,7 @@ subscriptions:
               name:
           - name: snet-itt-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-itt-prod-cu-priv
             address_prefixes: ["10.60.219.0/24"]
             nsg_enabled: true
@@ -1216,12 +1312,15 @@ subscriptions:
     nsg_rg_name: rg-id-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetidprodcu
+    environment: prod
+    function: id
     spokes:
       - name: vnet-id-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-id-prod-cu
         legacy_virtual_hub_connection_name:
+        function: id
         resource_group:
           name: rg-id-prod-cu-vnet
           legacy_name:
@@ -1243,6 +1342,7 @@ subscriptions:
         subnets:
           - name: snet-id-prod-cu-inf
             legacy_name:
+            workload_tier: inf
             nsg_name: nsg-id-prod-cu-inf
             address_prefixes: ["10.60.208.0/24"]
             nsg_enabled: true
@@ -1253,6 +1353,7 @@ subscriptions:
               name:
           - name: snet-id-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-id-prod-cu-priv
             address_prefixes: ["10.60.211.0/24"]
             nsg_enabled: true
@@ -1267,6 +1368,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        function:
         resource_group:
           name: Rg-Id-Net-Prod-UsC-01
           legacy_name: Rg-Id-Net-Prod-UsC-01
@@ -1290,6 +1392,7 @@ subscriptions:
         subnets:
           - name: Snet-Id-Prod-UsC-01
             legacy_name: Snet-Id-Prod-UsC-01
+            workload_tier: inf
             nsg_name: nsg-Snet-Id-Prod-UsC-01
             address_prefixes: ["10.60.48.0/24"]
             nsg_enabled: true
@@ -1306,12 +1409,15 @@ subscriptions:
     nsg_rg_name: rg-dvp-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetdvpprodcu
+    environment: prod
+    function: dvp
     spokes:
       - name: vnet-dvp-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-dvp-prod-cu
         legacy_virtual_hub_connection_name:
+        function: dvp
         resource_group:
           name: rg-dvp-prod-cu-vnet
           legacy_name:
@@ -1333,6 +1439,7 @@ subscriptions:
         subnets:
           - name: snet-dvp-prod-cu-inf
             legacy_name:
+            workload_tier: inf
             nsg_name: nsg-dvp-prod-cu-inf
             address_prefixes: ["10.60.220.0/24"]
             nsg_enabled: true
@@ -1343,6 +1450,7 @@ subscriptions:
               name:
           - name: snet-dvp-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-dvp-prod-cu-priv
             address_prefixes: ["10.60.223.0/24"]
             nsg_enabled: true
@@ -1357,6 +1465,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
+        function:
         resource_group:
           name: rg-vnet-devops-prod-usc-01
           legacy_name: rg-vnet-devops-prod-usc-01
@@ -1388,6 +1497,7 @@ subscriptions:
         subnets:
           - name: snet-main-devops-prod-usc
             legacy_name: snet-main-devops-prod-usc
+            workload_tier: inf
             nsg_name: nsg-snet-main-devops-prod-usc
             address_prefixes: ["10.60.128.0/24"]
             nsg_enabled: true
@@ -1404,12 +1514,15 @@ subscriptions:
     nsg_rg_name: rg-itm-prod-cu-nsg
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetitmprodcu
+    environment: prod
+    function: itm
     spokes:
       - name: vnet-itm-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itm-prod-cu
         legacy_virtual_hub_connection_name:
+        function: itm
         resource_group:
           name: rg-itm-prod-cu-vnet
           legacy_name:
@@ -1431,6 +1544,7 @@ subscriptions:
         subnets:
           - name: snet-itm-prod-cu-inf
             legacy_name:
+            workload_tier: inf
             nsg_name: nsg-itm-prod-cu-inf
             address_prefixes: ["10.60.224.0/24"]
             nsg_enabled: true
@@ -1441,6 +1555,7 @@ subscriptions:
               name:
           - name: snet-itm-prod-cu-priv
             legacy_name:
+            workload_tier: priv
             nsg_name: nsg-itm-prod-cu-priv
             address_prefixes: ["10.60.227.0/24"]
             nsg_enabled: true

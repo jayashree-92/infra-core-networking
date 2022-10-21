@@ -15,6 +15,26 @@ output "vnet_spokes" {
   }
 }
 
+output "nsg_nsr_map" {
+  value = {
+    "${var.location_code}" = {
+      "prod" = merge(
+        { for item in keys(module.spokes_sb_pfm_prod) : keys(module.spokes_sb_pfm_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_id_prod) : keys(module.spokes_sb_id_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_id_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_itt_prod) : keys(module.spokes_sb_itt_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_itt_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_dvp_prod) : keys(module.spokes_sb_dvp_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_dvp_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_itm_prod) : keys(module.spokes_sb_itm_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_itm_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_sec_prod) : keys(module.spokes_sb_sec_prod[item].nsg_nsr_map)[0] => values(module.spokes_sb_sec_prod[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_cpo_prod_us) : keys(module.spokes_sb_cpo_prod_us[item].nsg_nsr_map)[0] => values(module.spokes_sb_cpo_prod_us[item].nsg_nsr_map)[0]... },
+        { for item in keys(module.spokes_sb_cpo_prod_ci) : keys(module.spokes_sb_cpo_prod_ci[item].nsg_nsr_map)[0] => values(module.spokes_sb_cpo_prod_ci[item].nsg_nsr_map)[0]... },
+      )
+      "dev" = { for item in keys(module.spokes_sb_pfm_dev) : keys(module.spokes_sb_pfm_dev[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_dev[item].nsg_nsr_map)[0]... }
+      "qa"  = { for item in keys(module.spokes_sb_pfm_qa) : keys(module.spokes_sb_pfm_qa[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_qa[item].nsg_nsr_map)[0]... }
+      "stg" = { for item in keys(module.spokes_sb_pfm_stg) : keys(module.spokes_sb_pfm_stg[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_stg[item].nsg_nsr_map)[0]... }
+    }
+  }
+}
+
 output "create_vwan" {
   value = local.create_vwan
 }
