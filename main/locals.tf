@@ -1,10 +1,11 @@
 locals {
-  config_file       = yamldecode(file("../deployments/${var.location_code}/configs.yaml"))
-  location_code     = local.config_file.location_code
-  subscriptions     = local.config_file.subscriptions
-  vwan_subscription = try({ for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }[0], null)
-  create_vwan       = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null) != null
-  subscription_ids  = { for sub in local.subscriptions : sub.name => sub.id }
+  config_file              = yamldecode(file("../deployments/${var.location_code}/configs.yaml"))
+  location_code            = local.config_file.location_code
+  subscriptions            = local.config_file.subscriptions
+  vwan_subscription        = try({ for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }[0], null)
+  create_vwan              = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null) != null
+  create_private_dns_zones = try({ for i, sub in local.subscriptions : i => sub if(try(sub.private_dns_zones, false) != false) }[0], null) != null
+  subscription_ids         = { for sub in local.subscriptions : sub.name => sub.id }
   subscription_names = {
     sb_pfm_prod    = "sb-pfm-prod-1a4d"
     sb_pfm_stg     = "sb-pfm-stg-01"
@@ -46,6 +47,21 @@ locals {
     sb_cpo_prod_us = local.subscriptions_map.sb_cpo_prod_us.spokes
     sb_cpo_prod_ci = local.subscriptions_map.sb_cpo_prod_ci.spokes
   }
+
+  route_tables = {
+    sb_pfm_prod    = local.subscriptions_map.sb_pfm_prod.route_tables
+    sb_pfm_stg     = local.subscriptions_map.sb_pfm_stg.route_tables
+    sb_pfm_qa      = local.subscriptions_map.sb_pfm_qa.route_tables
+    sb_pfm_dev     = local.subscriptions_map.sb_pfm_dev.route_tables
+    sb_id_prod     = local.subscriptions_map.sb_id_prod.route_tables
+    sb_itt_prod    = local.subscriptions_map.sb_itt_prod.route_tables
+    sb_dvp_prod    = local.subscriptions_map.sb_dvp_prod.route_tables
+    sb_itm_prod    = local.subscriptions_map.sb_itm_prod.route_tables
+    sb_sec_prod    = local.subscriptions_map.sb_sec_prod.route_tables
+    sb_cpo_prod_us = local.subscriptions_map.sb_cpo_prod_us.route_tables
+    sb_cpo_prod_ci = local.subscriptions_map.sb_cpo_prod_ci.route_tables
+  }
+
 
   sb_rid_keys = [for sb_name in local.subscription_names : sb_name]
 

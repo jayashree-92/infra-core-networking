@@ -30,6 +30,16 @@ resource "azurerm_virtual_hub_connection" "vhc" {
   name                      = coalesce(try(var.spoke.legacy_virtual_hub_connection_name, ""), "${var.spoke.virtual_hub_connection_name}-${random_string.rids[local.vhc_key].result}")
   remote_virtual_network_id = trimsuffix(azurerm_virtual_network.vnet.id, "/")
   virtual_hub_id            = var.virtual_hub_id
+  internet_security_enabled = var.spoke.internet_security_enabled
+
+  routing {
+    associated_route_table_id = replace(var.virtual_hub_default_route_table_id, "defaultRouteTable", var.spoke.virtual_hub_associated_route_table_name)
+    propagated_route_table {
+      # labels = ["default", "NotInternetSecurity"]
+      # route_table_ids = [var.virtual_hub_default_route_table_id, "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/not-secure-Default"]
+      route_table_ids = [var.virtual_hub_default_route_table_id, replace(var.virtual_hub_default_route_table_id, "defaultRouteTable", "not-secure-Default")]
+    }
+  }
 
   depends_on = [
     azurerm_virtual_network.vnet
@@ -45,11 +55,30 @@ resource "azurerm_subnet" "subnets" {
   address_prefixes     = each.value.address_prefixes
   service_endpoints    = each.value.service_endpoints
 
+  dynamic "delegation" {
+    for_each = { for delegation in each.value.delegations : delegation.name => delegation if try(each.value.delegations, null) != null }
+    content {
+      name = delegation.value.name
+
+      service_delegation {
+        name    = delegation.value.name
+        actions = delegation.value.actions
+      }
+    }
+  }
+
   depends_on = [
     azurerm_virtual_network.vnet
   ]
 }
 
+resource "azurerm_subnet_route_table_association" "route_tables_ass" {
+  provider = azurerm.spoke
+
+  for_each       = { for subnet in var.spoke.subnets : subnet.name => subnet if try(subnet.route_table_association, null) != null }
+  subnet_id      = azurerm_subnet.subnets[each.key].id
+  route_table_id = var.routes[each.value.route_table_association].id
+}
 
 # DO NOT USE NETWORK SECURITY RULES IN-LINE WITHIN THE FOLLOWING RESOURCE
 resource "azurerm_network_security_group" "nsgs" {
@@ -58,6 +87,7 @@ resource "azurerm_network_security_group" "nsgs" {
   name                = "${each.key}-${random_string.rids[each.key].result}"
   location            = var.nsg_rg_location
   resource_group_name = var.nsg_rg_name
+
 }
 
 # Currently there is a bug with subnets in vnet-platform-prod-usc-01, their is is suffixed with "1" on every plan/apply
@@ -66,4 +96,14 @@ resource "azurerm_subnet_network_security_group_association" "nsg_associations" 
   for_each                  = { for subnet in var.spoke.subnets : subnet.name => subnet }
   subnet_id                 = "${azurerm_virtual_network.vnet.id}/subnets/${azurerm_subnet.subnets[each.key].name}" # Building the id because of a bug in subnet id sometimes it plan with a wrong id and ends up recreating the same association
   network_security_group_id = azurerm_network_security_group.nsgs[each.value.nsg_name].id
+}
+
+
+resource "azurerm_private_dns_zone_virtual_network_link" "pvt_dns_zones_links" {
+  provider              = azurerm.hub
+  for_each              = { for link in var.spoke.private_dns_zone_links : link => link }
+  name                  = "vnl-${azurerm_virtual_network.vnet.name}"
+  resource_group_name   = var.private_dns_zones.routes.rg_name
+  private_dns_zone_name = each.key
+  virtual_network_id    = azurerm_virtual_network.vnet.id
 }

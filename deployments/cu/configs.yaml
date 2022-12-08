@@ -16,6 +16,29 @@ subscriptions:
     netw_sa_acc_name: sanetnetprodcu
     environment: prod
     function: net
+    private_dns_zones:
+      resource_group:
+        name: Rg-NetHub-PrivDNS-UsC-01
+        location: centralus
+      zones:
+        - privatelink.agentsvc.azure-automation.net
+        - privatelink.azconfig.io
+        - privatelink.azure-automation.net
+        - privatelink.batch.azure.com
+        - privatelink.blob.core.windows.net
+        - privatelink.database.windows.net
+        - privatelink.dfs.core.windows.net
+        - privatelink.eventgrid.azure.net
+        - privatelink.file.core.windows.net
+        - privatelink.monitor.azure.com
+        - privatelink.ods.opinsights.azure.com
+        - privatelink.oms.opinsights.azure.com
+        - privatelink.postgres.database.azure.com
+        - privatelink.servicebus.windows.net
+        - privatelink.sql.azuresynapse.net
+        - privatelink.table.core.windows.net
+        - privatelink.vaultcore.azure.net
+        - privatelink.e4ff6437056e.database.windows.net
     hubs:
       - name: vhub-net-prod-cu
         legacy_name: HubNet-Prod-UsC-01
@@ -30,7 +53,7 @@ subscriptions:
           legacy_name: FwPol-Prod-UsC-01
           location: Canada Central
           sku: Premium
-          private_ip_ranges: ["255.255.255.255/32"]
+          private_ip_ranges: []
           resource_group:
             name: rg-fwp-net-prod-cu-01
             legacy_name: Rg-FwPol-Prod-US-01
@@ -58,12 +81,12 @@ subscriptions:
               address_cidrs: ["10.32.0.0/16", "10.33.0.0/16"]
               device_vendor: FortiGate
               routing:
-                associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable
+                associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable
                 propagated_route_table:
                   labels: ["default"]
                   route_table_ids:
                     [
-                      "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-UsC-01/hubRouteTables/defaultRouteTable",
+                      "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable",
                     ]
               o365_policy:
                 traffic_category:
@@ -92,7 +115,225 @@ subscriptions:
           tags:
             managed-by: terraform
             resource-name: fw-net-prod-cu-01
-        route_tables: []
+        route_tables:
+          - name: not-secure-Default
+            labels:
+              - NotInternetSecurity
+            routes:
+              ###### EU ROUTES ######
+
+              - destinations:
+                  - 10.41.0.0/19
+                destinations_type: CIDR
+                name: cpo-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-cpo-prod-eu-19bi
+                next_hop_type: "ResourceId"
+
+              - destinations:
+                  - 10.90.220.0/22
+                destinations_type: CIDR
+                name: dvp-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-dvp-prod-eu-t34i
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.208.0/22
+                destinations_type: CIDR
+                name: id-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-id-prod-eu-1h7b
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.224.0/22
+                destinations_type: CIDR
+                name: itm-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-itm-prod-eu-6n4o
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.216.0/22
+                destinations_type: CIDR
+                name: itt-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-itt-prod-eu-03ey
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.144.0/20
+                destinations_type: CIDR
+                name: pfm-dev-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pfm-dev-eu-90cw
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.192.0/20
+                destinations_type: CIDR
+                name: pfm-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pfm-prod-eu-3sh9
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.160.0/20
+                destinations_type: CIDR
+                name: pfm-qa-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pfm-qa-eu-3iy3
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.176.0/20
+                destinations_type: CIDR
+                name: pfm-stg-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pfm-stg-eu-44ec
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.228.0/23
+                destinations_type: CIDR
+                name: pub-dev-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pub-dev-eu-v22l
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.234.0/23
+                destinations_type: CIDR
+                name: pub-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pub-prod-eu-y58i
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.230.0/23
+                destinations_type: CIDR
+                name: pub-qa-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pub-qa-eu-20lr
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.232.0/23
+                destinations_type: CIDR
+                name: pub-stg-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-pub-stg-eu-23vm
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.90.212.0/22
+                destinations_type: CIDR
+                name: sec-prod-eu
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubVirtualNetworkConnections/peer-vnet-sec-prod-eu-0ff4
+                next_hop_type: ResourceId
+
+              ##### Central India #####
+
+              - destinations:
+                  - 10.47.0.0/18
+                destinations_type: CIDR
+                name: vdi-inc
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/PeerVnetCorp-Prod-InC-01
+                next_hop_type: ResourceId
+              - destinations:
+                  - 10.43.0.0/19
+                destinations_type: CIDR
+                name: cpo-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-cpo-prod-ci-uw41
+                next_hop_type: "ResourceId"
+
+              - destinations:
+                  - 10.70.220.0/22
+                destinations_type: CIDR
+                name: dvp-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-dvp-prod-ci-os43
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.208.0/22
+                destinations_type: CIDR
+                name: id-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-id-prod-ci-66sd
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.48.0/23
+                destinations_type: CIDR
+                name: prod-inc
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/PeerIdHub-Prod-InC-01
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.224.0/22
+                destinations_type: CIDR
+                name: itm-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-itm-prod-ci-4r5b
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.216.0/22
+                destinations_type: CIDR
+                name: itt-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-itt-prod-ci-9gj7
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.144.0/20
+                destinations_type: CIDR
+                name: pfm-dev-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pfm-dev-ci-3v8m
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.192.0/20
+                destinations_type: CIDR
+                name: pfm-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pfm-prod-ci-39vy
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.160.0/20
+                destinations_type: CIDR
+                name: pfm-qa-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pfm-qa-ci-dg27
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.176.0/20
+                destinations_type: CIDR
+                name: pfm-stg-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pfm-stg-ci-3tb2
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.228.0/23
+                destinations_type: CIDR
+                name: pub-dev-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pub-dev-ci-9ud8
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.234.0/23
+                destinations_type: CIDR
+                name: pub-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pub-prod-ci-uv72
+
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.230.0/23
+                destinations_type: CIDR
+                name: pub-qa-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pub-qa-ci-84qt
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.232.0/23
+                destinations_type: CIDR
+                name: pub-stg-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-pub-stg-ci-7e4p
+                next_hop_type: ResourceId
+
+              - destinations:
+                  - 10.70.212.0/22
+                destinations_type: CIDR
+                name: sec-prod-ci
+                next_hop: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/HubNet-Prod-InC-01/hubVirtualNetworkConnections/peer-vnet-sec-prod-ci-36rp
+                next_hop_type: ResourceId
+    route_tables: []
     spokes:
 
   # Platform
@@ -100,16 +341,21 @@ subscriptions:
     id: b69669b9-6d12-4ada-b44d-5f578b85f46c
     legacy_name:
     nsg_rg_name: rg-pfm-prod-cu-nsg
+    routes_rg_name: rg-pfm-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetpfmprodcu
     environment: prod
     function: pfm
+    route_tables:
+      - name: rt-pfm-prod-cu-smi
+        routes: []
     spokes:
       - name: vnet-pfm-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: pfm
         resource_group:
           name: rg-pfm-prod-cu-vnet
@@ -123,7 +369,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -139,8 +387,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-pres
             legacy_name:
             workload_tier: pres
@@ -150,8 +398,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-app
             legacy_name:
             workload_tier: app
@@ -161,8 +409,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-data
             legacy_name:
             workload_tier: data
@@ -172,8 +420,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-int
             legacy_name:
             workload_tier: int
@@ -183,8 +431,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-web
             legacy_name:
             workload_tier: web
@@ -194,8 +442,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -205,14 +453,44 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-prod-cu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-prod-cu-osc
+            address_prefixes: ["10.60.199.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-prod-cu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-prod-cu-smi
+            address_prefixes: ["10.60.199.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-prod-cu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
 
       - name: vnet-pub-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: pub
         resource_group:
           name: rg-pub-prod-cu-vnet
@@ -226,7 +504,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -242,14 +522,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: vnet-platform-prod-usc-01
         legacy_name: vnet-platform-prod-usc-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-platform-prod-usc-01
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function:
         resource_group:
           name: rg-vnet-platform-prod-usc-01
@@ -272,7 +553,9 @@ subscriptions:
             "10.33.4.21",
             "10.33.4.22",
           ]
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -289,8 +572,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-web-platform-prod-usc
             legacy_name: snet-web-platform-prod-usc
             workload_tier: web
@@ -300,8 +583,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-int-platform-prod-usc
             legacy_name: snet-int-platform-prod-usc
             workload_tier: int
@@ -311,8 +594,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-data-platform-prod-usc
             legacy_name: snet-data-platform-prod-usc
             workload_tier: data
@@ -322,8 +605,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-priv-platform-prod-usc
             legacy_name: snet-priv-platform-prod-usc
             workload_tier: priv
@@ -333,23 +616,28 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   - name: sb-pfm-stg-01
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
     legacy_name:
     nsg_rg_name: rg-pfm-stg-cu-nsg
+    routes_rg_name: rg-pfm-stg-cu-rt
     netw_name: netw-net-stg-cu
     netw_sa_acc_name: sanetpfmstgcu
     environment: stg
     function: pfm
+    route_tables:
+      - name: rt-pfm-stg-cu-smi
+        routes: []
     spokes:
       - name: vnet-pfm-stg-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-stg-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: pfm
         resource_group:
           name: rg-pfm-stg-cu-vnet
@@ -363,7 +651,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -379,8 +669,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-pres
             legacy_name:
             workload_tier: pres
@@ -390,8 +680,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-app
             legacy_name:
             workload_tier: app
@@ -401,8 +691,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-data
             legacy_name:
             workload_tier: data
@@ -412,8 +702,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-int
             legacy_name:
             workload_tier: int
@@ -423,8 +713,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-web
             legacy_name:
             workload_tier: web
@@ -434,8 +724,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-stg-cu-priv
             legacy_name:
             workload_tier: priv
@@ -445,14 +735,44 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-stg-cu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-stg-cu-osc
+            address_prefixes: ["10.60.183.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-stg-cu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-stg-cu-smi
+            address_prefixes: ["10.60.183.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-stg-cu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
 
       - name: vnet-pub-stg-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-stg-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: pub
         resource_group:
           name: rg-pub-stg-cu-vnet
@@ -466,7 +786,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -482,23 +804,28 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   - name: sb-pfm-qa-1a4d
     id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
     legacy_name: Sb-Client-PProd-US-01
     nsg_rg_name: rg-pfm-qa-cu-nsg
+    routes_rg_name: rg-pfm-qa-cu-rt
     netw_name: netw-net-qa-cu
     netw_sa_acc_name: sanetpfmqacu
     environment: qa
     function: pfm
+    route_tables:
+      - name: rt-pfm-qa-cu-smi
+        routes: []
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-qa-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: pfm
         resource_group:
           name: rg-pfm-qa-cu-vnet
@@ -512,7 +839,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -528,8 +857,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-pres
             legacy_name:
             workload_tier: pres
@@ -539,8 +868,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-app
             legacy_name:
             workload_tier: app
@@ -550,8 +879,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-data
             legacy_name:
             workload_tier: data
@@ -561,8 +890,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-int
             legacy_name:
             workload_tier: int
@@ -572,8 +901,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-web
             legacy_name:
             workload_tier: web
@@ -583,8 +912,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-qa-cu-priv
             legacy_name:
             workload_tier: priv
@@ -594,14 +923,44 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qa-cu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-qa-cu-osc
+            address_prefixes: ["10.60.167.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qa-cu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-qa-cu-smi
+            address_prefixes: ["10.60.167.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-qa-cu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
 
       - name: vnet-pub-qa-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-qa-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: pub
         resource_group:
           name: rg-pub-qa-cu-vnet
@@ -615,7 +974,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -631,14 +992,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: vnet-platform-preprod-usc-01
         legacy_name: vnet-platform-preprod-usc-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function:
         resource_group:
           name: rg-vnet-platform-preprod-usc-01
@@ -661,7 +1023,9 @@ subscriptions:
             "10.33.4.21",
             "10.33.4.22",
           ]
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -678,8 +1042,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-web-platform-preprod-usc
             legacy_name: snet-web-platform-preprod-usc
             workload_tier: web
@@ -689,8 +1053,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-int-platform-preprod-usc
             legacy_name: snet-int-platform-preprod-usc
             workload_tier: int
@@ -700,8 +1064,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-data-platform-preprod-usc
             legacy_name: snet-data-platform-preprod-usc
             workload_tier: data
@@ -711,8 +1075,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-priv-platform-preprod-usc
             legacy_name: snet-priv-platform-preprod-usc
             workload_tier: priv
@@ -722,22 +1086,28 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
+            route_table_association:
+            delegations: []
 
   - name: sb-pfm-dev-1a4d
     id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name:
     nsg_rg_name: rg-pfm-dev-cu-nsg
+    routes_rg_name: rg-pfm-dev-cu-rt
     netw_name: netw-net-dev-cu
     netw_sa_acc_name: sanetpfmdevcu
     environment: dev
     function: pfm
+    route_tables:
+      - name: rt-pfm-dev-cu-smi
+        routes: []
     spokes:
       - name: vnet-pfm-dev-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-dev-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: pfm
         resource_group:
           name: rg-pfm-dev-cu-vnet
@@ -751,7 +1121,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -767,8 +1139,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-pres
             legacy_name:
             workload_tier: pres
@@ -778,8 +1150,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-app
             legacy_name:
             workload_tier: app
@@ -789,8 +1161,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-data
             legacy_name:
             workload_tier: data
@@ -800,8 +1172,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-int
             legacy_name:
             workload_tier: int
@@ -811,8 +1183,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-web
             legacy_name:
             workload_tier: web
@@ -822,8 +1194,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-pfm-dev-cu-priv
             legacy_name:
             workload_tier: priv
@@ -833,14 +1205,44 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dev-cu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-dev-cu-osc
+            address_prefixes: ["10.60.151.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dev-cu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-dev-cu-smi
+            address_prefixes: ["10.60.151.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-dev-cu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
 
       - name: vnet-pub-dev-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pub-dev-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: pub
         resource_group:
           name: rg-pub-dev-cu-vnet
@@ -854,7 +1256,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -870,14 +1274,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: Vnet-Dev-UsC-01
         legacy_name: Vnet-Dev-UsC-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerVnetDevHub-Prod-UsC-01
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function:
         resource_group:
           name: Rg-Vnet-Dev-UsC-01
@@ -900,7 +1305,9 @@ subscriptions:
             "10.33.4.21",
             "10.33.4.22",
           ]
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -917,8 +1324,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Dev-App-UsC-02
             legacy_name: Snet-Dev-App-UsC-02
             workload_tier: app
@@ -928,8 +1335,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Dev-Data-UsC-01
             legacy_name: Snet-Dev-Data-UsC-01
             workload_tier: data
@@ -939,8 +1346,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Dev-PrivLink-UsC-01
             legacy_name: Snet-Dev-PrivLink-UsC-01
             workload_tier: priv
@@ -950,8 +1357,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-dev-agw-usc-01
             legacy_name: snet-dev-agw-usc-01
             workload_tier: dmz
@@ -961,24 +1368,27 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   # Corporate
   - name: sb-cpo-prod-us-1a4d
     id: d0c437f8-266d-4cd9-84cb-df09ee801e26
     legacy_name:
     nsg_rg_name: rg-cpo-prod-cu-nsg
+    routes_rg_name: rg-cpo-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetcpoprodcu
     environment: prod
     function: cpo
+    route_tables: []
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-cpo-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: cpo
         resource_group:
           name: rg-cpo-prod-cu-vnet
@@ -992,7 +1402,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1008,8 +1420,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-vdifunc
             legacy_name:
             workload_tier: vdifunc
@@ -1019,8 +1431,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-vdibsops
             legacy_name:
             workload_tier: vdibsops
@@ -1030,8 +1442,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-vdidev
             legacy_name:
             workload_tier: vdidev
@@ -1041,8 +1453,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-vdidatas
             legacy_name:
             workload_tier: vdidatas
@@ -1052,8 +1464,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-app
             legacy_name:
             workload_tier: app
@@ -1063,8 +1475,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-cpo-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1074,14 +1486,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: Vnet-Corp-Prod-UsC-01
         legacy_name: Vnet-Corp-Prod-UsC-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerVnetCorp-Prod-UsC-01
+        virtual_hub_associated_route_table_name: not-secure-Default
         function:
         resource_group:
           name: Rg-Vnet-Corp-Prod-UsC-01
@@ -1104,7 +1517,9 @@ subscriptions:
             "10.33.4.21",
             "10.33.4.22",
           ]
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -1121,8 +1536,8 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Corp-VDIBsOps-UsC-01
             legacy_name: Snet-Corp-VDIBsOps-UsC-01
             workload_tier: vdibsops
@@ -1132,8 +1547,8 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Corp-VDIDataS-UsC-01
             legacy_name: Snet-Corp-VDIDataS-UsC-01
             workload_tier: vdidatas
@@ -1143,8 +1558,8 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Corp-VDIFunc-UsC-01
             legacy_name: Snet-Corp-VDIFunc-UsC-01
             workload_tier: vdifunc
@@ -1154,8 +1569,8 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Corp-VDIITadmin-UsC-01
             legacy_name: Snet-Corp-VDIITadmin-UsC-01
             workload_tier: vdiitadmin
@@ -1165,8 +1580,8 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: Snet-Corp-VDIDev-UsC-01
             legacy_name: Snet-Corp-VDIDev-UsC-01
             workload_tier: vdidev
@@ -1176,17 +1591,19 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   - name: sb-cpo-prod-ci-1a4d
     id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
     legacy_name: Sb-Corp-Prod-IN
     nsg_rg_name: rg-cpo-prod-cu-nsg
+    routes_rg_name: rg-cpo-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetcpoprodcu
     environment: prod
     function: cpo
+    route_tables: []
     spokes: []
 
   #  Security
@@ -1194,16 +1611,19 @@ subscriptions:
     id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
     legacy_name:
     nsg_rg_name: rg-sec-prod-cu-nsg
+    routes_rg_name: rg-sec-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetsecprodcu
     environment: prod
     function: sec
+    route_tables: []
     spokes:
       - name: vnet-sec-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-sec-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: sec
         resource_group:
           name: rg-sec-prod-cu-vnet
@@ -1217,7 +1637,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1233,8 +1655,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-sec-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1244,24 +1666,27 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   # IT Tools
   - name: sb-itt-prod-1a4d
     id: 59d150e5-a66d-418f-8156-9b5b772a1922
     legacy_name: Sb_ITTools-Prod-01
     nsg_rg_name: rg-itt-prod-cu-nsg
+    routes_rg_name: rg-itt-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetittprodcu
     environment: prod
     function: itt
+    route_tables: []
     spokes:
       - name: vnet-itt-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itt-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: itt
         resource_group:
           name: rg-itt-prod-cu-vnet
@@ -1275,7 +1700,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1291,8 +1718,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-itt-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1302,24 +1729,27 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   # Identity
   - name: sb-Id-prod-1a4d
     id: 99d9c0c8-690d-42ed-85c8-e910aae61413
     legacy_name:
     nsg_rg_name: rg-id-prod-cu-nsg
+    routes_rg_name: rg-id-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetidprodcu
     environment: prod
     function: id
+    route_tables: []
     spokes:
       - name: vnet-id-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-id-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: id
         resource_group:
           name: rg-id-prod-cu-vnet
@@ -1333,7 +1763,21 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links:
+          - privatelink.azure-automation.net
+          - privatelink.batch.azure.com
+          - privatelink.blob.core.windows.net
+          - privatelink.database.windows.net
+          - privatelink.dfs.core.windows.net
+          - privatelink.eventgrid.azure.net
+          - privatelink.file.core.windows.net
+          - privatelink.postgres.database.azure.com
+          - privatelink.servicebus.windows.net
+          - privatelink.sql.azuresynapse.net
+          - privatelink.vaultcore.azure.net
+          - privatelink.e4ff6437056e.database.windows.net
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1349,8 +1793,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-id-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1360,14 +1804,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: Vnet-Id-Prod-UsC-01
         legacy_name: Vnet-Id-Prod-UsC-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
         legacy_virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function:
         resource_group:
           name: Rg-Id-Net-Prod-UsC-01
@@ -1382,7 +1827,18 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: ["10.60.48.4", "10.60.48.5", "10.70.48.4", "10.70.48.5"]
+        private_dns_zone_links:
+          - privatelink.azconfig.io
+          - privatelink.azure-automation.net
+          - privatelink.batch.azure.com
+          - privatelink.dfs.core.windows.net
+          - privatelink.eventgrid.azure.net
+          - privatelink.servicebus.windows.net
+          - privatelink.sql.azuresynapse.net
+          - privatelink.table.core.windows.net
+          - privatelink.e4ff6437056e.database.windows.net
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -1399,24 +1855,27 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   # DevOps
   - name: sb-dvp-prod-1a4d
     id: 5a1019fa-917d-4ca0-8580-52ff2469e621
     legacy_name:
     nsg_rg_name: rg-dvp-prod-cu-nsg
+    routes_rg_name: rg-dvp-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetdvpprodcu
     environment: prod
     function: dvp
+    route_tables: []
     spokes:
       - name: vnet-dvp-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-dvp-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: dvp
         resource_group:
           name: rg-dvp-prod-cu-vnet
@@ -1430,7 +1889,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1446,8 +1907,21 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
+          - name: snet-dvp-prod-cu-aci
+            legacy_name:
+            workload_tier: aci
+            nsg_name: nsg-dvp-prod-cu-aci
+            address_prefixes: ["10.60.221.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations:
+              - name: Microsoft.ContainerInstance/containerGroups
+                actions: ["Microsoft.Network/virtualNetworks/subnets/action"]
           - name: snet-dvp-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1457,14 +1931,15 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
       - name: vnet-devops-prod-usc-01
         legacy_name: vnet-devops-prod-usc-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
         legacy_virtual_hub_connection_name: peer-vnet-devops-prod-usc-01
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function:
         resource_group:
           name: rg-vnet-devops-prod-usc-01
@@ -1478,16 +1953,10 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers:
-          [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.5",
-            "10.33.4.21",
-            "10.33.4.22",
-          ]
+        dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -1504,24 +1973,27 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
 
   # IT Monitoring
   - name: sb-itm-prod-1a4d
     id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
     legacy_name:
     nsg_rg_name: rg-itm-prod-cu-nsg
+    routes_rg_name: rg-itm-prod-cu-rt
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetitmprodcu
     environment: prod
     function: itm
+    route_tables: []
     spokes:
       - name: vnet-itm-prod-cu
         legacy_name:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-itm-prod-cu
         legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: itm
         resource_group:
           name: rg-itm-prod-cu-vnet
@@ -1535,7 +2007,9 @@ subscriptions:
         bgp_community:
         ddos_protection_plan:
         dns_servers: []
+        private_dns_zone_links: []
         edge_zone:
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1551,8 +2025,8 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []
           - name: snet-itm-prod-cu-priv
             legacy_name:
             workload_tier: priv
@@ -1562,5 +2036,5 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            delegation:
-              name:
+            route_table_association:
+            delegations: []

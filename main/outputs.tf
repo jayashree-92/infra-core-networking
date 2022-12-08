@@ -5,6 +5,10 @@ output "vwan" {
   }
 }
 
+output "private_dns_zones" {
+  value = local.create_private_dns_zones == true ? module.private_dns_zones[0] : null
+}
+
 output "hub" {
   value = module.hubs
 }

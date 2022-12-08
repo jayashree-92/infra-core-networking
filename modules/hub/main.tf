@@ -62,7 +62,7 @@ resource "azurerm_firewall_policy" "fwp" {
   resource_group_name = azurerm_resource_group.rg_fwp.name
   location            = coalesce(try(var.hub.firewall_policy.location, ""), azurerm_resource_group.rg_fwp.location)
   tags                = var.hub.firewall_policy.tags
-  private_ip_ranges   = var.hub.firewall_policy.private_ip_ranges
+  private_ip_ranges   = length(var.hub.firewall_policy.private_ip_ranges) > 0 ? var.hub.firewall_policy.private_ip_ranges : null
   sku                 = var.hub.firewall_policy.sku
 
 

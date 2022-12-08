@@ -1,16 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.24.0"
-    }
-    random = {
-      source = "hashicorp/random"
-    }
-  }
-  required_version = ">= 0.13"
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = coalesce(try(var.vwan.resource_group.legacy_name, ""), var.vwan.resource_group.name)
   location = var.vwan.resource_group.location

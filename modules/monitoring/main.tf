@@ -1,3 +1,4 @@
+# TODO pass a list of nsgs that is not known only after apply time and use it in foreach loop
 resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
   for_each             = { for nsg in var.nsgs : nsg.name => nsg }
   network_watcher_name = var.network_watcher_name
@@ -55,9 +56,9 @@ resource "azurerm_monitor_diagnostic_setting" "mdg" {
   #   enabled  = false
 
   #   retention_policy {
-  #       days    = 0
-  #       enabled = false
-  #     }
+  #     days    = 0
+  #     enabled = false
+  #   }
   # }
 }
 

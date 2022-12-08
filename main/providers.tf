@@ -1,5 +1,5 @@
 provider "azurerm" {
-  alias           = "vwan_hubs"
+  alias           = "sb_net_prod"
   subscription_id = local.vwan_subscription.id
   features {
   }

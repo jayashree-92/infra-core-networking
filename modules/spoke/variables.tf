@@ -1,7 +1,0 @@
-variable "hub" {
-
-}
-
-variable "spoke" {
-
-}
