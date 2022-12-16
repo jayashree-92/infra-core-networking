@@ -39,6 +39,8 @@ subscriptions:
         - privatelink.table.core.windows.net
         - privatelink.vaultcore.azure.net
         - privatelink.e4ff6437056e.database.windows.net
+        - privatelink.cus.backup.windowsazure.com
+        - privatelink.queue.core.windows.net
     hubs:
       - name: vhub-net-prod-cu
         legacy_name: HubNet-Prod-UsC-01
@@ -1764,18 +1766,22 @@ subscriptions:
         ddos_protection_plan:
         dns_servers: []
         private_dns_zone_links:
+          - privatelink.azconfig.io
           - privatelink.azure-automation.net
           - privatelink.batch.azure.com
           - privatelink.blob.core.windows.net
           - privatelink.database.windows.net
           - privatelink.dfs.core.windows.net
+          - privatelink.e4ff6437056e.database.windows.net
           - privatelink.eventgrid.azure.net
           - privatelink.file.core.windows.net
           - privatelink.postgres.database.azure.com
+          - privatelink.queue.core.windows.net
           - privatelink.servicebus.windows.net
           - privatelink.sql.azuresynapse.net
+          - privatelink.table.core.windows.net
           - privatelink.vaultcore.azure.net
-          - privatelink.e4ff6437056e.database.windows.net
+          - privatelink.cus.backup.windowsazure.com
         edge_zone:
         internet_security_enabled: true
         flow_timeout_in_minutes:
@@ -1831,12 +1837,19 @@ subscriptions:
           - privatelink.azconfig.io
           - privatelink.azure-automation.net
           - privatelink.batch.azure.com
+          - privatelink.blob.core.windows.net
+          - privatelink.database.windows.net
           - privatelink.dfs.core.windows.net
+          - privatelink.e4ff6437056e.database.windows.net
           - privatelink.eventgrid.azure.net
+          - privatelink.file.core.windows.net
+          - privatelink.postgres.database.azure.com
+          - privatelink.queue.core.windows.net
           - privatelink.servicebus.windows.net
           - privatelink.sql.azuresynapse.net
           - privatelink.table.core.windows.net
-          - privatelink.e4ff6437056e.database.windows.net
+          - privatelink.vaultcore.azure.net
+          - privatelink.cus.backup.windowsazure.com
         edge_zone:
         internet_security_enabled: true
         flow_timeout_in_minutes:
