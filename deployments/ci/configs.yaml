@@ -5,6 +5,8 @@ log_analytics_workspace:
   location: Central US
   resource_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itmon-log-prod-usc-01/providers/Microsoft.OperationalInsights/workspaces/log-itmon-shared-prod-usc-01
 
+propagate_not_secure_vitual_hub_connection: false
+
 subscriptions:
   # Network
   - name: sb-net-prod-01

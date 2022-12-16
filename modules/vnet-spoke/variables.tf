@@ -22,6 +22,11 @@ variable "private_dns_zones" {
 
 }
 
+variable "propagate_not_secure_vitual_hub_connection" {
+  type        = bool
+  description = "This flag is used while we are still working on FWP rules."
+}
+
 variable "spoke" {
   description = "Vnet spoke configuration"
   type = object({
