@@ -35,9 +35,7 @@ resource "azurerm_virtual_hub_connection" "vhc" {
   routing {
     associated_route_table_id = replace(var.virtual_hub_default_route_table_id, "defaultRouteTable", var.spoke.virtual_hub_associated_route_table_name)
     propagated_route_table {
-      # labels = ["default", "NotInternetSecurity"]
-      # route_table_ids = [var.virtual_hub_default_route_table_id, "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/not-secure-Default"]
-      route_table_ids = [var.virtual_hub_default_route_table_id, replace(var.virtual_hub_default_route_table_id, "defaultRouteTable", "not-secure-Default")]
+      route_table_ids = local.vhc_propagated_route_table_ids
     }
   }
 
@@ -102,7 +100,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_associations" 
 resource "azurerm_private_dns_zone_virtual_network_link" "pvt_dns_zones_links" {
   provider              = azurerm.hub
   for_each              = { for link in var.spoke.private_dns_zone_links : link => link }
-  name                  = "vnl-${azurerm_virtual_network.vnet.name}"
+  name                  = lower("vnl-${azurerm_virtual_network.vnet.name}")
   resource_group_name   = var.private_dns_zones.routes.rg_name
   private_dns_zone_name = each.key
   virtual_network_id    = azurerm_virtual_network.vnet.id
