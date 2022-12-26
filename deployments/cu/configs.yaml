@@ -353,6 +353,26 @@ subscriptions:
     route_tables:
       - name: rt-pfm-prod-cu-smi
         routes: []
+    vnets:
+      - name: vnet-cpf-prod-cu
+        function: cpf
+        resource_group:
+          name: rg-cpf-prod-cu-vnet
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-cpf-prod-cu
+        address_space: ["172.16.0.0/16"]
+        location:
+        dns_servers: []
+        tags:
+          managed-by: terraform
+          resource-name: vnet-cpf-prod-cu
+          spoke: false
+        subnets:
+          - name: snet-cpf-prod-cu-pub
+            address_prefixes: ["172.16.0.0/24"]
+
     spokes:
       - name: vnet-pfm-prod-cu
         legacy_name:
