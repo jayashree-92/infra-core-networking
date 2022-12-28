@@ -19,7 +19,13 @@ variable "vnet" {
     dns_servers   = list(string)
     subnets = list(object({
       name             = string
+      nsg_name         = string
       address_prefixes = list(string)
     }))
   })
+}
+
+variable "nsg_rg_name" {
+  description = "The name of NSG resource group"
+  type        = string
 }

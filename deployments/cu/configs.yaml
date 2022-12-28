@@ -371,6 +371,7 @@ subscriptions:
           spoke: false
         subnets:
           - name: snet-cpf-prod-cu-pub
+            nsg_name: nsg-cpf-prod-cu-pub
             address_prefixes: ["172.16.0.0/24"]
 
     spokes:
@@ -1012,6 +1013,17 @@ subscriptions:
             workload_tier: pub
             nsg_name: nsg-pub-qa-cu-pub
             address_prefixes: ["10.60.230.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pub-qa-cu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-qa-cu-fts
+            address_prefixes: ["10.60.231.0/24"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []

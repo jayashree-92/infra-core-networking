@@ -37,3 +37,21 @@ resource "azurerm_subnet" "subnets" {
     azurerm_virtual_network.vnet
   ]
 }
+
+# DO NOT USE NETWORK SECURITY RULES IN-LINE WITHIN THE FOLLOWING RESOURCE
+resource "azurerm_network_security_group" "nsgs" {
+  provider            = azurerm.vnet
+  for_each            = { for subnet in var.vnet.subnets : subnet.nsg_name => subnet }
+  name                = "${each.key}-${random_string.rids[each.key].result}"
+  location            = var.location
+  resource_group_name = var.nsg_rg_name
+
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg_associations" {
+  provider                  = azurerm.vnet
+  for_each                  = { for subnet in var.vnet.subnets : subnet.name => subnet }
+  subnet_id                 = "${azurerm_virtual_network.vnet.id}/subnets/${azurerm_subnet.subnets[each.key].name}"
+  network_security_group_id = azurerm_network_security_group.nsgs[each.value.nsg_name].id
+}
+
