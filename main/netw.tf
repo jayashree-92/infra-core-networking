@@ -46,6 +46,7 @@ module "nsg_log_pfm_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_pfm_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_pfm_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_prod[each.key].vnet_spoke
 
@@ -54,6 +55,24 @@ module "nsg_log_pfm_prod" {
   }
 }
 
+######################################
+#  nsg log flow for non spoke vnets
+######################################
+module "nsg_log_pfm_prod_vnets" {
+  for_each                = { for vnet in local.subscriptions_map.sb_pfm_prod.vnets : vnet.name => vnet }
+  source                  = "../modules/monitoring"
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
+  storage_account_id      = azurerm_storage_account.netw_sa_pfm_prod.id
+  location                = local.config_file.location
+  log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsgs                    = module.vnets_sb_pfm_prod[each.key].vnet.nsgs
+  spoke                   = module.vnets_sb_pfm_prod[each.key].vnet
+
+  providers = {
+    azurerm = azurerm.sb_pfm_prod_01
+  }
+}
 
 
 resource "azurerm_storage_account" "netw_sa_pfm_stg" {
@@ -83,6 +102,7 @@ module "nsg_log_pfm_stg" {
   storage_account_id      = azurerm_storage_account.netw_sa_pfm_stg.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_pfm_stg[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_stg[each.key].vnet_spoke
 
@@ -119,6 +139,7 @@ module "nsg_log_pfm_qa" {
   storage_account_id      = azurerm_storage_account.netw_sa_pfm_qa.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_pfm_qa[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_qa[each.key].vnet_spoke
 
@@ -157,6 +178,7 @@ module "nsg_log_pfm_dev" {
   storage_account_id      = azurerm_storage_account.netw_sa_pfm_dev.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_pfm_dev[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_dev[each.key].vnet_spoke
 
@@ -195,6 +217,7 @@ module "nsg_log_id_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_id_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_id_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_id_prod[each.key].vnet_spoke
 
@@ -232,6 +255,7 @@ module "nsg_log_itt_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_itt_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_itt_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_itt_prod[each.key].vnet_spoke
 
@@ -270,6 +294,7 @@ module "nsg_log_dvp_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_dvp_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_dvp_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_dvp_prod[each.key].vnet_spoke
 
@@ -308,6 +333,7 @@ module "nsg_log_itm_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_itm_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_itm_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_itm_prod[each.key].vnet_spoke
 
@@ -346,6 +372,7 @@ module "nsg_log_sec_prod" {
   storage_account_id      = azurerm_storage_account.netw_sa_sec_prod.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_sec_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_sec_prod[each.key].vnet_spoke
 
@@ -383,6 +410,7 @@ module "nsg_log_cpo_prod_us" {
   storage_account_id      = azurerm_storage_account.netw_sa_cpo_prod_us.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_cpo_prod_us[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_cpo_prod_us[each.key].vnet_spoke
 
@@ -420,6 +448,7 @@ module "nsg_log_cpo_prod_ci" {
   storage_account_id      = azurerm_storage_account.netw_sa_cpo_prod_ci.id
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
   nsgs                    = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke
 

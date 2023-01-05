@@ -1,11 +1,9 @@
-# TODO pass a list of nsgs that is not known only after apply time and use it in foreach loop
 resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
-  for_each             = { for nsg in var.nsgs : nsg.name => nsg }
-  network_watcher_name = var.network_watcher_name
-  resource_group_name  = each.value.resource_group_name
-  name                 = "flow-${each.key}"
-
-  network_security_group_id = each.value.id
+  for_each                  = var.nsg_keys
+  network_watcher_name      = var.network_watcher_name
+  resource_group_name       = var.nsgs[each.key].resource_group_name
+  name                      = "flow-${var.nsgs[each.key].name}"
+  network_security_group_id = var.nsgs[each.key].id
   storage_account_id        = var.storage_account_id
   enabled                   = true
 
@@ -25,9 +23,9 @@ resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
 
 
 resource "azurerm_monitor_diagnostic_setting" "mdg" {
-  for_each                   = { for nsg in var.nsgs : nsg.name => nsg }
-  name                       = "diag-${each.key}"
-  target_resource_id         = each.value.id
+  for_each                   = var.nsg_keys
+  name                       = "diag-${var.nsgs[each.key].name}"
+  target_resource_id         = var.nsgs[each.key].id
   storage_account_id         = var.storage_account_id
   log_analytics_workspace_id = var.log_analytics_workspace.resource_id
 

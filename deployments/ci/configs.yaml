@@ -81,6 +81,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-prod-ci-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-prod-ci
@@ -269,6 +270,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-stg-ci-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-stg-ci
@@ -457,6 +459,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-qa-ci-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-qa-ci
@@ -645,6 +648,7 @@ subscriptions:
     function: dev
     route_tables:
       - name: rt-pfm-dev-ci-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-dev-ci
@@ -844,7 +848,23 @@ subscriptions:
     netw_sa_acc_name: sanetcpoprodci
     environment: prod
     function: cpo
-    route_tables: []
+    route_tables:
+      - name: rt-cpo-prod-ci-vdiitadmin
+        disable_bgp_route_propagation: false
+        routes:
+          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
+      - name: rt-cpo-prod-ci-vdidev
+        disable_bgp_route_propagation: false
+        routes:
+          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
     spokes:
       - name: vnet-cpo-prod-ci
         legacy_name:
@@ -883,7 +903,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-ci-vdiitadmin
             delegations: []
           - name: snet-cpo-prod-ci-vdifunc
             legacy_name:
@@ -916,7 +936,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-ci-vdidev
             delegations: []
           - name: snet-cpo-prod-ci-vdidatas
             legacy_name:
@@ -1032,7 +1052,7 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-ci-vdidev
             delegations: []
           - name: Snet-Corp-VDIITadmin-InC-01
             legacy_name: Snet-Corp-VDIITadmin-InC-01
@@ -1043,7 +1063,7 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-ci-vdiitadmin
             delegations: []
 
   #  Security

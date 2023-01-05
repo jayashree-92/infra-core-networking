@@ -352,7 +352,47 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-prod-cu-smi
+        disable_bgp_route_propagation: false
         routes: []
+      - name: rt-pub-prod-cu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-prod-cu-priv
+            address_prefix: 10.60.198.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     vnets:
       - name: vnet-cpf-prod-cu
         function: cpf
@@ -549,6 +589,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+          - name: snet-pub-prod-cu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-prod-cu-fts
+            address_prefixes: ["10.60.235.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pub-prod-cu-fts
+            delegations: []
 
       - name: vnet-platform-prod-usc-01
         legacy_name: vnet-platform-prod-usc-01
@@ -655,7 +706,47 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-stg-cu-smi
+        disable_bgp_route_propagation: false
         routes: []
+      - name: rt-pub-stg-cu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-stg-cu-priv
+            address_prefix: 10.60.182.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-stg-cu
         legacy_name:
@@ -831,6 +922,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+          - name: snet-pub-stg-cu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-stg-cu-fts
+            address_prefixes: ["10.60.233.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pub-stg-cu-fts
+            delegations: []
 
   - name: sb-pfm-qa-1a4d
     id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
@@ -843,7 +945,47 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-qa-cu-smi
+        disable_bgp_route_propagation: false
         routes: []
+      - name: rt-pub-qa-cu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-qa-cu-priv
+            address_prefix: 10.60.166.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
@@ -1023,106 +1165,12 @@ subscriptions:
             legacy_name:
             workload_tier: fts
             nsg_name: nsg-pub-qa-cu-fts
-            address_prefixes: ["10.60.231.0/24"]
+            address_prefixes: ["10.60.231.0/27"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-
-      - name: vnet-platform-preprod-usc-01
-        legacy_name: vnet-platform-preprod-usc-01
-        virtual_hub_name: vhub-net-prod-cu
-        virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
-        legacy_virtual_hub_connection_name: peer-vnet-platform-preprod-usc-01
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function:
-        resource_group:
-          name: rg-vnet-platform-preprod-usc-01
-          legacy_name: rg-vnet-platform-preprod-usc-01
-          location:
-          tags:
-            resource-type: legacy
-            managed-by: terraform
-            resource-name: rg-vnet-platform-preprod-usc-01
-        address_space: ["10.60.32.0/20"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers:
-          [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.5",
-            "10.33.4.21",
-            "10.33.4.22",
-          ]
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          resource-type: legacy
-          managed-by: terraform
-          resource-name: vnet-platform-preprod-usc-01
-          spoke: true
-        subnets:
-          - name: snet-dmz-platform-preprod-usc
-            legacy_name: snet-dmz-platform-preprod-usc
-            workload_tier: dmz
-            nsg_name: nsg-snet-dmz-platform-preprod-usc
-            address_prefixes: ["10.60.32.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-web-platform-preprod-usc
-            legacy_name: snet-web-platform-preprod-usc
-            workload_tier: web
-            nsg_name: nsg-snet-web-platform-preprod-usc
-            address_prefixes: ["10.60.33.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-int-platform-preprod-usc
-            legacy_name: snet-int-platform-preprod-usc
-            workload_tier: int
-            nsg_name: nsg-snet-int-platform-preprod-usc
-            address_prefixes: ["10.60.34.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-data-platform-preprod-usc
-            legacy_name: snet-data-platform-preprod-usc
-            workload_tier: data
-            nsg_name: nsg-snet-data-platform-preprod-usc
-            address_prefixes: ["10.60.38.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-priv-platform-preprod-usc
-            legacy_name: snet-priv-platform-preprod-usc
-            workload_tier: priv
-            nsg_name: nsg-snet-priv-platform-preprod-usc
-            address_prefixes: ["10.60.39.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pub-qa-cu-fts
             delegations: []
 
   - name: sb-pfm-dev-1a4d
@@ -1136,7 +1184,47 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-dev-cu-smi
+        disable_bgp_route_propagation: false
         routes: []
+      - name: rt-pub-dev-cu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-dev-cu-priv
+            address_prefix: 10.60.150.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-dev-cu
         legacy_name:
@@ -1312,6 +1400,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+          - name: snet-pub-dev-cu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-dev-cu-fts
+            address_prefixes: ["10.60.229.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pub-dev-cu-fts
+            delegations: []
 
       - name: Vnet-Dev-UsC-01
         legacy_name: Vnet-Dev-UsC-01
@@ -1417,7 +1516,23 @@ subscriptions:
     netw_sa_acc_name: sanetcpoprodcu
     environment: prod
     function: cpo
-    route_tables: []
+    route_tables:
+      - name: rt-cpo-prod-cu-vdiitadmin
+        disable_bgp_route_propagation: false
+        routes:
+          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-cpo-prod-cu-vdidev
+        disable_bgp_route_propagation: false
+        routes:
+          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
@@ -1456,7 +1571,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdiitadmin
             delegations: []
           - name: snet-cpo-prod-cu-vdifunc
             legacy_name:
@@ -1489,7 +1604,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdidev
             delegations: []
           - name: snet-cpo-prod-cu-vdidatas
             legacy_name:
@@ -1616,7 +1731,7 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdiitadmin
             delegations: []
           - name: Snet-Corp-VDIDev-UsC-01
             legacy_name: Snet-Corp-VDIDev-UsC-01
@@ -1627,7 +1742,7 @@ subscriptions:
             service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdidev
             delegations: []
 
   - name: sb-cpo-prod-ci-1a4d

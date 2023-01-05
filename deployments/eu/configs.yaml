@@ -357,6 +357,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-prod-eu-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-prod-eu
@@ -545,6 +546,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-stg-eu-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-stg-eu
@@ -733,6 +735,7 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-qa-eu-smi
+        disable_bgp_route_propagation: false
         routes: []
     spokes:
       - name: vnet-pfm-qa-eu
@@ -921,8 +924,10 @@ subscriptions:
     function: pfm
     route_tables:
       - name: rt-pfm-dev-eu-smi
+        disable_bgp_route_propagation: false
         routes: []
       - name: rt-pfm-dev-eu-data
+        disable_bgp_route_propagation: false
         routes:
           - name: azfw-eu
             address_prefix: "0.0.0.0/0"

@@ -13,8 +13,13 @@ variable "storage_account_id" {
   type        = string
 }
 
+variable "nsg_keys" {
+  description = "The list of nsg keys that are known before apply time."
+  type        = any
+}
+
 variable "nsgs" {
-  description = "The resource group name for network watcher flow log resources where its related nsg are"
+  description = "The NSGs outputs that are created"
   type = map(object({
     id                  = string
     location            = string
