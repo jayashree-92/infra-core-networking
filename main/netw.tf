@@ -59,7 +59,7 @@ module "nsg_log_pfm_prod" {
 #  nsg log flow for non spoke vnets
 ######################################
 module "nsg_log_pfm_prod_vnets" {
-  for_each                = { for vnet in local.subscriptions_map.sb_pfm_prod.vnets : vnet.name => vnet }
+  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
   storage_account_id      = azurerm_storage_account.netw_sa_pfm_prod.id

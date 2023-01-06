@@ -1,6 +1,6 @@
 # Vnets by subscription
 module "vnets_sb_pfm_prod" {
-  for_each    = { for vnet in local.subscriptions_map.sb_pfm_prod.vnets : vnet.name => vnet }
+  for_each    = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false }
   source      = "../modules/vnet"
   location    = local.config_file.location
   vnet        = each.value
