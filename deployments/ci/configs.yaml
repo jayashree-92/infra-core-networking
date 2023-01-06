@@ -852,17 +852,39 @@ subscriptions:
       - name: rt-cpo-prod-ci-vdiitadmin
         disable_bgp_route_propagation: false
         routes:
-          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
           - name: ro-snet-pub-qa-cu-fts
             address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.70.0.132"
       - name: rt-cpo-prod-ci-vdidev
         disable_bgp_route_propagation: false
         routes:
-          # TODO: Add all routes to fts of eu/ci/cu all environments
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
           - name: ro-snet-pub-qa-cu-fts
             address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.70.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.70.0.132"
     spokes:
