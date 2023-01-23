@@ -42,7 +42,7 @@ subscriptions:
               resource-name: rg-fwp-net-prod-ci
           dns:
             proxy_enabled: true
-            servers: ["10.70.48.4", "10.70.48.5"]
+            servers: ["10.70.48.4", "10.70.48.5", "10.70.208.4", "10.70.208.5"]
           intrusion_detection:
             mode: Alert
           threat_intelligence_allowlist:
