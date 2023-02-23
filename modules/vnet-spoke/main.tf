@@ -23,6 +23,15 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = var.spoke.address_space
   dns_servers         = concat(var.spoke.dns_servers, formatlist(var.virtual_hub_firewall_private_ip_address))
   tags                = var.spoke.tags
+
+  dynamic "ddos_protection_plan" {
+    for_each = local.ddos
+    content {
+      enable = true
+      id     = "/subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pub-prod-cu-vnet-3c7g/providers/Microsoft.Network/ddosProtectionPlans/ddos-pfm-prod-cu-pub-8j03"
+    }
+  }
+
 }
 
 resource "azurerm_virtual_hub_connection" "vhc" {
@@ -86,6 +95,12 @@ resource "azurerm_network_security_group" "nsgs" {
   location            = var.nsg_rg_location
   resource_group_name = var.nsg_rg_name
 
+  # terraform azurerm_network_security_group ignore changes for security rules because they are managed elsewhere
+  lifecycle {
+    ignore_changes = [
+      security_rule
+    ]
+  }
 }
 
 # Currently there is a bug with subnets in vnet-platform-prod-usc-01, their is is suffixed with "1" on every plan/apply

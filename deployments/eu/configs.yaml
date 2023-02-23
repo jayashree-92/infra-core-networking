@@ -3,6 +3,8 @@ location: East US 2
 log_analytics_workspace:
   id: afb8616d-c841-4c0b-994b-515a22076234
   location: Central US
+  name: log-itmon-shared-prod-usc-01
+  resource_group_name: rg-itmon-log-prod-usc-01
   resource_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itmon-log-prod-usc-01/providers/Microsoft.OperationalInsights/workspaces/log-itmon-shared-prod-usc-01
 
 propagate_not_secure_vitual_hub_connection: true
@@ -67,7 +69,7 @@ subscriptions:
               resource-name: rg-fwp-net-prod-eu
           dns:
             proxy_enabled: true
-            servers: ["10.90.48.4", "10.90.48.5", "10.90.208.5"]
+            servers: ["10.90.208.5"]
           intrusion_detection:
             mode: Alert
           threat_intelligence_allowlist:
@@ -352,7 +354,23 @@ subscriptions:
     nsg_rg_name: rg-pfm-prod-eu-nsg
     routes_rg_name: rg-pfm-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetpfmprodeu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pfm-prod-eu-kvl-0483/providers/Microsoft.KeyVault/vaults/kv-pfm-prod-eu-ikey-16q2
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: prod
     function: pfm
     route_tables:
@@ -730,7 +748,22 @@ subscriptions:
     nsg_rg_name: rg-pfm-qa-eu-nsg
     routes_rg_name: rg-pfm-qa-eu-rt
     netw_name: netw-net-qa-eu
-    netw_sa_acc_name: sanetpfmqaeu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: qa
     function: pfm
     route_tables:
@@ -920,6 +953,22 @@ subscriptions:
     routes_rg_name: rg-pfm-dev-eu-rt
     netw_name: netw-net-dev-eu
     netw_sa_acc_name: sanetpfmdeveu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: dev
     function: pfm
     route_tables:
@@ -1117,7 +1166,8 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-eu-nsg
     routes_rg_name: rg-cpo-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetcpoprodeu
+    network_watcher:
+      enabled: false
     environment: prod
     function: cpo
     route_tables: []
@@ -1235,7 +1285,8 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-eu-nsg
     routes_rg_name: rg-cpo-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetcpoprodeu
+    network_watcher:
+      enabled: false
     environment: prod
     function: cpo
     route_tables: []

@@ -3,6 +3,8 @@ location: Central US
 log_analytics_workspace:
   id: afb8616d-c841-4c0b-994b-515a22076234
   location: Central US
+  name: log-itmon-shared-prod-usc-01
+  resource_group_name: rg-itmon-log-prod-usc-01
   resource_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itmon-log-prod-usc-01/providers/Microsoft.OperationalInsights/workspaces/log-itmon-shared-prod-usc-01
 
 propagate_not_secure_vitual_hub_connection: true
@@ -347,7 +349,23 @@ subscriptions:
     nsg_rg_name: rg-pfm-prod-cu-nsg
     routes_rg_name: rg-pfm-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetpfmprodcu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pfm-prod-cu-kvl-01f5/providers/Microsoft.KeyVault/vaults/kv-pfm-prod-cu-ikey-639w
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: prod
     function: pfm
     route_tables:
@@ -940,7 +958,23 @@ subscriptions:
     nsg_rg_name: rg-pfm-qa-cu-nsg
     routes_rg_name: rg-pfm-qa-cu-rt
     netw_name: netw-net-qa-cu
-    netw_sa_acc_name: sanetpfmqacu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/e4eb0487-0872-4b0f-9185-79cf4d6a2af1/resourceGroups/rg-pfm-qa-cu-kvl-277h/providers/Microsoft.KeyVault/vaults/kv-pfm-qa-cu-ikey-5f5m
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: qa
     function: pfm
     route_tables:
@@ -986,6 +1020,26 @@ subscriptions:
             address_prefix: 10.47.14.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+    # vnets:
+    #   - name: vnet-cpf-qa-cu
+    #     function: cpf
+    #     resource_group:
+    #       name: rg-cpf-qa-cu-vnet
+    #       location:
+    #       tags:
+    #         managed-by: terraform
+    #         resource-name: rg-cpf-qa-cu
+    #     address_space: ["172.16.0.0/16"]
+    #     location:
+    #     dns_servers: []
+    #     tags:
+    #       managed-by: terraform
+    #       resource-name: vnet-cpf-qa-cu
+    #       spoke: false
+    #     subnets:
+    #       - name: snet-cpf-qa-cu-pub
+    #         nsg_name: nsg-cpf-qa-cu-pub
+    #         address_prefixes: ["172.16.0.0/24"]
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
@@ -1179,7 +1233,23 @@ subscriptions:
     nsg_rg_name: rg-pfm-dev-cu-nsg
     routes_rg_name: rg-pfm-dev-cu-rt
     netw_name: netw-net-dev-cu
-    netw_sa_acc_name: sanetpfmdevcu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-eu-kvl-88sw/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-eu-ikey-7h2i
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: dev
     function: pfm
     route_tables:
@@ -1513,7 +1583,23 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-cu-nsg
     routes_rg_name: rg-cpo-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetcpoprodcu
+    network_watcher:
+      purpose: cpo
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/d0c437f8-266d-4cd9-84cb-df09ee801e26/resourceGroups/rg-cpo-prod-cu-kvl-34q3/providers/Microsoft.KeyVault/vaults/kv-cpo-prod-cu-ikey-wj25
+        private_endpoint:
+          vnet: cpo
+          snet: priv
     environment: prod
     function: cpo
     route_tables:
@@ -1774,7 +1860,8 @@ subscriptions:
     nsg_rg_name: rg-cpo-prod-cu-nsg
     routes_rg_name: rg-cpo-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetcpoprodcu
+    network_watcher:
+      enabled: false
     environment: prod
     function: cpo
     route_tables: []
@@ -1787,7 +1874,23 @@ subscriptions:
     nsg_rg_name: rg-sec-prod-cu-nsg
     routes_rg_name: rg-sec-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetsecprodcu
+    network_watcher:
+      purpose: sec
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/7a81325d-5d4f-4348-8057-9a5cdca2642e/resourceGroups/rg-sec-prod-cu-kvl-7524/providers/Microsoft.KeyVault/vaults/kv-sec-prod-cu-ikey-37ue
+        private_endpoint:
+          vnet: sec
+          snet: priv
     environment: prod
     function: sec
     route_tables: []
@@ -1850,7 +1953,23 @@ subscriptions:
     nsg_rg_name: rg-itt-prod-cu-nsg
     routes_rg_name: rg-itt-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetittprodcu
+    network_watcher:
+      purpose: itt
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/59d150e5-a66d-418f-8156-9b5b772a1922/resourceGroups/rg-itt-prod-cu-kvl-87hq/providers/Microsoft.KeyVault/vaults/kv-itt-prod-cu-ikey-97gu
+        private_endpoint:
+          vnet: itt
+          snet: priv
     environment: prod
     function: itt
     route_tables: []
@@ -1913,7 +2032,23 @@ subscriptions:
     nsg_rg_name: rg-id-prod-cu-nsg
     routes_rg_name: rg-id-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetidprodcu
+    network_watcher:
+      purpose: id
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/99d9c0c8-690d-42ed-85c8-e910aae61413/resourceGroups/rg-id-prod-cu-kvl-388w/providers/Microsoft.KeyVault/vaults/kv-id-prod-cu-ikey-79zk
+        private_endpoint:
+          vnet: id
+          snet: priv
     environment: prod
     function: id
     route_tables: []
@@ -2050,7 +2185,23 @@ subscriptions:
     nsg_rg_name: rg-dvp-prod-cu-nsg
     routes_rg_name: rg-dvp-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetdvpprodcu
+    network_watcher:
+      purpose: dvp
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/5a1019fa-917d-4ca0-8580-52ff2469e621/resourceGroups/rg-dvp-prod-cu-kvl-167v/providers/Microsoft.KeyVault/vaults/kv-dvp-prod-cu-ikey-7r8g
+        private_endpoint:
+          vnet: dvp
+          snet: priv
     environment: prod
     function: dvp
     route_tables: []
@@ -2168,7 +2319,23 @@ subscriptions:
     nsg_rg_name: rg-itm-prod-cu-nsg
     routes_rg_name: rg-itm-prod-cu-rt
     netw_name: netw-net-prod-cu
-    netw_sa_acc_name: sanetitmprodcu
+    network_watcher:
+      purpose: itm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itm-prod-cu-kvl-0y48/providers/Microsoft.KeyVault/vaults/kv-itm-prod-cu-ikey-3xk8
+        private_endpoint:
+          vnet: itm
+          snet: priv
     environment: prod
     function: itm
     route_tables: []
