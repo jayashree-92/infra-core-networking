@@ -15,10 +15,10 @@ resource "azurerm_resource_group" "rg_nsg_prod" {
   location = local.config_file.location
 }
 
-# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_stg
-resource "azurerm_resource_group" "rg_nsg_stg" {
+# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_tst
+resource "azurerm_resource_group" "rg_nsg_tst" {
   provider = azurerm.sb_pfm_stg_01
-  name     = "${local.subscriptions_map.sb_pfm_stg.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_stg].result}"
+  name     = "${local.subscriptions_map.sb_pfm_tst.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_tst].result}"
   location = local.config_file.location
 }
 

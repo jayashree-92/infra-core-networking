@@ -34,7 +34,7 @@ output "nsg_nsr_map" {
       )
       "dev" = { for item in keys(module.spokes_sb_pfm_dev) : keys(module.spokes_sb_pfm_dev[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_dev[item].nsg_nsr_map)[0]... }
       "qa"  = { for item in keys(module.spokes_sb_pfm_qa) : keys(module.spokes_sb_pfm_qa[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_qa[item].nsg_nsr_map)[0]... }
-      "stg" = { for item in keys(module.spokes_sb_pfm_stg) : keys(module.spokes_sb_pfm_stg[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_stg[item].nsg_nsr_map)[0]... }
+      "stg" = { for item in keys(module.spokes_sb_pfm_tst) : keys(module.spokes_sb_pfm_tst[item].nsg_nsr_map)[0] => values(module.spokes_sb_pfm_tst[item].nsg_nsr_map)[0]... }
     }
   }
 }
@@ -45,4 +45,8 @@ output "create_vwan" {
 
 output "rmt_state" {
   value = local.create_vwan == true ? null : try(data.terraform_remote_state.vwan[0].outputs, null)
+}
+
+output "diag_settings" {
+  value = data.azurerm_monitor_diagnostic_categories.azmon_diag_categories.log_category_types
 }

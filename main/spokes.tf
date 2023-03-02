@@ -19,20 +19,20 @@ module "spokes_sb_pfm_prod" {
   }
 }
 
-module "spokes_sb_pfm_stg" {
-  for_each                                   = { for spoke in local.spokes.sb_pfm_stg : spoke.name => spoke }
+module "spokes_sb_pfm_tst" {
+  for_each                                   = { for spoke in local.spokes.sb_pfm_tst : spoke.name => spoke }
   source                                     = "../modules/vnet-spoke"
   propagate_not_secure_vitual_hub_connection = local.config_file.propagate_not_secure_vitual_hub_connection
   location                                   = local.config_file.location
-  nsg_rg_name                                = azurerm_resource_group.rg_nsg_stg.name
-  nsg_rg_location                            = azurerm_resource_group.rg_nsg_stg.location
-  routes                                     = module.routes_pfm_stg.route_tables
+  nsg_rg_name                                = azurerm_resource_group.rg_nsg_tst.name
+  nsg_rg_location                            = azurerm_resource_group.rg_nsg_tst.location
+  routes                                     = module.routes_pfm_tst.route_tables
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
   spoke                                      = each.value
-  environment                                = local.subscriptions_map.sb_pfm_stg.environment
-  sb_function                                = local.subscriptions_map.sb_pfm_stg.function
+  environment                                = local.subscriptions_map.sb_pfm_tst.environment
+  sb_function                                = local.subscriptions_map.sb_pfm_tst.function
   private_dns_zones                          = local.create_private_dns_zones == true ? module.private_dns_zones[0] : data.terraform_remote_state.private_dns_zones[0].outputs.private_dns_zones
 
   providers = {

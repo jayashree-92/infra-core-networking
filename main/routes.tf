@@ -13,11 +13,11 @@ output "route_test" {
   value = module.routes_pfm_prod
 }
 
-module "routes_pfm_stg" {
+module "routes_pfm_tst" {
   source   = "../modules/route-table"
   location = local.config_file.location
-  rg_name  = local.subscriptions_map.sb_pfm_stg.routes_rg_name
-  routes   = local.route_tables.sb_pfm_stg
+  rg_name  = local.subscriptions_map.sb_pfm_tst.routes_rg_name
+  routes   = local.route_tables.sb_pfm_tst
 
   providers = {
     azurerm = azurerm.sb_pfm_stg_01
