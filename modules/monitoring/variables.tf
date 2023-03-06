@@ -6,6 +6,7 @@ variable "location" {
 variable "network_watcher_name" {
   description = "The network watcher name"
   type        = string
+  default     = ""
 }
 
 variable "storage_account_id" {

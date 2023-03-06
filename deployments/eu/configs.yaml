@@ -18,6 +18,23 @@ subscriptions:
     netw_rg_name: rg-net-prod-eu-netw
     netw_name: netw-net-prod-eu
     netw_sa_acc_name: sanetnetprodeu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        # keyvault_id: /subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pfm-prod-cu-kvl-01f5/providers/Microsoft.KeyVault/vaults/kv-pfm-prod-cu-ikey-639w
+        private_endpoint:
+          vnet: pfm
+          snet: priv
     environment: prod
     function: net
     vwan:
@@ -366,7 +383,7 @@ subscriptions:
         account_kind: StorageV2
         managed_identity_type: SystemAssigned
         large_file_share_enabled: false
-        cmk_encryption_enable: false
+        cmk_encryption_enable: true
         keyvault_id: /subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pfm-prod-eu-kvl-0483/providers/Microsoft.KeyVault/vaults/kv-pfm-prod-eu-ikey-16q2
         private_endpoint:
           vnet: pfm
@@ -556,31 +573,47 @@ subscriptions:
   - name: sb-pfm-stg-01
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
     legacy_name:
-    nsg_rg_name: rg-pfm-stg-eu-nsg
-    routes_rg_name: rg-pfm-stg-eu-rt
-    netw_name: netw-net-stg-eu
-    netw_sa_acc_name: sanetpfmstgeu
-    environment: stg
+    nsg_rg_name: rg-pfm-tst-eu-nsg
+    routes_rg_name: rg-pfm-tst-eu-rt
+    netw_name: netw-net-tst-eu
+    network_watcher:
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: nonexistantfornow
+        private_endpoint:
+          vnet: pfm
+          snet: priv
+    environment: tst
     function: pfm
     route_tables:
-      - name: rt-pfm-stg-eu-smi
+      - name: rt-pfm-tst-eu-smi
         disable_bgp_route_propagation: false
         routes: []
     spokes:
-      - name: vnet-pfm-stg-eu
+      - name: vnet-pfm-tst-eu
         legacy_name:
         virtual_hub_name: vhub-net-prod-eu
-        virtual_hub_connection_name: peer-vnet-pfm-stg-eu
+        virtual_hub_connection_name: peer-vnet-pfm-tst-eu
         legacy_virtual_hub_connection_name:
         virtual_hub_associated_route_table_name: defaultRouteTable
         function: pfm
         resource_group:
-          name: rg-pfm-stg-eu-vnet
+          name: rg-pfm-tst-eu-vnet
           legacy_name:
           location: East US 2
           tags:
             managed-by: terraform
-            resource-name: rg-pfm-stg-eu-vnet
+            resource-name: rg-pfm-tst-eu-vnet
         address_space: ["10.90.176.0/20"]
         location:
         bgp_community:
@@ -592,13 +625,13 @@ subscriptions:
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
-          resource-name: vnet-pfm-stg-eu
+          resource-name: vnet-pfm-tst-eu
           spoke: true
         subnets:
-          - name: snet-pfm-stg-eu-dmz
+          - name: snet-pfm-tst-eu-dmz
             legacy_name:
             workload_tier: dmz
-            nsg_name: nsg-pfm-stg-eu-dmz
+            nsg_name: nsg-pfm-tst-eu-dmz
             address_prefixes: ["10.90.176.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -606,10 +639,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-pres
+          - name: snet-pfm-tst-eu-pres
             legacy_name:
             workload_tier: pres
-            nsg_name: nsg-pfm-stg-eu-pres
+            nsg_name: nsg-pfm-tst-eu-pres
             address_prefixes: ["10.90.177.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -617,10 +650,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-app
+          - name: snet-pfm-tst-eu-app
             legacy_name:
             workload_tier: app
-            nsg_name: nsg-pfm-stg-eu-app
+            nsg_name: nsg-pfm-tst-eu-app
             address_prefixes: ["10.90.178.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -628,10 +661,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-data
+          - name: snet-pfm-tst-eu-data
             legacy_name:
             workload_tier: data
-            nsg_name: nsg-pfm-stg-eu-data
+            nsg_name: nsg-pfm-tst-eu-data
             address_prefixes: ["10.90.179.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -639,10 +672,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-int
+          - name: snet-pfm-tst-eu-int
             legacy_name:
             workload_tier: int
-            nsg_name: nsg-pfm-stg-eu-int
+            nsg_name: nsg-pfm-tst-eu-int
             address_prefixes: ["10.90.180.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -650,10 +683,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-web
+          - name: snet-pfm-tst-eu-web
             legacy_name:
             workload_tier: web
-            nsg_name: nsg-pfm-stg-eu-web
+            nsg_name: nsg-pfm-tst-eu-web
             address_prefixes: ["10.90.181.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -661,10 +694,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-priv
+          - name: snet-pfm-tst-eu-priv
             legacy_name:
             workload_tier: priv
-            nsg_name: nsg-pfm-stg-eu-priv
+            nsg_name: nsg-pfm-tst-eu-priv
             address_prefixes: ["10.90.182.0/24"]
             nsg_enabled: true
             service_endpoints:
@@ -672,10 +705,10 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-osc
+          - name: snet-pfm-tst-eu-osc
             legacy_name:
             workload_tier: osc
-            nsg_name: nsg-pfm-stg-eu-osc
+            nsg_name: nsg-pfm-tst-eu-osc
             address_prefixes: ["10.90.183.0/27"]
             nsg_enabled: true
             service_endpoints:
@@ -683,16 +716,16 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
-          - name: snet-pfm-stg-eu-smi
+          - name: snet-pfm-tst-eu-smi
             legacy_name:
             workload_tier: smi
-            nsg_name: nsg-pfm-stg-eu-smi
+            nsg_name: nsg-pfm-tst-eu-smi
             address_prefixes: ["10.90.183.128/25"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association: rt-pfm-stg-eu-smi
+            route_table_association: rt-pfm-tst-eu-smi
             delegations:
               - name: Microsoft.Sql/managedInstances
                 actions:
@@ -761,6 +794,7 @@ subscriptions:
         managed_identity_type: SystemAssigned
         large_file_share_enabled: false
         cmk_encryption_enable: true
+        keyvault_id: /subscriptions/e4eb0487-0872-4b0f-9185-79cf4d6a2af1/resourceGroups/rg-pfm-qa-eu-kvl-1ru9/providers/Microsoft.KeyVault/vaults/kv-pfm-qa-eu-ikey-d318
         private_endpoint:
           vnet: pfm
           snet: priv
@@ -966,6 +1000,7 @@ subscriptions:
         managed_identity_type: SystemAssigned
         large_file_share_enabled: false
         cmk_encryption_enable: true
+        keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-eu-kvl-88sw/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-eu-ikey-7h2i
         private_endpoint:
           vnet: pfm
           snet: priv
@@ -1167,7 +1202,22 @@ subscriptions:
     routes_rg_name: rg-cpo-prod-eu-rt
     netw_name: netw-net-prod-eu
     network_watcher:
-      enabled: false
+      purpose: cpo
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/d0c437f8-266d-4cd9-84cb-df09ee801e26/resourceGroups/rg-cpo-prod-eu-kvl-62bx/providers/Microsoft.KeyVault/vaults/kv-cpo-prod-eu-ikey-80tv
+        private_endpoint:
+          vnet: cpo
+          snet: priv
     environment: prod
     function: cpo
     route_tables: []
@@ -1299,7 +1349,23 @@ subscriptions:
     nsg_rg_name: rg-sec-prod-eu-nsg
     routes_rg_name: rg-sec-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetsecprodeu
+    network_watcher:
+      purpose: sec
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/7a81325d-5d4f-4348-8057-9a5cdca2642e/resourceGroups/rg-sec-prod-eu-kvl-3ii1/providers/Microsoft.KeyVault/vaults/kv-sec-prod-eu-ikey-42jq
+        private_endpoint:
+          vnet: sec
+          snet: priv
     environment: prod
     function: sec
     route_tables: []
@@ -1362,7 +1428,23 @@ subscriptions:
     nsg_rg_name: rg-itt-prod-eu-nsg
     routes_rg_name: rg-itt-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetittprodeu
+    network_watcher:
+      purpose: itt
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/59d150e5-a66d-418f-8156-9b5b772a1922/resourceGroups/rg-itt-prod-eu-kvl-34vn/providers/Microsoft.KeyVault/vaults/kv-itt-prod-eu-ikey-0r1e
+        private_endpoint:
+          vnet: itt
+          snet: priv
     environment: prod
     function: itt
     route_tables: []
@@ -1425,7 +1507,23 @@ subscriptions:
     nsg_rg_name: rg-id-prod-eu-nsg
     routes_rg_name: rg-id-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetidprodeu
+    network_watcher:
+      purpose: id
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/99d9c0c8-690d-42ed-85c8-e910aae61413/resourceGroups/rg-id-prod-eu-kvl-2488/providers/Microsoft.KeyVault/vaults/kv-id-prod-eu-ikey-h65k
+        private_endpoint:
+          vnet: id
+          snet: priv
     environment: prod
     function: id
     route_tables: []
@@ -1504,7 +1602,23 @@ subscriptions:
     nsg_rg_name: rg-dvp-prod-eu-nsg
     routes_rg_name: rg-dvp-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetdvpprodeu
+    network_watcher:
+      purpose: dvp
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/5a1019fa-917d-4ca0-8580-52ff2469e621/resourceGroups/rg-dvp-prod-eu-kvl-72qt/providers/Microsoft.KeyVault/vaults/kv-dvp-prod-eu-ikey-32qx
+        private_endpoint:
+          vnet: dvp
+          snet: priv
     environment: prod
     function: dvp
     route_tables: []
@@ -1580,7 +1694,23 @@ subscriptions:
     nsg_rg_name: rg-itm-prod-eu-nsg
     routes_rg_name: rg-itm-prod-eu-rt
     netw_name: netw-net-prod-eu
-    netw_sa_acc_name: sanetitmprodeu
+    network_watcher:
+      purpose: itm
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itm-prod-eu-kvl-96p5/providers/Microsoft.KeyVault/vaults/kv-itm-prod-eu-ikey-x35n
+        private_endpoint:
+          vnet: itm
+          snet: priv
     environment: prod
     function: itm
     route_tables: []

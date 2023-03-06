@@ -110,6 +110,10 @@ module "nsg_log_pfm_prod_vnets" {
   providers = {
     azurerm = azurerm.sb_pfm_prod_01
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_pfm_prod
+  ]
 }
 
 module "netw_sa_pfm_tst" {
@@ -183,6 +187,10 @@ module "nsg_log_pfm_tst" {
   providers = {
     azurerm = azurerm.sb_pfm_stg_01
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_pfm_tst
+  ]
 }
 
 module "netw_sa_pfm_qa" {
@@ -258,6 +266,10 @@ module "nsg_log_pfm_qa" {
   providers = {
     azurerm = azurerm.sb_pfm_qa_01
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_pfm_qa
+  ]
 }
 
 ######################################
@@ -277,6 +289,10 @@ module "nsg_log_pfm_qa_vnets" {
   providers = {
     azurerm = azurerm.sb_pfm_qa_01
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_pfm_qa
+  ]
 }
 
 module "netw_sa_pfm_dev" {
@@ -351,6 +367,10 @@ module "nsg_log_pfm_dev" {
   providers = {
     azurerm = azurerm.sb_pfm_dev_01
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_pfm_dev
+  ]
 }
 
 module "netw_sa_id_prod" {
@@ -426,6 +446,10 @@ module "nsg_log_id_prod" {
   providers = {
     azurerm = azurerm.sb_id_prod
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_id_prod,
+  ]
 }
 
 module "netw_sa_itt_prod" {
@@ -501,6 +525,11 @@ module "nsg_log_itt_prod" {
   providers = {
     azurerm = azurerm.sb_itt_prod
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_itt_prod,
+    module.netw_sa_itt_prod,
+  ]
 }
 
 module "netw_sa_dvp_prod" {
@@ -576,6 +605,10 @@ module "nsg_log_dvp_prod" {
   providers = {
     azurerm = azurerm.sb_dvp_prod
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_dvp_prod,
+  ]
 }
 
 module "netw_sa_itm_prod" {
@@ -650,6 +683,11 @@ module "nsg_log_itm_prod" {
   providers = {
     azurerm = azurerm.sb_itm_prod
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_itm_prod,
+    module.netw_sa_itm_prod,
+  ]
 }
 
 module "netw_sa_sec_prod" {
@@ -725,6 +763,10 @@ module "nsg_log_sec_prod" {
   providers = {
     azurerm = azurerm.sb_sec_prod
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_sec_prod,
+  ]
 }
 
 module "netw_sa_cpo_prod_us" {
@@ -798,6 +840,10 @@ module "nsg_log_cpo_prod_us" {
   providers = {
     azurerm = azurerm.sb_cpo_prod_us
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_cpo_prod_us
+  ]
 }
 
 module "netw_sa_cpo_prod_ci" {
@@ -872,4 +918,9 @@ module "nsg_log_cpo_prod_ci" {
   providers = {
     azurerm = azurerm.sb_cpo_prod_ci
   }
+
+  depends_on = [
+    azurerm_network_watcher.netw_cpo_prod_ci,
+    module.netw_sa_cpo_prod_ci
+  ]
 }

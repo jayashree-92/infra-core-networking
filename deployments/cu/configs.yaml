@@ -1262,7 +1262,7 @@ subscriptions:
         managed_identity_type: SystemAssigned
         large_file_share_enabled: false
         cmk_encryption_enable: true
-        keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-eu-kvl-88sw/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-eu-ikey-7h2i
+        keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-cu-kvl-34yv/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-cu-ikey-19cv
         private_endpoint:
           vnet: pfm
           snet: priv
