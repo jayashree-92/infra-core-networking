@@ -8,18 +8,85 @@ resource "random_string" "sa_netw_rids" {
   min_lower   = 2
 }
 
-resource "random_string" "netw_rids" {
-  for_each    = toset(local.sb_rid_keys)
-  length      = 4
-  special     = false
-  upper       = false
-  numeric     = true
-  min_numeric = 2
-  min_lower   = 2
+
+module "netw_sa_net_prod" {
+  count  = try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+
+  resource_group_name               = azurerm_resource_group.rg_nsg_net_prod.name
+  location                          = azurerm_resource_group.rg_nsg_net_prod.location
+  storage_account_name              = local.subscriptions_map.sb_net_prod.network_watcher.function
+  purpose_name                      = local.subscriptions_map.sb_net_prod.network_watcher.purpose
+  environment_code                  = local.subscriptions_map.sb_net_prod.environment
+  use_full_environment_code         = true
+  storage_account_name_suffix       = random_string.sa_netw_rids[local.subscription_names.sb_net_prod].result
+  location_code                     = local.location_code
+  skuname                           = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.skuname
+  min_tls_version                   = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.min_tls_version
+  public_access_enable              = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.public_access_enable
+  enable_advanced_threat_protection = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.enable_advanced_threat_protection
+  account_kind                      = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.account_kind
+  managed_identity_type             = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.managed_identity_type
+  large_file_share_enabled          = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.large_file_share_enabled
+  cmk_encryption_enable             = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.cmk_encryption_enable
+  keyvault_id                       = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.keyvault_id
+  log_analytics_name                = local.config_file.log_analytics_workspace.name
+  log_analytics_resource_group_name = local.config_file.log_analytics_workspace.resource_group_name
+  enable_private_endpoints = {
+    blob = true
+    file = false
+  }
+
+  enable_diagnostig_settings = {
+    table = false
+    queue = true
+    blob  = true
+    file  = true
+  }
+
+  private_endpoint_virtual_network_name                = module.spokes_sb_net_prod["vnet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}"].vnet_spoke.vnet.name
+  private_endpoint_virtual_network_resource_group_name = module.spokes_sb_net_prod["vnet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}"].vnet_spoke.vnet.resource_group_name
+  private_endpoint_subnet_name                         = module.spokes_sb_net_prod["vnet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}"].vnet_spoke.subnets["snet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.snet}"].name
+  private_dns_zone_resource_group_name                 = local.subscriptions_map.sb_net_prod.network_watcher.private_dns_zone_rg_name
+
+  providers = {
+    azurerm               = azurerm.sb_net_prod
+    azurerm.log_analytics = azurerm.sb_itm_prod
+    azurerm.dns_zone      = azurerm.sb_net_prod
+  }
+
+  depends_on = [
+    azurerm_resource_group.rg_nsg_prod
+  ]
 }
 
+resource "azurerm_network_watcher" "netw_net_prod" {
+  provider            = azurerm.sb_net_prod
+  name                = "${local.vwan_subscription.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_net_prod].result}"
+  location            = azurerm_resource_group.rg_nsg_net_prod.location
+  resource_group_name = azurerm_resource_group.rg_nsg_net_prod.name
+}
+
+module "nsg_log_net_prod" {
+  for_each                = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke if try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) }
+  source                  = "../modules/monitoring"
+  network_watcher_name    = azurerm_network_watcher.netw_net_prod.name
+  storage_account_id      = try(module.netw_sa_net_prod[0].id, null)
+  location                = local.config_file.location
+  log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsgs                    = module.spokes_sb_net_prod[each.key].vnet_spoke.nsgs
+  spoke                   = module.spokes_sb_net_prod[each.key].vnet_spoke
+
+  providers = {
+    azurerm = azurerm.sb_net_prod
+  }
+}
+
+
 module "netw_sa_pfm_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_prod.name
   location                          = azurerm_resource_group.rg_nsg_prod.location
@@ -78,10 +145,10 @@ resource "azurerm_network_watcher" "netw_pfm_prod" {
 
 
 module "nsg_log_pfm_prod" {
-  for_each                = { for spoke in local.spokes.sb_pfm_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_pfm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
-  storage_account_id      = module.netw_sa_pfm_prod.id
+  storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -97,10 +164,10 @@ module "nsg_log_pfm_prod" {
 #  nsg log flow for non spoke vnets
 ######################################
 module "nsg_log_pfm_prod_vnets" {
-  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false }
+  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
-  storage_account_id      = module.netw_sa_pfm_prod.id
+  storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -117,7 +184,8 @@ module "nsg_log_pfm_prod_vnets" {
 }
 
 module "netw_sa_pfm_tst" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_tst.name
   location                          = azurerm_resource_group.rg_nsg_tst.location
@@ -174,10 +242,10 @@ resource "azurerm_network_watcher" "netw_pfm_tst" {
 }
 
 module "nsg_log_pfm_tst" {
-  for_each                = { for spoke in local.spokes.sb_pfm_tst : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_pfm_tst : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_tst.name
-  storage_account_id      = module.netw_sa_pfm_tst.id
+  storage_account_id      = try(module.netw_sa_pfm_tst[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -194,7 +262,8 @@ module "nsg_log_pfm_tst" {
 }
 
 module "netw_sa_pfm_qa" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_qa.name
   location                          = azurerm_resource_group.rg_nsg_qa.location
@@ -253,10 +322,10 @@ resource "azurerm_network_watcher" "netw_pfm_qa" {
 
 
 module "nsg_log_pfm_qa" {
-  for_each                = { for spoke in local.spokes.sb_pfm_qa : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_pfm_qa : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_qa.name
-  storage_account_id      = module.netw_sa_pfm_qa.id
+  storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -276,10 +345,10 @@ module "nsg_log_pfm_qa" {
 #  nsg log flow for non spoke vnets
 ######################################
 module "nsg_log_pfm_qa_vnets" {
-  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_qa.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false }
+  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_qa.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_qa.name
-  storage_account_id      = module.netw_sa_pfm_qa.id
+  storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -296,7 +365,8 @@ module "nsg_log_pfm_qa_vnets" {
 }
 
 module "netw_sa_pfm_dev" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_pfm_dev.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_dev.name
   location                          = azurerm_resource_group.rg_nsg_dev.location
@@ -354,10 +424,10 @@ resource "azurerm_network_watcher" "netw_pfm_dev" {
 
 
 module "nsg_log_pfm_dev" {
-  for_each                = { for spoke in local.spokes.sb_pfm_dev : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_pfm_dev : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_dev.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_dev.name
-  storage_account_id      = module.netw_sa_pfm_dev.id
+  storage_account_id      = try(module.netw_sa_pfm_dev[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -374,7 +444,8 @@ module "nsg_log_pfm_dev" {
 }
 
 module "netw_sa_id_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_id_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_id_prod.name
   location                          = azurerm_resource_group.rg_nsg_id_prod.location
@@ -433,10 +504,10 @@ resource "azurerm_network_watcher" "netw_id_prod" {
 
 
 module "nsg_log_id_prod" {
-  for_each                = { for spoke in local.spokes.sb_id_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_id_prod : spoke.name => spoke if try(local.subscriptions_map.sb_id_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_id_prod.name
-  storage_account_id      = module.netw_sa_id_prod.id
+  storage_account_id      = try(module.netw_sa_id_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -453,7 +524,8 @@ module "nsg_log_id_prod" {
 }
 
 module "netw_sa_itt_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_itt_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_itt_prod.name
   location                          = azurerm_resource_group.rg_nsg_itt_prod.location
@@ -512,10 +584,10 @@ resource "azurerm_network_watcher" "netw_itt_prod" {
 
 
 module "nsg_log_itt_prod" {
-  for_each                = { for spoke in local.spokes.sb_itt_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_itt_prod : spoke.name => spoke if try(local.subscriptions_map.sb_itt_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_itt_prod.name
-  storage_account_id      = module.netw_sa_itt_prod.id
+  storage_account_id      = try(module.netw_sa_itt_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -533,7 +605,8 @@ module "nsg_log_itt_prod" {
 }
 
 module "netw_sa_dvp_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_dvp_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_dvp_prod.name
   location                          = azurerm_resource_group.rg_nsg_dvp_prod.location
@@ -592,10 +665,10 @@ resource "azurerm_network_watcher" "netw_dvp_prod" {
 
 
 module "nsg_log_dvp_prod" {
-  for_each                = { for spoke in local.spokes.sb_dvp_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_dvp_prod : spoke.name => spoke if try(local.subscriptions_map.sb_dvp_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_dvp_prod.name
-  storage_account_id      = module.netw_sa_dvp_prod.id
+  storage_account_id      = try(module.netw_sa_dvp_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -612,7 +685,8 @@ module "nsg_log_dvp_prod" {
 }
 
 module "netw_sa_itm_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_itm_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_itm_prod.name
   location                          = azurerm_resource_group.rg_nsg_itm_prod.location
@@ -670,10 +744,10 @@ resource "azurerm_network_watcher" "netw_itm_prod" {
 
 
 module "nsg_log_itm_prod" {
-  for_each                = { for spoke in local.spokes.sb_itm_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_itm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_itm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_itm_prod.name
-  storage_account_id      = module.netw_sa_itm_prod.id
+  storage_account_id      = try(module.netw_sa_itm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -691,7 +765,8 @@ module "nsg_log_itm_prod" {
 }
 
 module "netw_sa_sec_prod" {
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  count  = try(local.subscriptions_map.sb_sec_prod.network_watcher.enabled, true) ? 1 : 0
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_sec_prod.name
   location                          = azurerm_resource_group.rg_nsg_sec_prod.location
@@ -750,10 +825,10 @@ resource "azurerm_network_watcher" "netw_sec_prod" {
 
 
 module "nsg_log_sec_prod" {
-  for_each                = { for spoke in local.spokes.sb_sec_prod : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_sec_prod : spoke.name => spoke if try(local.subscriptions_map.sb_sec_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_sec_prod.name
-  storage_account_id      = module.netw_sa_sec_prod.id
+  storage_account_id      = try(module.netw_sa_sec_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
@@ -770,7 +845,7 @@ module "nsg_log_sec_prod" {
 }
 
 module "netw_sa_cpo_prod_us" {
-  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
   count                             = try(local.subscriptions_map.sb_cpo_prod_us.network_watcher.enabled, true) ? 1 : 0
   resource_group_name               = azurerm_resource_group.rg_nsg_cpo_prod_us.name
   location                          = azurerm_resource_group.rg_nsg_cpo_prod_us.location
@@ -827,7 +902,7 @@ resource "azurerm_network_watcher" "netw_cpo_prod_us" {
 }
 
 module "nsg_log_cpo_prod_us" {
-  for_each                = { for spoke in local.spokes.sb_cpo_prod_us : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_cpo_prod_us : spoke.name => spoke if try(local.subscriptions_map.sb_cpo_prod_us.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = try(azurerm_network_watcher.netw_cpo_prod_us[0].name, null)
   storage_account_id      = try(module.netw_sa_cpo_prod_us[0].id, null)
@@ -847,7 +922,7 @@ module "nsg_log_cpo_prod_us" {
 }
 
 module "netw_sa_cpo_prod_ci" {
-  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=feature/add-more-flags"
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
   count                             = try(local.subscriptions_map.sb_cpo_prod_ci.network_watcher.enabled, true) ? 1 : 0
   resource_group_name               = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
   location                          = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
@@ -905,7 +980,7 @@ resource "azurerm_network_watcher" "netw_cpo_prod_ci" {
 }
 
 module "nsg_log_cpo_prod_ci" {
-  for_each                = { for spoke in local.spokes.sb_cpo_prod_ci : spoke.name => spoke }
+  for_each                = { for spoke in local.spokes.sb_cpo_prod_ci : spoke.name => spoke if try(local.subscriptions_map.sb_cpo_prod_ci.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = try(azurerm_network_watcher.netw_cpo_prod_ci[0].name, null)
   storage_account_id      = try(module.netw_sa_cpo_prod_ci[0].id, null)

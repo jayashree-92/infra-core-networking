@@ -6,6 +6,7 @@ resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
   network_security_group_id = var.nsgs[each.key].id
   storage_account_id        = var.storage_account_id
   enabled                   = true
+  version                   = 2
 
   retention_policy {
     enabled = true

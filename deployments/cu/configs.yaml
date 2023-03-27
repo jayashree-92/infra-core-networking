@@ -18,6 +18,25 @@ subscriptions:
     netw_rg_name: rg-net-prod-cu-netw
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetnetprodcu
+    nsg_rg_name: rg-net-prod-cu-nsg
+    routes_rg_name: rg-net-prod-cu-rt
+    network_watcher:
+      purpose: net
+      function: net
+      private_dns_zone_rg_name: rg-nethub-privdns-usc-01
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/rg-net-prod-cu-kvl-40bn/providers/Microsoft.KeyVault/vaults/kv-net-prod-cu-ikey-078o
+        private_endpoint:
+          vnet: net
+          snet: priv
     environment: prod
     function: net
     private_dns_zones:
@@ -55,18 +74,18 @@ subscriptions:
           managed-by: terraform
           resource-name: vhub-net-prod-cu-01
         firewall_policy:
-          name: fwp-net-prod-cu-01
-          legacy_name: FwPol-Prod-UsC-01
-          location: Canada Central
+          name: fwp-net-prod-cu
+          legacy_name:
+          location:
           sku: Premium
           private_ip_ranges: []
           resource_group:
-            name: rg-fwp-net-prod-cu-01
-            legacy_name: Rg-FwPol-Prod-US-01
-            location: East US 2
+            name: rg-fwp-net-prod-cu
+            legacy_name:
+            location:
             tags:
               managed-by: terraform
-              resource-name: rg-fwp-net-prod-cu-01
+              resource-name: rg-fwp-net-prod-cu
           dns:
             proxy_enabled: true
             servers: ["10.60.48.4", "10.60.48.5", "10.60.208.4", "10.60.208.5"]
@@ -77,7 +96,7 @@ subscriptions:
             ip_addresses: []
           tags:
             managed-by: terraform
-            resource-name: fwp-net-prod-cu-01
+            resource-name: fwp-net-prod-cu
         vpn:
           gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
           enabled: false
@@ -341,7 +360,45 @@ subscriptions:
                 next_hop_type: ResourceId
     route_tables: []
     spokes:
-
+      - name: vnet-net-prod-cu
+        legacy_name:
+        virtual_hub_name: vhub-net-prod-cu
+        virtual_hub_connection_name: peer-vnet-net-prod-cu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: net
+        resource_group:
+          name: rg-net-prod-cu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-net-prod-cu
+        address_space: ["10.60.236.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-net-prod-cu
+          spoke: true
+        subnets:
+          - name: snet-net-prod-cu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-net-prod-cu-priv
+            address_prefixes: ["10.60.237.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
   # Platform
   - name: sb-pfm-prod-1a4d
     id: b69669b9-6d12-4ada-b44d-5f578b85f46c
@@ -713,7 +770,7 @@ subscriptions:
             route_table_association:
             delegations: []
 
-  - name: sb-pfm-stg-01
+  - name: sb-pfm-tst-1a4d
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
     legacy_name:
     nsg_rg_name: rg-pfm-tst-cu-nsg
@@ -731,8 +788,8 @@ subscriptions:
         account_kind: StorageV2
         managed_identity_type: SystemAssigned
         large_file_share_enabled: false
-        cmk_encryption_enable: false
-        keyvault_id:
+        cmk_encryption_enable: true
+        keyvault_id: /subscriptions/a07e20a7-c174-4337-9e5b-8c6aa42acd6d/resourceGroups/rg-pfm-tst-cu-kvl-3x66/providers/Microsoft.KeyVault/vaults/kv-pfm-tst-cu-ikey-884y
         private_endpoint:
           vnet: pfm
           snet: priv
@@ -787,7 +844,7 @@ subscriptions:
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-pfm-tst-cu
         legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
+        virtual_hub_associated_route_table_name: not-secure-Default
         function: pfm
         resource_group:
           name: rg-pfm-tst-cu-vnet
@@ -803,7 +860,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1263,6 +1320,7 @@ subscriptions:
         large_file_share_enabled: false
         cmk_encryption_enable: true
         keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-cu-kvl-34yv/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-cu-ikey-19cv
+        # keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-eu-kvl-88sw/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-eu-ikey-7h2i
         private_endpoint:
           vnet: pfm
           snet: priv
@@ -1693,7 +1751,7 @@ subscriptions:
             nsg_name: nsg-cpo-prod-cu-vdiitadmin
             address_prefixes: ["10.41.0.0/23"]
             nsg_enabled: true
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             route_table_association: rt-cpo-prod-cu-vdiitadmin
@@ -2267,7 +2325,7 @@ subscriptions:
             nsg_name: nsg-dvp-prod-cu-aci
             address_prefixes: ["10.60.221.0/27"]
             nsg_enabled: true
-            service_endpoints:
+            service_endpoints: ["Microsoft.Storage"]
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             route_table_association:

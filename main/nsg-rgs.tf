@@ -8,28 +8,24 @@ resource "random_string" "nsg_rg_rids" {
   min_lower   = 2
 }
 
-# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_prod
 resource "azurerm_resource_group" "rg_nsg_prod" {
   provider = azurerm.sb_pfm_prod_01
   name     = "${local.subscriptions_map.sb_pfm_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_prod].result}"
   location = local.config_file.location
 }
 
-# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_tst
 resource "azurerm_resource_group" "rg_nsg_tst" {
   provider = azurerm.sb_pfm_stg_01
   name     = "${local.subscriptions_map.sb_pfm_tst.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_tst].result}"
   location = local.config_file.location
 }
 
-# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_qa
 resource "azurerm_resource_group" "rg_nsg_qa" {
   provider = azurerm.sb_pfm_qa_01
   name     = "${local.subscriptions_map.sb_pfm_qa.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_qa].result}"
   location = local.config_file.location
 }
 
-# FOR PFM WILL RENAME THE RESOURCE AFTER TO rg_nsg_pfm_dev
 resource "azurerm_resource_group" "rg_nsg_dev" {
   provider = azurerm.sb_pfm_dev_01
   name     = "${local.subscriptions_map.sb_pfm_dev.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_pfm_dev].result}"
@@ -63,6 +59,12 @@ resource "azurerm_resource_group" "rg_nsg_itm_prod" {
 resource "azurerm_resource_group" "rg_nsg_sec_prod" {
   provider = azurerm.sb_sec_prod
   name     = "${local.subscriptions_map.sb_sec_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_sec_prod].result}"
+  location = local.config_file.location
+}
+
+resource "azurerm_resource_group" "rg_nsg_net_prod" {
+  provider = azurerm.sb_net_prod
+  name     = "${local.subscriptions_map.sb_net_prod.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_net_prod].result}"
   location = local.config_file.location
 }
 

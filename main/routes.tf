@@ -102,6 +102,17 @@ module "routes_sec_prod" {
   }
 }
 
+module "routes_net_prod" {
+  source   = "../modules/route-table"
+  location = local.config_file.location
+  rg_name  = local.subscriptions_map.sb_net_prod.routes_rg_name
+  routes   = local.route_tables.sb_net_prod
+
+  providers = {
+    azurerm = azurerm.sb_net_prod
+  }
+}
+
 module "routes_cpo_prod_us" {
   source   = "../modules/route-table"
   location = local.config_file.location

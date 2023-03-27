@@ -194,6 +194,27 @@ module "spokes_sb_sec_prod" {
   }
 }
 
+module "spokes_sb_net_prod" {
+  for_each                                   = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke }
+  source                                     = "../modules/vnet-spoke"
+  propagate_not_secure_vitual_hub_connection = local.config_file.propagate_not_secure_vitual_hub_connection
+  location                                   = local.config_file.location
+  nsg_rg_name                                = azurerm_resource_group.rg_nsg_net_prod.name
+  nsg_rg_location                            = azurerm_resource_group.rg_nsg_net_prod.location
+  routes                                     = module.routes_net_prod.route_tables
+  virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
+  virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
+  virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
+  spoke                                      = each.value
+  sb_function                                = local.subscriptions_map.sb_net_prod.function
+  private_dns_zones                          = local.create_private_dns_zones == true ? module.private_dns_zones[0] : data.terraform_remote_state.private_dns_zones[0].outputs.private_dns_zones
+
+  providers = {
+    azurerm.spoke = azurerm.sb_net_prod
+    azurerm.hub   = azurerm.sb_net_prod
+  }
+}
+
 
 module "spokes_sb_cpo_prod_us" {
   for_each                                   = { for spoke in local.spokes.sb_cpo_prod_us : spoke.name => spoke }

@@ -7,8 +7,9 @@ locals {
   create_private_dns_zones = try({ for i, sub in local.subscriptions : i => sub if(try(sub.private_dns_zones, false) != false) }[0], null) != null
   subscription_ids         = { for sub in local.subscriptions : sub.name => sub.id }
   subscription_names = {
+    sb_net_prod    = "sb-net-prod-01"
     sb_pfm_prod    = "sb-pfm-prod-1a4d"
-    sb_pfm_tst     = "sb-pfm-stg-01"
+    sb_pfm_tst     = "sb-pfm-tst-1a4d"
     sb_pfm_qa      = "sb-pfm-qa-1a4d"
     sb_pfm_dev     = "sb-pfm-dev-1a4d"
     sb_id_prod     = "sb-Id-prod-1a4d"
@@ -21,6 +22,7 @@ locals {
   }
 
   subscriptions_map = {
+    sb_net_prod    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_net_prod)]
     sb_pfm_prod    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_prod)]
     sb_pfm_tst     = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_tst)]
     sb_pfm_qa      = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_pfm_qa)]
@@ -35,6 +37,7 @@ locals {
   }
 
   spokes = {
+    sb_net_prod    = local.subscriptions_map.sb_net_prod.spokes
     sb_pfm_prod    = local.subscriptions_map.sb_pfm_prod.spokes
     sb_pfm_tst     = local.subscriptions_map.sb_pfm_tst.spokes
     sb_pfm_qa      = local.subscriptions_map.sb_pfm_qa.spokes
@@ -49,6 +52,7 @@ locals {
   }
 
   route_tables = {
+    sb_net_prod    = local.subscriptions_map.sb_net_prod.route_tables
     sb_pfm_prod    = local.subscriptions_map.sb_pfm_prod.route_tables
     sb_pfm_tst     = local.subscriptions_map.sb_pfm_tst.route_tables
     sb_pfm_qa      = local.subscriptions_map.sb_pfm_qa.route_tables
@@ -65,9 +69,18 @@ locals {
 
   sb_rid_keys = [for sb_name in local.subscription_names : sb_name]
 
-
-  netw_rg_key       = "netw_rg_key"
-  sa_key            = "sa_key"
-  netw_key          = "netw_key"
-  vwan_hub_rid_keys = [local.netw_rg_key, local.sa_key, local.netw_key]
+  fw_diag_settings_categories = [
+    "AZFWApplicationRule",
+    "AZFWApplicationRuleAggregation",
+    "AZFWDnsQuery",
+    "AZFWFatFlow",
+    "AZFWFlowTrace",
+    "AZFWFqdnResolveFailure",
+    "AZFWIdpsSignature",
+    "AZFWNatRule",
+    "AZFWNatRuleAggregation",
+    "AZFWNetworkRule",
+    "AZFWNetworkRuleAggregation",
+    "AZFWThreatIntel",
+  ]
 }
