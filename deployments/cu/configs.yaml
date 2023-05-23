@@ -1722,6 +1722,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+          - name: snet-cpo-prod-cu-vdidatae
+            legacy_name:
+            workload_tier: vdidatae
+            nsg_name: nsg-cpo-prod-cu-vdidatae
+            address_prefixes: ["10.41.14.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
 
       - name: Vnet-Corp-Prod-UsC-01
         legacy_name: Vnet-Corp-Prod-UsC-01
