@@ -1,0 +1,1536 @@
+location_code: eu
+location: East US 2
+log_analytics_workspace:
+  id: afb8616d-c841-4c0b-994b-515a22076234
+  location: Central US
+  name: log-itmon-shared-prod-usc-01
+  resource_group_name: rg-itmon-log-prod-usc-01
+  resource_id: /subscriptions/26a67cfa-69d2-48fc-a48a-d6aa5abe04ba/resourceGroups/rg-itmon-log-prod-usc-01/providers/Microsoft.OperationalInsights/workspaces/log-itmon-shared-prod-usc-01
+
+propagate_not_secure_vitual_hub_connection: false
+
+subscriptions:
+  # Network
+  - name: sb-net-prod-01
+    contains_vwan: true
+    id: 75641de5-1456-4853-bc77-dd7db76c35a1
+    legacy_name:
+    nsg_rg_name: rg-net-dr-eu-nsg
+    routes_rg_name: rg-net-dr-eu-rt
+    netw_rg_name: rg-net-dr-eu-netw
+    netw_name: netw-net-dr-eu
+    netw_sa_acc_name: sanetnetprodeu
+    network_watcher:
+      enabled: false
+      purpose: net
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/rg-net-dr-eu-kvl-8494/providers/Microsoft.KeyVault/vaults/kv-net-dr-eu-ikey-72v7
+        private_endpoint:
+          vnet: net
+          snet: priv
+    environment: dr
+    function: net
+
+    vwan:
+      name: vwan-dr-eu
+      subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
+      resource_group:
+        name: rg-net-dr-eu
+        legacy_name:
+        location: East US 2
+        tags:
+          managed-by: terraform
+          resource-name: rg-net-dr-eu
+      location: East US 2
+      location_code: eu
+      disable_vpn_encryption: false
+      allow_branch_to_branch_traffic: true
+      office365_local_breakout_category: None
+      type: Standard
+      tags:
+        managed-by: terraform
+
+    private_dns_zones:
+      resource_group:
+        name: rg-net-dr-eu-dns
+        location:
+      zones:
+        - privatelink.agentsvc.azure-automation.net
+        - privatelink.azconfig.io
+        - privatelink.azure-automation.net
+        - privatelink.batch.azure.com
+        - privatelink.blob.core.windows.net
+        - privatelink.database.windows.net
+        - privatelink.dfs.core.windows.net
+        - privatelink.eventgrid.azure.net
+        - privatelink.file.core.windows.net
+        - privatelink.monitor.azure.com
+        - privatelink.ods.opinsights.azure.com
+        - privatelink.oms.opinsights.azure.com
+        - privatelink.postgres.database.azure.com
+        - privatelink.servicebus.windows.net
+        - privatelink.sql.azuresynapse.net
+        - privatelink.table.core.windows.net
+        - privatelink.vaultcore.azure.net
+        - privatelink.e4ff6437056e.database.windows.net
+        - privatelink.cus.backup.windowsazure.com
+        - privatelink.queue.core.windows.net
+
+    hubs:
+      - name: vhub-net-dr-eu
+        legacy_name:
+        location:
+        address_prefix: 10.60.0.0/23
+        sku: Standard
+        vpn:
+          enabled: false
+          gateway_name:
+          sites: []
+        tags:
+          managed-by: terraform
+          resource-name: vhub-net-prod-uc-01
+        firewall_policy:
+          name: fwp-net-dr-eu
+          legacy_name:
+          private_ip_ranges: []
+          location: East US 2
+          sku: Premium
+          tags:
+            managed-by: terraform
+            resource-name: rg-fwp-net-dr-eu
+          resource_group:
+            name: rg-fwp-net-dr-eu
+            legacy_name:
+            location: East US 2
+            tags:
+              managed-by: terraform
+              resource-name: rg-fwp-net-dr-eu
+          dns:
+            proxy_enabled: true
+            servers: ["10.60.208.5"]
+          intrusion_detection:
+            mode: Alert
+          threat_intelligence_allowlist:
+            fqdns: []
+            ip_addresses: []
+        firewall:
+          name: fw-net-dr-eu
+          legacy_name:
+          location: East US 2
+          sku_tier: Premium
+          sku_name: AZFW_Hub
+          dns_servers: []
+          tags:
+            managed-by: terraform
+            resource-name: fw-net-prod-uc
+        route_tables:
+          []
+          # - name: not-secure-Default
+          #   labels:
+          #     - NotInternetSecurity
+          #   routes:
+
+    route_tables: []
+    spokes:
+      - name: vnet-net-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-net-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: net
+        resource_group:
+          name: rg-net-dr-eu-vnet
+          legacy_name:
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-net-dr-eu
+        address_space: ["10.60.236.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-net-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-net-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-net-dr-eu-priv
+            address_prefixes: ["10.60.237.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+  # Platform
+
+  - name: sb-pfm-prod-1a4d
+    id: b69669b9-6d12-4ada-b44d-5f578b85f46c
+    legacy_name:
+    nsg_rg_name: rg-pfm-dr-eu-nsg
+    routes_rg_name: rg-pfm-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/b69669b9-6d12-4ada-b44d-5f578b85f46c/resourceGroups/rg-pfm-dr-eu-kvl-0483/providers/Microsoft.KeyVault/vaults/kv-pfm-dr-eu-ikey-16q2
+        private_endpoint:
+          vnet: pfm
+          snet: priv
+    environment: dr
+    function: pfm
+    route_tables:
+      - name: rt-pfm-dr-eu-smi
+        disable_bgp_route_propagation: false
+        routes: []
+    spokes:
+      - name: vnet-pfm-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-pfm-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: pfm
+        resource_group:
+          name: rg-pfm-dr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-dr-eu-vnet
+        address_space: ["10.60.192.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-dr-eu-dmz
+            legacy_name:
+            workload_tier: dmz
+            nsg_name: nsg-pfm-dr-eu-dmz
+            address_prefixes: ["10.60.192.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-pres
+            legacy_name:
+            workload_tier: pres
+            nsg_name: nsg-pfm-dr-eu-pres
+            address_prefixes: ["10.60.193.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-app
+            legacy_name:
+            workload_tier: app
+            nsg_name: nsg-pfm-dr-eu-app
+            address_prefixes: ["10.60.194.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-data
+            legacy_name:
+            workload_tier: data
+            nsg_name: nsg-pfm-dr-eu-data
+            address_prefixes: ["10.60.195.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-int
+            legacy_name:
+            workload_tier: int
+            nsg_name: nsg-pfm-dr-eu-int
+            address_prefixes: ["10.60.196.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-web
+            legacy_name:
+            workload_tier: web
+            nsg_name: nsg-pfm-dr-eu-web
+            address_prefixes: ["10.60.197.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-pfm-dr-eu-priv
+            address_prefixes: ["10.60.198.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-dr-eu-osc
+            address_prefixes: ["10.60.199.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-dr-eu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-dr-eu-smi
+            address_prefixes: ["10.60.199.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-dr-eu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
+
+      - name: vnet-pub-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-pub-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: pub
+        resource_group:
+          name: rg-pub-dr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-dr-eu-vnet
+        address_space: ["10.60.234.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        private_dns_zone_links: []
+        dns_servers: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-pub-dr-eu-pub
+            legacy_name:
+            workload_tier: pub
+            nsg_name: nsg-pub-dr-eu-pub
+            address_prefixes: ["10.60.234.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+  - name: sb-pfm-tst-1a4d
+    id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
+    legacy_name:
+    nsg_rg_name: rg-pfm-tst-eu-nsg
+    routes_rg_name: rg-pfm-tst-eu-rt
+    netw_name: netw-net-tst-eu
+    network_watcher:
+      enabled: false
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/a07e20a7-c174-4337-9e5b-8c6aa42acd6d/resourceGroups/rg-pfm-tst-eu-kvl-159e/providers/Microsoft.KeyVault/vaults/kv-pfm-tst-eu-ikey-5j6u
+        private_endpoint:
+          vnet: pfm
+          snet: priv
+    environment: tst
+    function: pfm
+    route_tables:
+      []
+      # - name: rt-pfm-tst-eu-smi
+      #   disable_bgp_route_propagation: false
+      #   routes: []
+    spokes:
+      []
+      # - name: vnet-pfm-tst-eu
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-dr-eu
+      #   virtual_hub_connection_name: peer-vnet-pfm-tst-eu
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-tst-eu-vnet
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-tst-eu-vnet
+      #   address_space: ["10.60.176.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-tst-eu
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-tst-eu-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-tst-eu-dmz
+      #       address_prefixes: ["10.60.176.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-tst-eu-pres
+      #       address_prefixes: ["10.60.177.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-tst-eu-app
+      #       address_prefixes: ["10.60.178.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-tst-eu-data
+      #       address_prefixes: ["10.60.179.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-tst-eu-int
+      #       address_prefixes: ["10.60.180.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-tst-eu-web
+      #       address_prefixes: ["10.60.181.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-tst-eu-priv
+      #       address_prefixes: ["10.60.182.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-tst-eu-osc
+      #       address_prefixes: ["10.60.183.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-eu-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-tst-eu-smi
+      #       address_prefixes: ["10.60.183.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-tst-eu-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
+
+      # - name: vnet-pub-tst-eu
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-dr-eu
+      #   virtual_hub_connection_name: peer-vnet-pub-tst-eu
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-tst-eu-vnet
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-tst-eu-vnet
+      #   address_space: ["10.60.232.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-tst-eu-vnet
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-tst-eu-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-tst-eu-pub
+      #       address_prefixes: ["10.60.232.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+
+  - name: sb-pfm-qa-1a4d
+    id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
+    legacy_name:
+    nsg_rg_name: rg-pfm-qa-eu-nsg
+    routes_rg_name: rg-pfm-qa-eu-rt
+    netw_name: netw-net-qa-eu
+    network_watcher:
+      enabled: false
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/e4eb0487-0872-4b0f-9185-79cf4d6a2af1/resourceGroups/rg-pfm-qa-eu-kvl-1ru9/providers/Microsoft.KeyVault/vaults/kv-pfm-qa-eu-ikey-d318
+        private_endpoint:
+          vnet: pfm
+          snet: priv
+    environment: qa
+    function: pfm
+    route_tables:
+      - name: rt-pfm-qadr-eu-smi
+        disable_bgp_route_propagation: false
+        routes: []
+      - name: rt-pub-qadr-eu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-qadr-eu-priv
+            address_prefix: 10.60.166.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-cu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-cu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+    spokes:
+      - name: vnet-pfm-qadr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-pfm-qadr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: pfm
+        resource_group:
+          name: rg-pfm-qadr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pfm-qadr-eu-vnet
+        address_space: ["10.60.160.0/20"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pfm-qadr-eu
+          spoke: true
+        subnets:
+          - name: snet-pfm-qadr-eu-dmz
+            legacy_name:
+            workload_tier: dmz
+            nsg_name: nsg-pfm-qadr-eu-dmz
+            address_prefixes: ["10.60.160.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-pres
+            legacy_name:
+            workload_tier: pres
+            nsg_name: nsg-pfm-qadr-eu-pres
+            address_prefixes: ["10.60.161.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-app
+            legacy_name:
+            workload_tier: app
+            nsg_name: nsg-pfm-qadr-eu-app
+            address_prefixes: ["10.60.162.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-data
+            legacy_name:
+            workload_tier: data
+            nsg_name: nsg-pfm-qadr-eu-data
+            address_prefixes: ["10.60.163.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-int
+            legacy_name:
+            workload_tier: int
+            nsg_name: nsg-pfm-qadr-eu-int
+            address_prefixes: ["10.60.164.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-web
+            legacy_name:
+            workload_tier: web
+            nsg_name: nsg-pfm-qadr-eu-web
+            address_prefixes: ["10.60.165.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-pfm-qadr-eu-priv
+            address_prefixes: ["10.60.166.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-osc
+            legacy_name:
+            workload_tier: osc
+            nsg_name: nsg-pfm-qadr-eu-osc
+            address_prefixes: ["10.60.167.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pfm-qadr-eu-smi
+            legacy_name:
+            workload_tier: smi
+            nsg_name: nsg-pfm-qadr-eu-smi
+            address_prefixes: ["10.60.167.128/25"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pfm-qadr-eu-smi
+            delegations:
+              - name: Microsoft.Sql/managedInstances
+                actions:
+                  [
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                  ]
+
+      - name: vnet-pub-qadr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-pub-qadr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: pub
+        resource_group:
+          name: rg-pub-qadr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-pub-qadr-eu-vnet
+        address_space: ["10.60.230.0/23"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-pub-qadr-eu-vnet
+          spoke: true
+        subnets:
+          - name: snet-pub-qadr-eu-pub
+            legacy_name:
+            workload_tier: pub
+            nsg_name: nsg-pub-qadr-eu-pub
+            address_prefixes: ["10.60.230.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-pub-qadr-eu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-qadr-eu-fts
+            address_prefixes: ["10.60.231.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pub-qadr-eu-fts
+            delegations: []
+
+  - name: sb-pfm-dev-1a4d
+    id: 389c5b26-4aae-466b-962e-eeecac03f3a3
+    legacy_name: Sb-client-Dev-US-01
+    nsg_rg_name: rg-pfm-dev-eu-nsg
+    routes_rg_name: rg-pfm-dev-eu-rt
+    netw_name: netw-net-dev-eu
+    netw_sa_acc_name: sanetpfmdeveu
+    network_watcher:
+      enabled: false
+      purpose: pfm
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/4172118f-0fbf-4130-ba5b-5ad78292ae91/resourceGroups/rg-pfm-dev-eu-kvl-88sw/providers/Microsoft.KeyVault/vaults/kv-pfm-dev-eu-ikey-7h2i
+        private_endpoint:
+          vnet: pfm
+          snet: priv
+    environment: dev
+    function: pfm
+    route_tables:
+      []
+      # - name: rt-pfm-dev-eu-smi
+      #   disable_bgp_route_propagation: false
+      #   routes: []
+      # - name: rt-pfm-dev-eu-data
+      #   disable_bgp_route_propagation: false
+      #   routes:
+      #     - name: azfw-eu
+      #       address_prefix: "0.0.0.0/0"
+      #       next_hop_type: VirtualAppliance
+      #       next_hop_in_ip_address: "10.60.0.132"
+    spokes:
+      []
+      # - name: vnet-pfm-dev-eu
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-dr-eu
+      #   virtual_hub_connection_name: peer-vnet-pfm-dev-eu
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: not-secure-Default
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-dev-eu-vnet
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-dev-eu-vnet
+      #   address_space: ["10.60.144.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links:
+      #     - privatelink.postgres.database.azure.com
+      #   edge_zone:
+      #   internet_security_enabled: false
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-dev-eu
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-dev-eu-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-dev-eu-dmz
+      #       address_prefixes: ["10.60.144.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-dev-eu-pres
+      #       address_prefixes: ["10.60.145.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-dev-eu-app
+      #       address_prefixes: ["10.60.146.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-dev-eu-data
+      #       address_prefixes: ["10.60.147.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-dev-eu-data
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-dev-eu-int
+      #       address_prefixes: ["10.60.148.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-dev-eu-web
+      #       address_prefixes: ["10.60.149.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-dev-eu-priv
+      #       address_prefixes: ["10.60.150.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-dev-eu-osc
+      #       address_prefixes: ["10.60.151.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-eu-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-dev-eu-smi
+      #       address_prefixes: ["10.60.151.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-dev-eu-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
+
+      # - name: vnet-pub-dev-eu
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-dr-eu
+      #   virtual_hub_connection_name: peer-vnet-pub-dev-eu
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-dev-eu-vnet
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-dev-eu-vnet
+      #   address_space: ["10.60.228.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-dev-eu
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-dev-eu-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-dev-eu-pub
+      #       address_prefixes: ["10.60.228.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+
+  # Corporate
+  - name: sb-cpo-prod-us-1a4d
+    id: d0c437f8-266d-4cd9-84cb-df09ee801e26
+    legacy_name:
+    nsg_rg_name: rg-cpo-dr-eu-nsg
+    routes_rg_name: rg-cpo-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: cpo
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/d0c437f8-266d-4cd9-84cb-df09ee801e26/resourceGroups/rg-cpo-dr-eu-kvl-62bx/providers/Microsoft.KeyVault/vaults/kv-cpo-dr-eu-ikey-80tv
+        private_endpoint:
+          vnet: cpo
+          snet: priv
+    environment: dr
+    function: cpo
+    route_tables: []
+    spokes:
+      - name: vnet-cpo-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-cpo-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        virtual_hub_propagated_route_table_names:
+        function: cpo
+        resource_group:
+          name: rg-cpo-dr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-cpo-dr-eu-vnet
+        address_space: ["10.42.0.0/19"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-cpo-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-cpo-dr-eu-vdiitadmin
+            legacy_name:
+            workload_tier: vdiitadmin
+            nsg_name: nsg-cpo-dr-eu-vdiitadmin
+            address_prefixes: ["10.42.0.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-vdifunc
+            legacy_name:
+            workload_tier: vdifunc
+            nsg_name: nsg-cpo-dr-eu-vdifunc
+            address_prefixes: ["10.42.2.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-vdibsops
+            legacy_name:
+            workload_tier: vdibsops
+            nsg_name: nsg-cpo-dr-eu-vdibsops
+            address_prefixes: ["10.42.4.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-vdidev
+            legacy_name:
+            workload_tier: vdidev
+            nsg_name: nsg-cpo-dr-eu-vdidev
+            address_prefixes: ["10.42.6.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-vdidatas
+            legacy_name:
+            workload_tier: vdidatas
+            nsg_name: nsg-cpo-dr-eu-vdidatas
+            address_prefixes: ["10.42.8.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-app
+            legacy_name:
+            workload_tier: app
+            nsg_name: nsg-cpo-dr-eu-app
+            address_prefixes: ["10.42.10.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-cpo-dr-eu-priv
+            address_prefixes: ["10.42.13.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+  - name: sb-cpo-prod-ci-1a4d
+    id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
+    legacy_name: Sb-Corp-Prod-IN
+    nsg_rg_name: rg-cpo-dr-eu-nsg
+    routes_rg_name: rg-cpo-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+    environment: dr
+    function: cpo
+    route_tables: []
+    spokes: []
+
+  #  Security
+  - name: sb-sec-prod-01
+    id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
+    legacy_name:
+    nsg_rg_name: rg-sec-dr-eu-nsg
+    routes_rg_name: rg-sec-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: sec
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/7a81325d-5d4f-4348-8057-9a5cdca2642e/resourceGroups/rg-sec-dr-eu-kvl-3ii1/providers/Microsoft.KeyVault/vaults/kv-sec-dr-eu-ikey-42jq
+        private_endpoint:
+          vnet: sec
+          snet: priv
+    environment: dr
+    function: sec
+    route_tables: []
+    spokes:
+      - name: vnet-sec-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-sec-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: sec
+        resource_group:
+          name: rg-sec-dr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-sec-dr-eu-vnet
+        address_space: ["10.60.212.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-sec-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-sec-dr-eu-inf
+            legacy_name:
+            workload_tier: inf
+            nsg_name: nsg-sec-dr-eu-inf
+            address_prefixes: ["10.60.212.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-sec-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-sec-dr-eu-priv
+            address_prefixes: ["10.60.215.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+  # IT Tools
+  - name: sb-itt-prod-1a4d
+    id: 59d150e5-a66d-418f-8156-9b5b772a1922
+    legacy_name: Sb_ITTools-Prod-01
+    nsg_rg_name: rg-itt-dr-eu-nsg
+    routes_rg_name: rg-itt-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: itt
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/59d150e5-a66d-418f-8156-9b5b772a1922/resourceGroups/rg-itt-dr-eu-kvl-34vn/providers/Microsoft.KeyVault/vaults/kv-itt-dr-eu-ikey-0r1e
+        private_endpoint:
+          vnet: itt
+          snet: priv
+    environment: dr
+    function: itt
+    route_tables: []
+    spokes:
+      []
+      # - name: vnet-itt-dr-eu
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-dr-eu
+      #   virtual_hub_connection_name: peer-vnet-itt-dr-eu
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: itt
+      #   resource_group:
+      #     name: rg-itt-dr-eu-vnet
+      #     legacy_name:
+      #     location: East US 2
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-itt-dr-eu-vnet
+      #   address_space: ["10.60.216.0/22"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-itt-dr-eu
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-itt-dr-eu-inf
+      #       legacy_name:
+      #       workload_tier: inf
+      #       nsg_name: nsg-itt-dr-eu-inf
+      #       address_prefixes: ["10.60.216.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-itt-dr-eu-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-itt-dr-eu-priv
+      #       address_prefixes: ["10.60.219.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+
+  # Identity
+  - name: sb-Id-prod-1a4d
+    id: 99d9c0c8-690d-42ed-85c8-e910aae61413
+    legacy_name:
+    nsg_rg_name: rg-id-dr-eu-nsg
+    routes_rg_name: rg-id-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: id
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/99d9c0c8-690d-42ed-85c8-e910aae61413/resourceGroups/rg-id-dr-eu-kvl-2488/providers/Microsoft.KeyVault/vaults/kv-id-dr-eu-ikey-h65k
+        private_endpoint:
+          vnet: id
+          snet: priv
+    environment: dr
+    function: id
+    route_tables: []
+    spokes:
+      - name: vnet-id-dr-eu
+        legacy_name:
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-id-dr-eu
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: defaultRouteTable
+        function: id
+        resource_group:
+          name: rg-id-dr-eu-vnet
+          legacy_name:
+          location: East US 2
+          tags:
+            managed-by: terraform
+            resource-name: rg-id-dr-eu-vnet
+        address_space: ["10.60.208.0/22"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links:
+          - privatelink.azconfig.io
+          - privatelink.azure-automation.net
+          - privatelink.batch.azure.com
+          - privatelink.blob.core.windows.net
+          - privatelink.database.windows.net
+          - privatelink.dfs.core.windows.net
+          - privatelink.e4ff6437056e.database.windows.net
+          - privatelink.eventgrid.azure.net
+          - privatelink.file.core.windows.net
+          - privatelink.postgres.database.azure.com
+          - privatelink.queue.core.windows.net
+          - privatelink.servicebus.windows.net
+          - privatelink.sql.azuresynapse.net
+          - privatelink.table.core.windows.net
+          - privatelink.vaultcore.azure.net
+          - privatelink.cus.backup.windowsazure.com
+        edge_zone:
+        internet_security_enabled: true
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-id-dr-eu
+          spoke: true
+        subnets:
+          - name: snet-id-dr-eu-inf
+            legacy_name:
+            workload_tier: inf
+            nsg_name: nsg-id-dr-eu-inf
+            address_prefixes: ["10.60.208.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-id-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-id-dr-eu-priv
+            address_prefixes: ["10.60.211.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+  # DevOps
+  - name: sb-dvp-prod-1a4d
+    id: 5a1019fa-917d-4ca0-8580-52ff2469e621
+    legacy_name:
+    nsg_rg_name: rg-dvp-dr-eu-nsg
+    routes_rg_name: rg-dvp-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+      purpose: dvp
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id: /subscriptions/5a1019fa-917d-4ca0-8580-52ff2469e621/resourceGroups/rg-dvp-dr-eu-kvl-72qt/providers/Microsoft.KeyVault/vaults/kv-dvp-dr-eu-ikey-32qx
+        private_endpoint:
+          vnet: dvp
+          snet: priv
+    environment: dr
+    function: dvp
+    route_tables: []
+    spokes: []
+
+  # IT Monitoring
+  - name: sb-itm-prod-1a4d
+    id: 26a67cfa-69d2-48fc-a48a-d6aa5abe04ba
+    legacy_name:
+    nsg_rg_name: rg-itm-dr-eu-nsg
+    routes_rg_name: rg-itm-dr-eu-rt
+    netw_name: netw-net-dr-eu
+    network_watcher:
+      enabled: false
+    environment: dr
+    function: itm
+    route_tables: []
+    spokes: []
+
+  # Innocap Legacy
+  - name: sb-inno-mtl
+    id: 5605304f-51d3-41aa-9b59-0ccce4b7c22e
+    legacy_name:
+    nsg_rg_name: rg-inno-prod-cu-nsg
+    routes_rg_name: rg-inno-prod-cu-rt
+    netw_name: netw-net-prod-cu
+    network_watcher:
+      enabled: false
+    environment: dr
+    function: inno
+    route_tables: []
+    spokes: []

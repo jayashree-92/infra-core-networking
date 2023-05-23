@@ -33,6 +33,7 @@ variable "spoke" {
     name                                    = string
     legacy_name                             = string
     virtual_hub_name                        = string
+    virtual_hub_connection_enabled          = optional(bool, true)
     virtual_hub_connection_name             = string
     legacy_virtual_hub_connection_name      = string
     virtual_hub_associated_route_table_name = string

@@ -19,6 +19,7 @@ locals {
     sb_sec_prod    = "sb-sec-prod-01"
     sb_cpo_prod_us = "sb-cpo-prod-us-1a4d"
     sb_cpo_prod_ci = "sb-cpo-prod-ci-1a4d"
+    sb_inno_mtl    = "sb-inno-mtl"
   }
 
   subscriptions_map = {
@@ -34,6 +35,7 @@ locals {
     sb_sec_prod    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_sec_prod)]
     sb_cpo_prod_us = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_cpo_prod_us)]
     sb_cpo_prod_ci = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_cpo_prod_ci)]
+    sb_inno_mtl    = local.subscriptions[index(local.subscriptions.*.name, local.subscription_names.sb_inno_mtl)]
   }
 
   spokes = {
@@ -49,6 +51,7 @@ locals {
     sb_sec_prod    = local.subscriptions_map.sb_sec_prod.spokes
     sb_cpo_prod_us = local.subscriptions_map.sb_cpo_prod_us.spokes
     sb_cpo_prod_ci = local.subscriptions_map.sb_cpo_prod_ci.spokes
+    sb_inno_mtl    = local.subscriptions_map.sb_inno_mtl.spokes
   }
 
   route_tables = {
@@ -64,6 +67,7 @@ locals {
     sb_sec_prod    = local.subscriptions_map.sb_sec_prod.route_tables
     sb_cpo_prod_us = local.subscriptions_map.sb_cpo_prod_us.route_tables
     sb_cpo_prod_ci = local.subscriptions_map.sb_cpo_prod_ci.route_tables
+    sb_inno_mtl    = local.subscriptions_map.sb_inno_mtl.route_tables
   }
 
 

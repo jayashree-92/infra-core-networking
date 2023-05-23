@@ -13,6 +13,8 @@ variable "routes" {
   type = list(
     object({
       name                          = string
+      legacy_name                   = optional(string)
+      tags                          = optional(map(string))
       disable_bgp_route_propagation = bool
       routes = optional(list(object({
         name                   = string

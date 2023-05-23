@@ -35,6 +35,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_virtual_hub_connection" "vhc" {
+  count                     = var.spoke.virtual_hub_connection_enabled ? 1 : 0
   provider                  = azurerm.hub
   name                      = coalesce(try(var.spoke.legacy_virtual_hub_connection_name, ""), "${var.spoke.virtual_hub_connection_name}-${random_string.rids[local.vhc_key].result}")
   remote_virtual_network_id = trimsuffix(azurerm_virtual_network.vnet.id, "/")
@@ -90,7 +91,7 @@ resource "azurerm_subnet_route_table_association" "route_tables_ass" {
 # DO NOT USE NETWORK SECURITY RULES IN-LINE WITHIN THE FOLLOWING RESOURCE
 resource "azurerm_network_security_group" "nsgs" {
   provider            = azurerm.spoke
-  for_each            = { for subnet in var.spoke.subnets : subnet.nsg_name => subnet }
+  for_each            = { for subnet in var.spoke.subnets : subnet.nsg_name => subnet if try(subnet.nsg_name, null) != null }
   name                = "${each.key}-${random_string.rids[each.key].result}"
   location            = var.nsg_rg_location
   resource_group_name = var.nsg_rg_name
@@ -106,7 +107,7 @@ resource "azurerm_network_security_group" "nsgs" {
 # Currently there is a bug with subnets in vnet-platform-prod-usc-01, their is is suffixed with "1" on every plan/apply
 resource "azurerm_subnet_network_security_group_association" "nsg_associations" {
   provider                  = azurerm.spoke
-  for_each                  = { for subnet in var.spoke.subnets : subnet.name => subnet }
+  for_each                  = { for subnet in var.spoke.subnets : subnet.name => subnet if try(subnet.nsg_name, null) != null }
   subnet_id                 = "${azurerm_virtual_network.vnet.id}/subnets/${azurerm_subnet.subnets[each.key].name}" # Building the id because of a bug in subnet id sometimes it plan with a wrong id and ends up recreating the same association
   network_security_group_id = azurerm_network_security_group.nsgs[each.value.nsg_name].id
 }

@@ -130,6 +130,17 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  alias           = "sb_inno_mtl"
+  subscription_id = local.subscriptions_map.sb_inno_mtl.id
+  features {
+    key_vault {
+      purge_soft_deleted_secrets_on_destroy = false
+      purge_soft_deleted_keys_on_destroy    = false
+    }
+  }
+}
+
+provider "azurerm" {
 
   features {
     key_vault {

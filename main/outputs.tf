@@ -46,7 +46,3 @@ output "create_vwan" {
 output "rmt_state" {
   value = local.create_vwan == true ? null : try(data.terraform_remote_state.vwan[0].outputs, null)
 }
-
-output "diag_settings" {
-  value = data.azurerm_monitor_diagnostic_categories.azmon_diag_categories.log_category_types
-}

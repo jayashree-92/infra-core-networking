@@ -71,10 +71,10 @@ module "nsg_log_net_prod" {
   for_each                = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke if try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_net_prod.name
-  storage_account_id      = try(module.netw_sa_net_prod[0].id, null)
+  storage_account_id      = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_net_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_net_prod[each.key].vnet_spoke
 
@@ -148,10 +148,10 @@ module "nsg_log_pfm_prod" {
   for_each                = { for spoke in local.spokes.sb_pfm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
-  storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
+  storage_account_id      = length(module.netw_sa_pfm_prod) > 0 ? module.netw_sa_pfm_prod[0].id : null
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_pfm_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_prod[each.key].vnet_spoke
 
@@ -170,7 +170,7 @@ module "nsg_log_pfm_prod_vnets" {
   storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.vnets_sb_pfm_prod[each.key].vnet.nsgs
   spoke                   = module.vnets_sb_pfm_prod[each.key].vnet
 
@@ -248,7 +248,7 @@ module "nsg_log_pfm_tst" {
   storage_account_id      = try(module.netw_sa_pfm_tst[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_pfm_tst[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_tst[each.key].vnet_spoke
 
@@ -328,7 +328,7 @@ module "nsg_log_pfm_qa" {
   storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_pfm_qa[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_qa[each.key].vnet_spoke
 
@@ -351,7 +351,7 @@ module "nsg_log_pfm_qa_vnets" {
   storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.vnets_sb_pfm_qa[each.key].vnet.nsgs
   spoke                   = module.vnets_sb_pfm_qa[each.key].vnet
 
@@ -430,7 +430,7 @@ module "nsg_log_pfm_dev" {
   storage_account_id      = try(module.netw_sa_pfm_dev[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_pfm_dev[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_dev[each.key].vnet_spoke
 
@@ -510,7 +510,7 @@ module "nsg_log_id_prod" {
   storage_account_id      = try(module.netw_sa_id_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_id_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_id_prod[each.key].vnet_spoke
 
@@ -590,7 +590,7 @@ module "nsg_log_itt_prod" {
   storage_account_id      = try(module.netw_sa_itt_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_itt_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_itt_prod[each.key].vnet_spoke
 
@@ -671,7 +671,7 @@ module "nsg_log_dvp_prod" {
   storage_account_id      = try(module.netw_sa_dvp_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_dvp_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_dvp_prod[each.key].vnet_spoke
 
@@ -750,7 +750,7 @@ module "nsg_log_itm_prod" {
   storage_account_id      = try(module.netw_sa_itm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_itm_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_itm_prod[each.key].vnet_spoke
 
@@ -831,7 +831,7 @@ module "nsg_log_sec_prod" {
   storage_account_id      = try(module.netw_sa_sec_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_sec_prod[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_sec_prod[each.key].vnet_spoke
 
@@ -908,7 +908,7 @@ module "nsg_log_cpo_prod_us" {
   storage_account_id      = try(module.netw_sa_cpo_prod_us[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_cpo_prod_us[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_cpo_prod_us[each.key].vnet_spoke
 
@@ -986,7 +986,7 @@ module "nsg_log_cpo_prod_ci" {
   storage_account_id      = try(module.netw_sa_cpo_prod_ci[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name }
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_cpo_prod_ci[each.key].vnet_spoke
 
@@ -997,5 +997,84 @@ module "nsg_log_cpo_prod_ci" {
   depends_on = [
     azurerm_network_watcher.netw_cpo_prod_ci,
     module.netw_sa_cpo_prod_ci
+  ]
+}
+
+module "netw_sa_sb_inno_mtl" {
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  count                             = try(local.subscriptions_map.sb_inno_mtl.network_watcher.enabled, true) ? 1 : 0
+  resource_group_name               = azurerm_resource_group.rg_nsg_sb_inno_mtl.name
+  location                          = azurerm_resource_group.rg_nsg_sb_inno_mtl.location
+  storage_account_name              = local.subscriptions_map.sb_inno_mtl.network_watcher.function
+  purpose_name                      = local.subscriptions_map.sb_inno_mtl.network_watcher.purpose
+  environment_code                  = local.subscriptions_map.sb_inno_mtl.environment
+  use_full_environment_code         = true
+  storage_account_name_suffix       = random_string.sa_netw_rids[local.subscription_names.sb_inno_mtl].result
+  location_code                     = local.location_code
+  skuname                           = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.skuname
+  min_tls_version                   = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.min_tls_version
+  public_access_enable              = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.public_access_enable
+  enable_advanced_threat_protection = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.enable_advanced_threat_protection
+  account_kind                      = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.account_kind
+  managed_identity_type             = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.managed_identity_type
+  large_file_share_enabled          = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.large_file_share_enabled
+  cmk_encryption_enable             = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.cmk_encryption_enable
+  keyvault_id                       = local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.keyvault_id
+  log_analytics_name                = local.config_file.log_analytics_workspace.name
+  log_analytics_resource_group_name = local.config_file.log_analytics_workspace.resource_group_name
+  enable_private_endpoints = {
+    blob = false
+    file = false
+  }
+
+  enable_diagnostig_settings = {
+    table = false
+    queue = true
+    blob  = true
+    file  = true
+  }
+
+  private_endpoint_virtual_network_name                = module.spokes_sb_inno_mtl["vnet-${local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_inno_mtl.environment}-${local.location_code}"].vnet_spoke.vnet.name
+  private_endpoint_virtual_network_resource_group_name = module.spokes_sb_inno_mtl["vnet-${local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_inno_mtl.environment}-${local.location_code}"].vnet_spoke.vnet.resource_group_name
+  private_endpoint_subnet_name                         = module.spokes_sb_inno_mtl["vnet-${local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_inno_mtl.environment}-${local.location_code}"].vnet_spoke.subnets["snet-${local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_inno_mtl.environment}-${local.location_code}-${local.subscriptions_map.sb_inno_mtl.network_watcher.storage_account.private_endpoint.snet}"].name
+  private_dns_zone_resource_group_name                 = local.subscriptions_map.sb_inno_mtl.network_watcher.private_dns_zone_rg_name
+
+  providers = {
+    azurerm               = azurerm.sb_inno_mtl
+    azurerm.log_analytics = azurerm.sb_itm_prod
+    azurerm.dns_zone      = azurerm.sb_net_prod
+  }
+
+  depends_on = [
+    azurerm_resource_group.rg_nsg_sb_inno_mtl
+  ]
+}
+
+resource "azurerm_network_watcher" "netw_sb_inno_mtl" {
+  count               = try(local.subscriptions_map.sb_inno_mtl.network_watcher.enabled, true) ? 1 : 0
+  provider            = azurerm.sb_inno_mtl
+  name                = "${local.subscriptions_map.sb_inno_mtl.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_inno_mtl].result}"
+  resource_group_name = azurerm_resource_group.rg_nsg_sb_inno_mtl.name
+  location            = azurerm_resource_group.rg_nsg_sb_inno_mtl.location
+}
+
+module "nsg_log_sb_inno_mtl" {
+  for_each                = { for spoke in local.spokes.sb_inno_mtl : spoke.name => spoke if try(local.subscriptions_map.sb_inno_mtl.network_watcher.enabled, true) }
+  source                  = "../modules/monitoring"
+  network_watcher_name    = try(azurerm_network_watcher.netw_sb_inno_mtl[0].name, null)
+  storage_account_id      = try(module.netw_sa_sb_inno_mtl[0].id, null)
+  location                = local.config_file.location
+  log_analytics_workspace = local.config_file.log_analytics_workspace
+  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
+  nsgs                    = module.spokes_sb_inno_mtl[each.key].vnet_spoke.nsgs
+  spoke                   = module.spokes_sb_inno_mtl[each.key].vnet_spoke
+
+  providers = {
+    azurerm = azurerm.sb_inno_mtl
+  }
+
+  depends_on = [
+    azurerm_network_watcher.netw_sb_inno_mtl,
+    module.netw_sa_sb_inno_mtl
   ]
 }

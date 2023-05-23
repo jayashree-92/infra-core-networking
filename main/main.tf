@@ -35,14 +35,16 @@ module "hubs" {
 }
 
 data "azurerm_monitor_diagnostic_categories" "azmon_diag_categories" {
+  count       = length(module.hubs) > 0 ? 1 : 0
   resource_id = module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.id
 }
 
 resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
+  count                          = length(module.hubs) > 0 ? 1 : 0
   provider                       = azurerm.sb_net_prod
   name                           = "diag-${module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.name}"
   target_resource_id             = module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.id
-  storage_account_id             = module.netw_sa_net_prod[0].id
+  storage_account_id             = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
   log_analytics_workspace_id     = local.config_file.log_analytics_workspace.resource_id
   log_analytics_destination_type = "Dedicated"
 

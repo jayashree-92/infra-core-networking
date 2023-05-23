@@ -79,3 +79,9 @@ resource "azurerm_resource_group" "rg_nsg_cpo_prod_ci" {
   name     = "${local.subscriptions_map.sb_cpo_prod_ci.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_cpo_prod_ci].result}"
   location = local.config_file.location
 }
+
+resource "azurerm_resource_group" "rg_nsg_sb_inno_mtl" {
+  provider = azurerm.sb_inno_mtl
+  name     = "${local.subscriptions_map.sb_inno_mtl.nsg_rg_name}-${random_string.nsg_rg_rids[local.subscription_names.sb_inno_mtl].result}"
+  location = local.config_file.location
+}

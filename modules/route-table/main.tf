@@ -40,10 +40,17 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_route_table" "route_tables" {
   for_each                      = { for route in var.routes : route.name => route }
-  name                          = "${each.key}-${random_string.route_rids[each.key].result}"
+  name                          = coalesce(try(each.value.legacy_name, ""), "${each.key}-${random_string.route_rids[each.key].result}")
   location                      = azurerm_resource_group.rg.location
   resource_group_name           = azurerm_resource_group.rg.name
   disable_bgp_route_propagation = each.value.disable_bgp_route_propagation
+  tags = merge(
+    {
+      managed-by    = "Terraform"
+      resource-name = each.key
+    },
+    try(each.value.tags, {}),
+  try(each.value.legacy_name, "") != "" ? { legacy-name = each.value.legacy_name } : {})
 
   dynamic "route" {
     for_each = { for route in each.value.routes : route.name => route }

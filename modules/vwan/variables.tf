@@ -2,6 +2,7 @@ variable "vwan" {
   description = "Virtual WAN properties"
   type = object({
     name                              = string
+    legacy_name                       = string
     subscription_id                   = string
     location                          = string
     disable_vpn_encryption            = bool
