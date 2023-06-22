@@ -368,6 +368,13 @@ subscriptions:
             address_prefix: 10.47.14.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-pfm-prod-cu-vnet
+        disable_bgp_route_propagation: false
+        routes:
+          - name: internet-to-fw
+            address_prefix: 0.0.0.0/0
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     vnets:
       - name: vnet-cpf-prod-cu
         function: cpf
@@ -449,7 +456,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-data
             legacy_name:
@@ -460,7 +467,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-int
             legacy_name:
@@ -471,7 +478,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-web
             legacy_name:
@@ -482,7 +489,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-priv
             legacy_name:
@@ -493,7 +500,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-osc
             legacy_name:
@@ -504,7 +511,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-prod-cu-vnet
             delegations: []
           - name: snet-pfm-prod-cu-smi
             legacy_name:
@@ -738,6 +745,13 @@ subscriptions:
             address_prefix: 10.47.14.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-pfm-tst-cu-vnet
+        disable_bgp_route_propagation: false
+        routes:
+          - name: internet-to-fw
+            address_prefix: 0.0.0.0/0
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-tst-cu
         legacy_name:
@@ -798,7 +812,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-data
             legacy_name:
@@ -809,7 +823,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-int
             legacy_name:
@@ -820,7 +834,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-web
             legacy_name:
@@ -831,7 +845,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-priv
             legacy_name:
@@ -842,7 +856,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-osc
             legacy_name:
@@ -853,7 +867,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-tst-cu-vnet
             delegations: []
           - name: snet-pfm-tst-cu-smi
             legacy_name:
@@ -993,6 +1007,13 @@ subscriptions:
             address_prefix: 10.47.14.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-pfm-qa-cu-vnet
+        disable_bgp_route_propagation: false
+        routes:
+          - name: internet-to-fw
+            address_prefix: 0.0.0.0/0
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     vnets:
       - name: vnet-cpf-qa-cu
         function: cpf
@@ -1073,7 +1094,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-data
             legacy_name:
@@ -1084,7 +1105,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-int
             legacy_name:
@@ -1095,7 +1116,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-web
             legacy_name:
@@ -1106,7 +1127,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-priv
             legacy_name:
@@ -1117,7 +1138,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-osc
             legacy_name:
@@ -1128,7 +1149,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-qa-cu-vnet
             delegations: []
           - name: snet-pfm-qa-cu-smi
             legacy_name:
@@ -1269,6 +1290,13 @@ subscriptions:
             address_prefix: 10.47.14.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-pfm-dev-cu-vnet
+        disable_bgp_route_propagation: false
+        routes:
+          - name: internet-to-fw
+            address_prefix: 0.0.0.0/0
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-dev-cu
         legacy_name:
@@ -1329,7 +1357,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-data
             legacy_name:
@@ -1340,7 +1368,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-int
             legacy_name:
@@ -1351,7 +1379,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-web
             legacy_name:
@@ -1362,7 +1390,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-priv
             legacy_name:
@@ -1373,7 +1401,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-osc
             legacy_name:
@@ -1384,7 +1412,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dev-cu-vnet
             delegations: []
           - name: snet-pfm-dev-cu-smi
             legacy_name:
@@ -2457,7 +2485,7 @@ subscriptions:
         legacy_name: innozcupgenvn001
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: peer-vnet-inno-prod-cu
-        virtual_hub_connection_enabled: false
+        virtual_hub_connection_enabled: true
         legacy_virtual_hub_connection_name:
         virtual_hub_associated_route_table_name: not-secure-Default
         function: pfm

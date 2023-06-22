@@ -6,7 +6,7 @@ module "spokes_sb_pfm_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_prod.location
-  routes                                     = try(module.routes_pfm_prod.route_tables, [])
+  routes                                     = try(module.routes_pfm_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -26,7 +26,7 @@ module "spokes_sb_pfm_tst" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_tst.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_tst.location
-  routes                                     = try(module.routes_pfm_tst.route_tables, [])
+  routes                                     = try(module.routes_pfm_tst[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -49,7 +49,7 @@ module "spokes_sb_pfm_qa" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_qa.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_qa.location
-  routes                                     = try(module.routes_pfm_qa.route_tables, [])
+  routes                                     = try(module.routes_pfm_qa[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -72,7 +72,7 @@ module "spokes_sb_pfm_dev" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_dev.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_dev.location
-  routes                                     = try(module.routes_pfm_dev.route_tables, [])
+  routes                                     = try(module.routes_pfm_dev[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -94,7 +94,7 @@ module "spokes_sb_id_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_id_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_id_prod.location
-  routes                                     = try(module.routes_id_prod.route_tables, [])
+  routes                                     = try(module.routes_id_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -115,7 +115,7 @@ module "spokes_sb_itt_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_itt_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_itt_prod.location
-  routes                                     = try(module.routes_itt_prod.route_tables, [])
+  routes                                     = try(module.routes_itt_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -137,7 +137,7 @@ module "spokes_sb_dvp_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_dvp_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_dvp_prod.location
-  routes                                     = try(module.routes_dvp_prod.route_tables, [])
+  routes                                     = try(module.routes_dvp_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -158,7 +158,7 @@ module "spokes_sb_itm_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_itm_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_itm_prod.location
-  routes                                     = try(module.routes_itm_prod.route_tables, [])
+  routes                                     = try(module.routes_itm_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -180,7 +180,7 @@ module "spokes_sb_sec_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_sec_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_sec_prod.location
-  routes                                     = try(module.routes_sec_prod.route_tables, [])
+  routes                                     = try(module.routes_sec_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -201,7 +201,7 @@ module "spokes_sb_net_prod" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_net_prod.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_net_prod.location
-  routes                                     = try(module.routes_net_prod.route_tables, [])
+  routes                                     = try(module.routes_net_prod[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -223,7 +223,7 @@ module "spokes_sb_cpo_prod_us" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_cpo_prod_us.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_cpo_prod_us.location
-  routes                                     = try(module.routes_cpo_prod_us.route_tables, [])
+  routes                                     = try(module.routes_cpo_prod_us[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -245,7 +245,7 @@ module "spokes_sb_cpo_prod_ci" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
-  routes                                     = try(module.routes_cpo_prod_ci.route_tables, [])
+  routes                                     = try(module.routes_cpo_prod_ci[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id
@@ -266,7 +266,7 @@ module "spokes_sb_inno_mtl" {
   location                                   = local.config_file.location
   nsg_rg_name                                = azurerm_resource_group.rg_nsg_sb_inno_mtl.name
   nsg_rg_location                            = azurerm_resource_group.rg_nsg_sb_inno_mtl.location
-  routes                                     = try(module.routes_inno_mtl.route_tables, [])
+  routes                                     = try(module.routes_inno_mtl[0].route_tables, [])
   virtual_hub_id                             = module.hubs[each.value.virtual_hub_name].hub.id
   virtual_hub_firewall_private_ip_address    = module.hubs[each.value.virtual_hub_name].hub.firewall.virtual_hub[0].private_ip_address
   virtual_hub_default_route_table_id         = module.hubs[each.value.virtual_hub_name].hub.default_route_table_id

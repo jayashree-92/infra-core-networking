@@ -43,6 +43,7 @@ subscriptions:
 
     vwan:
       name: vwan-dr-eu
+      legacy_name:
       subscription_id: 75641de5-1456-4853-bc77-dd7db76c35a1
       resource_group:
         name: rg-net-dr-eu
@@ -214,6 +215,52 @@ subscriptions:
       - name: rt-pfm-dr-eu-smi
         disable_bgp_route_propagation: false
         routes: []
+      - name: rt-pfm-dr-eu-vnet
+        disable_bgp_route_propagation: false
+        routes:
+          - name: internet-to-fw
+            address_prefix: 0.0.0.0/0
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+      - name: rt-pub-dr-eu-fts
+        disable_bgp_route_propagation: true
+        routes:
+          - name: ro-snet-pfm-dr-eu-priv
+            address_prefix: 10.60.198.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-eu-v2
+            address_prefix: 10.41.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-eu-v2
+            address_prefix: 10.41.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-eu-v1
+            address_prefix: 10.45.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-eu-v1
+            address_prefix: 10.45.16.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v2
+            address_prefix: 10.43.0.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v2
+            address_prefix: 10.43.6.0/23
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdiitadmin-ci-v1
+            address_prefix: 10.47.15.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-vdidev-ci-v1
+            address_prefix: 10.47.14.0/24
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
     spokes:
       - name: vnet-pfm-dr-eu
         legacy_name:
@@ -236,7 +283,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -274,7 +321,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-data
             legacy_name:
@@ -285,7 +332,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-int
             legacy_name:
@@ -296,7 +343,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-web
             legacy_name:
@@ -307,7 +354,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-priv
             legacy_name:
@@ -318,7 +365,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-osc
             legacy_name:
@@ -329,7 +376,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-pfm-dr-eu-vnet
             delegations: []
           - name: snet-pfm-dr-eu-smi
             legacy_name:
@@ -371,7 +418,7 @@ subscriptions:
         private_dns_zone_links: []
         dns_servers: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -388,6 +435,17 @@ subscriptions:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             route_table_association:
+            delegations: []
+          - name: snet-pub-dr-eu-fts
+            legacy_name:
+            workload_tier: fts
+            nsg_name: nsg-pub-prod-eu-fts
+            address_prefixes: ["10.60.235.0/27"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association: rt-pub-dr-eu-fts
             delegations: []
 
   - name: sb-pfm-tst-1a4d
@@ -635,19 +693,19 @@ subscriptions:
             address_prefix: 10.60.166.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-          - name: ro-vdiitadmin-cu-v2
+          - name: ro-vdiitadmin-eu-v2
             address_prefix: 10.41.0.0/23
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-          - name: ro-vdidev-cu-v2
+          - name: ro-vdidev-eu-v2
             address_prefix: 10.41.6.0/23
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-          - name: ro-vdiitadmin-cu-v1
+          - name: ro-vdiitadmin-eu-v1
             address_prefix: 10.45.15.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-          - name: ro-vdidev-cu-v1
+          - name: ro-vdidev-eu-v1
             address_prefix: 10.45.16.0/24
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
@@ -689,7 +747,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -824,7 +882,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
@@ -1115,7 +1173,7 @@ subscriptions:
           tags:
             managed-by: terraform
             resource-name: rg-cpo-dr-eu-vnet
-        address_space: ["10.42.0.0/19"]
+        address_space: ["10.41.0.0/19"]
         location:
         bgp_community:
         ddos_protection_plan:
@@ -1133,7 +1191,7 @@ subscriptions:
             legacy_name:
             workload_tier: vdiitadmin
             nsg_name: nsg-cpo-dr-eu-vdiitadmin
-            address_prefixes: ["10.42.0.0/23"]
+            address_prefixes: ["10.41.0.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1144,7 +1202,7 @@ subscriptions:
             legacy_name:
             workload_tier: vdifunc
             nsg_name: nsg-cpo-dr-eu-vdifunc
-            address_prefixes: ["10.42.2.0/23"]
+            address_prefixes: ["10.41.2.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1155,7 +1213,7 @@ subscriptions:
             legacy_name:
             workload_tier: vdibsops
             nsg_name: nsg-cpo-dr-eu-vdibsops
-            address_prefixes: ["10.42.4.0/23"]
+            address_prefixes: ["10.41.4.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1166,7 +1224,7 @@ subscriptions:
             legacy_name:
             workload_tier: vdidev
             nsg_name: nsg-cpo-dr-eu-vdidev
-            address_prefixes: ["10.42.6.0/23"]
+            address_prefixes: ["10.41.6.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1177,7 +1235,7 @@ subscriptions:
             legacy_name:
             workload_tier: vdidatas
             nsg_name: nsg-cpo-dr-eu-vdidatas
-            address_prefixes: ["10.42.8.0/23"]
+            address_prefixes: ["10.41.8.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1188,7 +1246,7 @@ subscriptions:
             legacy_name:
             workload_tier: app
             nsg_name: nsg-cpo-dr-eu-app
-            address_prefixes: ["10.42.10.0/23"]
+            address_prefixes: ["10.41.10.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1199,7 +1257,18 @@ subscriptions:
             legacy_name:
             workload_tier: priv
             nsg_name: nsg-cpo-dr-eu-priv
-            address_prefixes: ["10.42.13.0/24"]
+            address_prefixes: ["10.41.13.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+          - name: snet-cpo-dr-eu-vdidatae
+            legacy_name:
+            workload_tier: vdidatae
+            nsg_name: nsg-cpo-dr-eu-vdidatae
+            address_prefixes: ["10.41.14.0/23"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
@@ -1525,12 +1594,251 @@ subscriptions:
   - name: sb-inno-mtl
     id: 5605304f-51d3-41aa-9b59-0ccce4b7c22e
     legacy_name:
-    nsg_rg_name: rg-inno-prod-cu-nsg
-    routes_rg_name: rg-inno-prod-cu-rt
-    netw_name: netw-net-prod-cu
+    nsg_rg_name: rg-inno-dr-eu-nsg
+    routes_rg_name: rg-inno-dr-eu-rt
+    netw_name: netw-net-dr-eu
     network_watcher:
-      enabled: false
+      enabled: true
+      purpose: inno
+      function: net
+      private_dns_zone_rg_name: rg-net-dr-eu-dns
+      storage_account:
+        skuname: Standard_LRS
+        min_tls_version: TLS1_2
+        public_access_enable: true
+        enable_advanced_threat_protection: false
+        account_kind: StorageV2
+        managed_identity_type: SystemAssigned
+        large_file_share_enabled: false
+        cmk_encryption_enable: false
+        keyvault_id:
+        private_endpoint:
+          vnet: inno
+          snet: priv
     environment: dr
     function: inno
     route_tables: []
-    spokes: []
+    spokes:
+      - name: vnet-inno-dr-eu
+        legacy_name: innozcupgenvn001
+        virtual_hub_name: vhub-net-dr-eu
+        virtual_hub_connection_name: peer-vnet-inno-dr-eu
+        virtual_hub_connection_enabled: true
+        legacy_virtual_hub_connection_name:
+        virtual_hub_associated_route_table_name: not-secure-Default
+        function: pfm
+        resource_group:
+          name: rg-inno-dr-eu-vnet
+          legacy_name: innozcupgenrg001
+          location:
+          tags:
+            managed-by: terraform
+            resource-name: rg-inno-dr-eu
+            legacy-name: innozca1pgenvn001
+        address_space: ["10.39.0.0/16"]
+        location:
+        bgp_community:
+        ddos_protection_plan:
+        dns_servers: []
+        private_dns_zone_links: []
+        edge_zone:
+        internet_security_enabled: false
+        flow_timeout_in_minutes:
+        tags:
+          managed-by: terraform
+          resource-name: vnet-inno-dr-eu
+          spoke: true
+          spoke_connected: false
+          legacy-name: innozca1pgenvn001
+        subnets:
+          - name: snet-inno-dr-eu-GatewaySubnet
+            legacy_name: GatewaySubnet
+            workload_tier: gw
+            nsg_name:
+            address_prefixes: ["10.39.0.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-001
+            legacy_name: innozcupgensn001
+            workload_tier: 001
+            nsg_name: nsg-inno-dr-eu-001
+            address_prefixes: ["10.39.1.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-002
+            legacy_name: innozcupgensn002
+            workload_tier: 002
+            nsg_name: nsg-inno-dr-eu-002
+            address_prefixes: ["10.39.2.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-003
+            legacy_name: innozcupgensn003
+            workload_tier: 003
+            nsg_name: nsg-inno-dr-eu-103
+            address_prefixes: ["10.39.3.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-004
+            legacy_name: innozcupgensn004
+            workload_tier: 004
+            nsg_name: nsg-inno-dr-eu-004
+            address_prefixes: ["10.39.4.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-005
+            legacy_name: innozcupgensn005
+            workload_tier: 005
+            nsg_name: nsg-inno-dr-eu-005
+            address_prefixes: ["10.39.5.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-006
+            legacy_name: innozcupgensn006
+            workload_tier: 006
+            nsg_name: nsg-inno-dr-eu-06
+            address_prefixes: ["10.39.6.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-007
+            legacy_name: innozcupgensn007
+            workload_tier: 007
+            nsg_name: nsg-inno-dr-eu-007
+            address_prefixes: ["10.39.7.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-008
+            legacy_name: innozcupgensn008
+            workload_tier: 008
+            nsg_name: nsg-inno-dr-eu-008
+            address_prefixes: ["10.39.8.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-009
+            legacy_name: innozcupgensn009
+            workload_tier: 009
+            nsg_name: nsg-inno-dr-eu-009
+            address_prefixes: ["10.39.9.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-010
+            legacy_name: innozcupgensn010
+            workload_tier: 010
+            nsg_name: nsg-inno-dr-eu-010
+            address_prefixes: ["10.39.10.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-azbastion
+            legacy_name: AzureBastionSubnet
+            workload_tier: azbastion
+            nsg_name:
+            address_prefixes: ["10.39.11.0/26"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-priv
+            legacy_name:
+            workload_tier: priv
+            nsg_name: nsg-inno-dr-eu-priv
+            address_prefixes: ["10.39.12.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-100
+            legacy_name: innozcupgensn100
+            workload_tier: 100
+            nsg_name: nsg-inno-dr-eu-100
+            address_prefixes: ["10.39.100.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-133
+            legacy_name: innozcupgensn133
+            workload_tier: 133
+            nsg_name: nsg-inno-dr-eu-133
+            address_prefixes: ["10.39.133.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
+
+          - name: snet-inno-dr-eu-255
+            legacy_name: innozcupgensn255
+            workload_tier: 255
+            nsg_name: nsg-inno-dr-eu-255
+            address_prefixes: ["10.39.255.0/24"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []

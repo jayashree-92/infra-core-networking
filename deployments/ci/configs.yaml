@@ -1132,6 +1132,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+          - name: snet-cpo-prod-cu-vdidatae
+            legacy_name:
+            workload_tier: vdidatae
+            nsg_name: nsg-cpo-prod-cu-vdidatae
+            address_prefixes: ["10.43.14.0/23"]
+            nsg_enabled: true
+            service_endpoints:
+            service_endpoint_policy_ids: []
+            private_endpoint_network_policies_enabled: true
+            route_table_association:
+            delegations: []
 
       - name: Vnet-Corp-Prod-InC-01
         legacy_name: Vnet-Corp-Prod-InC-01
@@ -1708,3 +1719,17 @@ subscriptions:
             private_endpoint_network_policies_enabled: true
             route_table_association:
             delegations: []
+
+  # Innocap Legacy
+  - name: sb-inno-mtl
+    id: 5605304f-51d3-41aa-9b59-0ccce4b7c22e
+    legacy_name:
+    nsg_rg_name: rg-inno-prod-cu-nsg
+    routes_rg_name: rg-inno-prod-cu-rt
+    netw_name: netw-net-prod-cu
+    network_watcher:
+      enabled: false
+    environment: dr
+    function: inno
+    route_tables: []
+    spokes: []
