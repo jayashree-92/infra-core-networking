@@ -2487,7 +2487,7 @@ subscriptions:
         virtual_hub_connection_name: peer-vnet-inno-prod-cu
         virtual_hub_connection_enabled: true
         legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: not-secure-Default
+        virtual_hub_associated_route_table_name: defaultRouteTable
         function: pfm
         resource_group:
           name: rg-inno-prod-cu-vnet
