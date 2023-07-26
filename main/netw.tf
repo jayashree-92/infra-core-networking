@@ -58,11 +58,7 @@ module "netw_sa_net_prod" {
   depends_on = [
     azurerm_resource_group.rg_nsg_prod
   ]
-  timeouts = {
-    create = "30m"   
-    update = "30m"   
-    delete = "30m"   
-  }
+
 }
 
 resource "azurerm_network_watcher" "netw_net_prod" {
@@ -1083,3 +1079,9 @@ module "nsg_log_sb_inno_mtl" {
     module.netw_sa_sb_inno_mtl
   ]
 }
+
+  timeouts = {
+    create = "60m"   
+    update = "60m"   
+    delete = "60m"   
+  }
