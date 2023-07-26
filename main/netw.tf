@@ -1080,8 +1080,3 @@ module "nsg_log_sb_inno_mtl" {
   ]
 }
 
-  timeouts = {
-    create = "60m"   
-    update = "60m"   
-    delete = "60m"   
-  }
