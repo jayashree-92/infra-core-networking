@@ -58,6 +58,11 @@ module "netw_sa_net_prod" {
   depends_on = [
     azurerm_resource_group.rg_nsg_prod
   ]
+  timeouts = {
+    create = "30m"   # Maximum time to wait for resource creation (default is "0", no timeout)
+    update = "30m"   # Maximum time to wait for resource updates (default is "0", no timeout)
+    delete = "30m"    # Maximum time to wait for resource deletion (default is "0", no timeout)
+  }
 }
 
 resource "azurerm_network_watcher" "netw_net_prod" {
