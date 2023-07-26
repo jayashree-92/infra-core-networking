@@ -7,7 +7,7 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
+
 }
 
 provider "azurerm" {
@@ -19,7 +19,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -31,7 +30,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -42,7 +40,6 @@ provider "azurerm" {
       purge_soft_deleted_secrets_on_destroy = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -54,7 +51,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -66,7 +62,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -78,7 +73,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -90,7 +84,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -102,7 +95,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -114,7 +106,6 @@ provider "azurerm" {
       purge_soft_deleted_secrets_on_destroy = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -126,7 +117,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -138,7 +128,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -150,7 +139,6 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
 
 provider "azurerm" {
@@ -161,5 +149,4 @@ provider "azurerm" {
       purge_soft_deleted_keys_on_destroy    = false
     }
   }
-  timeout = "2h"
 }
