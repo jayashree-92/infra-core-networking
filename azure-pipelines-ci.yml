@@ -43,7 +43,8 @@ stages:
 
           - bash: |
               terraform plan \
-              -out deployment.tfplan
+              -out deployment.tfplan\
+              -timeout=30m
               
             displayName: Terraform Plan
             workingDirectory: $(System.DefaultWorkingDirectory)/main
