@@ -67,7 +67,7 @@ stages:
             displayName: "Copy Artifacts"
           - publish: $(Build.ArtifactStagingDirectory)
             artifact: drop
-          timeoutInMinutes: 60
+
       - job : Manual_Validation
         displayName: Manual Validation
         dependsOn: Terraform_Plan
