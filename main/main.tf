@@ -70,3 +70,9 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
     }
   }
 }
+
+timeouts = {
+  create = "60m"   
+  update = "60m"   
+  delete = "60m"   
+  }
