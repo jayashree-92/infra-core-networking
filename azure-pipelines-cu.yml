@@ -113,7 +113,7 @@ stages:
                     ARM_CLIENT_ID:       $(arm-client-id)
                     ARM_CLIENT_SECRET:   $(arm-client-secret)
                     ARM_TENANT_ID:       $(arm-tenant-id)
-- stage: terraform_ci_dr
+  - stage: terraform_ci_dr
 
     displayName: Terraform CI DR
     jobs:
