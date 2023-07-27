@@ -70,3 +70,5 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
     }
   }
 }
+
+

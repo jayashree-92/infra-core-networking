@@ -58,6 +58,7 @@ module "netw_sa_net_prod" {
   depends_on = [
     azurerm_resource_group.rg_nsg_prod
   ]
+
 }
 
 resource "azurerm_network_watcher" "netw_net_prod" {
@@ -1078,3 +1079,4 @@ module "nsg_log_sb_inno_mtl" {
     module.netw_sa_sb_inno_mtl
   ]
 }
+
