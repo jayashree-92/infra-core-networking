@@ -113,3 +113,107 @@ stages:
                     ARM_CLIENT_ID:       $(arm-client-id)
                     ARM_CLIENT_SECRET:   $(arm-client-secret)
                     ARM_TENANT_ID:       $(arm-tenant-id)
+- stage: terraform_ci_dr
+
+    displayName: Terraform CI DR
+    jobs:
+      - job: Terraform_Plan
+        steps:          
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: "$(tf-git-ssh-known-hosts)"
+              sshPublicKey: "$(tf-git-ssh-pub)"
+              sshKeySecureFile: "terraform_rsa"
+          - bash: |
+              terraform init \
+              -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
+              -backend-config="container_name=$TF_STATE_BLOB_CONTAINER_NAME" \
+              -backend-config="key=$TF_STATE_BLOB_FILE" \
+              -backend-config="access_key=$TF_STATE_BLOB_ACCESS_KEY"
+            displayName: Terraform Init
+            workingDirectory: $(Build.SourcesDirectory)/main
+            continueOnError: false
+            env:
+              TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
+              TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
+              TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
+              TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
+
+          - bash: |
+              terraform validate
+            displayName: Terraform Validate
+            workingDirectory: $(System.DefaultWorkingDirectory)/main
+            continueOnError: false
+
+          - bash: |
+              terraform plan \
+              -out deployment.tfplan
+              
+            displayName: Terraform Plan
+            workingDirectory: $(System.DefaultWorkingDirectory)/main
+            continueOnError: false
+            env:
+              ARM_SUBSCRIPTION_ID: $(arm-subscription-id)
+              ARM_CLIENT_ID:       $(arm-client-id)
+              ARM_CLIENT_SECRET:   $(arm-client-secret)
+              ARM_TENANT_ID:       $(arm-tenant-id)
+              TF_VAR_location_code : "cu"
+              TF_VAR_terraform_remote_state_access_key: $(tf-state-blob-access-key)
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: "./"
+              Contents: |
+                **/*
+                !main/.terraform/**/*
+              TargetFolder: $(Build.ArtifactStagingDirectory)
+            displayName: "Copy Artifacts"
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: drop
+      - job : Manual_Validation
+        displayName: Manual Validation
+        dependsOn: Terraform_Plan
+        pool: server
+        steps : 
+          - task: ManualValidation@0
+            timeoutInMinutes: 1440
+            inputs:
+              notifyUsers: 'adm_herrkiba@innocap.com'
+
+  - stage: terraform_cd_dr
+    displayName: Terraform CD DR
+    jobs:
+      - deployment: DeployNetworking
+        displayName: Deploy Networking
+        environment: 'PROD-Networking'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+
+                - bash: |
+                    terraform init \
+                      -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
+                      -backend-config="container_name=$TF_STATE_BLOB_CONTAINER_NAME" \
+                      -backend-config="key=$TF_STATE_BLOB_FILE" \
+                      -backend-config="access_key=$TF_STATE_BLOB_ACCESS_KEY"
+                  displayName: Terraform Init
+                  workingDirectory: $(Pipeline.Workspace)/drop/main
+                  continueOnError: false
+                  env:
+                    TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
+                    TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
+                    TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
+                    TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
+
+                - bash: |
+                    terraform apply -auto-approve deployment.tfplan
+                  displayName: Terraform Apply
+                  workingDirectory: $(Pipeline.Workspace)/drop/main
+                  env:
+                    ARM_SUBSCRIPTION_ID: $(arm-subscription-id)
+                    ARM_CLIENT_ID:       $(arm-client-id)
+                    ARM_CLIENT_SECRET:   $(arm-client-secret)
+                    ARM_TENANT_ID:       $(arm-tenant-id)
