@@ -88,7 +88,7 @@ subscriptions:
               resource-name: rg-fwp-net-prod-cu
           dns:
             proxy_enabled: true
-            servers: ["10.60.48.4", "10.60.48.5", "10.60.208.4", "10.60.208.5"]
+            servers: ["10.60.208.4", "10.60.208.5"]
           intrusion_detection:
             mode: Alert
           threat_intelligence_allowlist:
@@ -604,12 +604,7 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.5",
-            "10.33.4.21",
-            "10.33.4.22",
+            "10.60.0.132"
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -1505,12 +1500,7 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.4",
-            "10.33.4.21",
-            "10.33.4.22",
+            "10.60.0.132"
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -1783,12 +1773,8 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.4",
-            "10.33.4.21",
-            "10.33.4.22",
+            "10.60.208.4",
+            "10.60.208.5"
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -2152,7 +2138,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers: ["10.60.48.4", "10.60.48.5", "10.70.48.4", "10.70.48.5"]
+        dns_servers: ["10.60.0.132"]
         private_dns_zone_links:
           - privatelink.azconfig.io
           - privatelink.azure-automation.net
