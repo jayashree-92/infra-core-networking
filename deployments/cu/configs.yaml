@@ -1632,6 +1632,10 @@ subscriptions:
             address_prefix: 10.60.229.0/27
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-prod-cu-avd
+            address_prefix: WindowsVirtualDesktop
+            next_hop_type: Internet
+            next_hop_in_ip_address: ""
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
