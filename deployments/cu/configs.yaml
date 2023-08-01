@@ -1639,7 +1639,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: ""
+            #next_hop_in_ip_address: ""
   
       - name: rt-cpo-prod-cu-vdidatae
         disable_bgp_route_propagation: false
@@ -1663,7 +1663,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: ""
+            #next_hop_in_ip_address: ""
       - name: rt-cpo-prod-cu-vdibsops
         disable_bgp_route_propagation: false
         routes:
@@ -1686,7 +1686,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: ""
+            #next_hop_in_ip_address: ""
       - name: rt-cpo-prod-cu-vdidatas
         disable_bgp_route_propagation: false
         routes:
@@ -1709,7 +1709,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: ""
+            #next_hop_in_ip_address: ""
       - name: rt-cpo-prod-cu-vdifunc
         disable_bgp_route_propagation: false
         routes:
@@ -1732,7 +1732,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: ""
+            #next_hop_in_ip_address: ""
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
