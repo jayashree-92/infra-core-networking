@@ -604,7 +604,6 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.0.132"
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -1500,7 +1499,6 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.0.132"
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -2138,7 +2136,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers: ["10.60.0.132"]
+        dns_servers: []
         private_dns_zone_links:
           - privatelink.azconfig.io
           - privatelink.azure-automation.net
