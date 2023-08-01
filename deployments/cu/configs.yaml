@@ -1640,6 +1640,30 @@ subscriptions:
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
             next_hop_in_ip_address: ""
+  
+      - name: rt-cpo-prod-cu-vdidatae
+        disable_bgp_route_propagation: false
+        routes:
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-prod-cu-avd
+            address_prefix: WindowsVirtualDesktop
+            next_hop_type: Internet
+            next_hop_in_ip_address: ""
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
@@ -1755,7 +1779,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdidatae
             delegations: []
 
       - name: Vnet-Corp-Prod-UsC-01
