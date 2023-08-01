@@ -1776,7 +1776,7 @@ subscriptions:
           ]
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
