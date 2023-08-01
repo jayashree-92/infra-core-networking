@@ -2488,7 +2488,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: false
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform
