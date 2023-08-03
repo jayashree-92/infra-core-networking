@@ -3,7 +3,7 @@ variables:
   - group: terraform
 
 pool:
-  name : "terraform-pipeline-ci"
+  name : "terraform-pipeline-cu"
 
 trigger: none
 pr: none
