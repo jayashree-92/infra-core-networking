@@ -86,8 +86,13 @@ stages:
           runOnce:
             deploy:
               steps:
+                - task: InstallSSHKey@0
+                  inputs:
+                  knownHostsEntry: "$(tf-git-ssh-known-hosts)"
+                  sshPublicKey: "$(tf-git-ssh-pub)"
+                  sshKeySecureFile: "terraform_rsa"
                 - download: current
-                  artifact: drop
+                 artifact: drop
 
                 - bash: |
                     terraform init \
