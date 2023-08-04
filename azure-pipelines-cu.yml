@@ -88,12 +88,10 @@ stages:
               steps:
                 - task: InstallSSHKey@0
                   inputs:
-                  knownHostsEntry: "$(tf-git-ssh-known-hosts)"
-                  sshPublicKey: "$(tf-git-ssh-pub)"
-                  sshKeySecureFile: "terraform_rsa"
+                    knownHostsEntry: "$(tf-git-ssh-known-hosts)"
+                    sshPublicKey: "$(tf-git-ssh-pub)"
+                    sshKeySecureFile: "terraform_rsa"
                 - download: current
-                 artifact: drop
-
                 - bash: |
                     terraform init \
                       -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
