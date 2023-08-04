@@ -43,8 +43,7 @@ stages:
 
           - bash: |
               terraform plan \
-              -out deployment.tfplan\
-              -timeout=30m
+              -out deployment.tfplan
               
             displayName: Terraform Plan
             workingDirectory: $(System.DefaultWorkingDirectory)/main
@@ -94,7 +93,7 @@ stages:
                     sshPublicKey: "$(tf-git-ssh-pub)"
                     sshKeySecureFile: "terraform_rsa"
                 - download: current
-                  artifact: drop
+                  #artifact: drop
 
                 - bash: |
                     terraform init \
