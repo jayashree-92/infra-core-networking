@@ -372,7 +372,7 @@ subscriptions:
         disable_bgp_route_propagation: false
         routes:
           - name: internet-to-fw
-            address_prefix: 0.0.0.0/0
+            address_prefix: 
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
     vnets:
@@ -743,7 +743,7 @@ subscriptions:
         disable_bgp_route_propagation: false
         routes:
           - name: internet-to-fw
-            address_prefix: 0.0.0.0/0
+            address_prefix: 
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
     spokes:
@@ -1005,7 +1005,7 @@ subscriptions:
         disable_bgp_route_propagation: false
         routes:
           - name: internet-to-fw
-            address_prefix: 0.0.0.0/0
+            address_prefix: 
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
     vnets:
@@ -1288,7 +1288,7 @@ subscriptions:
         disable_bgp_route_propagation: false
         routes:
           - name: internet-to-fw
-            address_prefix: 0.0.0.0/0
+            address_prefix: 
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
     spokes:
@@ -1615,7 +1615,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
 
       - name: rt-cpo-prod-cu-vdidev
         disable_bgp_route_propagation: false
@@ -1639,7 +1639,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
   
       - name: rt-cpo-prod-cu-vdidatae
         disable_bgp_route_propagation: false
@@ -1663,7 +1663,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
       - name: rt-cpo-prod-cu-vdibsops
         disable_bgp_route_propagation: false
         routes:
@@ -1686,7 +1686,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
       - name: rt-cpo-prod-cu-vdidatas
         disable_bgp_route_propagation: false
         routes:
@@ -1709,7 +1709,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
       - name: rt-cpo-prod-cu-vdifunc
         disable_bgp_route_propagation: false
         routes:
@@ -1732,7 +1732,7 @@ subscriptions:
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
-            next_hop_in_ip_address: "0.0.0.0/0"
+            next_hop_in_ip_address: 
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
