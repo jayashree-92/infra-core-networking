@@ -743,7 +743,7 @@ subscriptions:
         disable_bgp_route_propagation: false
         routes:
           - name: internet-to-fw
-            address_prefix: .0.0.0.0/0
+            address_prefix: 0.0.0.0/0
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
     spokes:
