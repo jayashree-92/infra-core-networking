@@ -32,7 +32,7 @@ stages:
             env:
               TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
               TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
-              TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
+              TF_STATE_BLOB_FILE:           $(tf-state-blob-file-dr)
               TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
 
           - bash: |
@@ -104,7 +104,7 @@ stages:
                   env:
                     TF_STATE_BLOB_ACCOUNT_NAME:   $(tf-state-blob-account)
                     TF_STATE_BLOB_CONTAINER_NAME: $(tf-state-blob-container)
-                    TF_STATE_BLOB_FILE:           $(tf-state-blob-file)
+                    TF_STATE_BLOB_FILE:           $(tf-state-blob-file-dr)
                     TF_STATE_BLOB_ACCESS_KEY:     $(tf-state-blob-access-key)
 
                 - bash: |
