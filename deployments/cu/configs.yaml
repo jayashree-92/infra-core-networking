@@ -88,7 +88,7 @@ subscriptions:
               resource-name: rg-fwp-net-prod-cu
           dns:
             proxy_enabled: true
-            servers: ["10.60.48.4", "10.60.48.5", "10.60.208.4", "10.60.208.5"]
+            servers: ["10.60.208.4", "10.60.208.5"]
           intrusion_detection:
             mode: Alert
           threat_intelligence_allowlist:
@@ -604,12 +604,6 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.5",
-            "10.33.4.21",
-            "10.33.4.22",
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -1505,12 +1499,6 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.4",
-            "10.33.4.21",
-            "10.33.4.22",
           ]
         private_dns_zone_links: []
         edge_zone:
@@ -1624,6 +1612,10 @@ subscriptions:
             address_prefix: 10.60.229.0/27
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+#          - name: ro-snet-pub-prod-cu-avd
+ #           address_prefix: WindowsVirtualDesktop
+  #          next_hop_type: Internet
+   #         next_hop_in_ip_address: 
 
       - name: rt-cpo-prod-cu-vdidev
         disable_bgp_route_propagation: false
@@ -1644,6 +1636,103 @@ subscriptions:
             address_prefix: 10.60.229.0/27
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
+#         - name: ro-snet-pub-prod-cu-avd
+#            address_prefix: WindowsVirtualDesktop
+#            next_hop_type: Internet
+#            next_hop_in_ip_address: "10.60.0.132"
+  
+      - name: rt-cpo-prod-cu-vdidatae
+        disable_bgp_route_propagation: false
+        routes:
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+ #         - name: ro-snet-pub-prod-cu-avd
+  #          address_prefix: WindowsVirtualDesktop
+   #         next_hop_type: Internet
+    #        next_hop_in_ip_address: 
+      - name: rt-cpo-prod-cu-vdibsops
+        disable_bgp_route_propagation: false
+        routes:
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+#          - name: ro-snet-pub-prod-cu-avd
+#            address_prefix: WindowsVirtualDesktop
+#            next_hop_type: Internet
+#            next_hop_in_ip_address: 
+      - name: rt-cpo-prod-cu-vdidatas
+        disable_bgp_route_propagation: false
+        routes:
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+#          - name: ro-snet-pub-prod-cu-avd
+#            address_prefix: WindowsVirtualDesktop
+#            next_hop_type: Internet
+#            next_hop_in_ip_address: 
+      - name: rt-cpo-prod-cu-vdifunc
+        disable_bgp_route_propagation: false
+        routes:
+          - name: ro-snet-pub-prod-cu-fts
+            address_prefix: 10.60.235.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-stg-cu-fts
+            address_prefix: 10.60.233.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-qa-cu-fts
+            address_prefix: 10.60.231.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-fts
+            address_prefix: 10.60.229.0/27
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+#          - name: ro-snet-pub-prod-cu-avd
+#            address_prefix: WindowsVirtualDesktop
+#           next_hop_type: Internet
+#            next_hop_in_ip_address: 
     spokes:
       - name: vnet-cpo-prod-cu
         legacy_name:
@@ -1693,7 +1782,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdifunc
             delegations: []
           - name: snet-cpo-prod-cu-vdibsops
             legacy_name:
@@ -1704,7 +1793,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdibsops
             delegations: []
           - name: snet-cpo-prod-cu-vdidev
             legacy_name:
@@ -1726,7 +1815,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdidatas
             delegations: []
           - name: snet-cpo-prod-cu-app
             legacy_name:
@@ -1759,7 +1848,7 @@ subscriptions:
             service_endpoints:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
-            route_table_association:
+            route_table_association: rt-cpo-prod-cu-vdidatae
             delegations: []
 
       - name: Vnet-Corp-Prod-UsC-01
@@ -1783,16 +1872,12 @@ subscriptions:
         ddos_protection_plan:
         dns_servers:
           [
-            "10.60.48.4",
-            "10.60.48.5",
-            "10.70.48.4",
-            "10.70.48.4",
-            "10.33.4.21",
-            "10.33.4.22",
+            "10.60.208.4",
+            "10.60.208.5"
           ]
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: true
+        internet_security_enabled: false
         flow_timeout_in_minutes:
         tags:
           resource-type: legacy
@@ -2152,7 +2237,7 @@ subscriptions:
         location:
         bgp_community:
         ddos_protection_plan:
-        dns_servers: ["10.60.48.4", "10.60.48.5", "10.70.48.4", "10.70.48.5"]
+        dns_servers: []
         private_dns_zone_links:
           - privatelink.azconfig.io
           - privatelink.azure-automation.net
@@ -2504,7 +2589,7 @@ subscriptions:
         dns_servers: []
         private_dns_zone_links: []
         edge_zone:
-        internet_security_enabled: false
+        internet_security_enabled: true
         flow_timeout_in_minutes:
         tags:
           managed-by: terraform

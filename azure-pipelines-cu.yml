@@ -86,9 +86,12 @@ stages:
           runOnce:
             deploy:
               steps:
+                - task: InstallSSHKey@0
+                  inputs:
+                    knownHostsEntry: "$(tf-git-ssh-known-hosts)"
+                    sshPublicKey: "$(tf-git-ssh-pub)"
+                    sshKeySecureFile: "terraform_rsa"
                 - download: current
-                  artifact: drop
-
                 - bash: |
                     terraform init \
                       -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
@@ -157,7 +160,7 @@ stages:
               ARM_CLIENT_ID:       $(arm-client-id)
               ARM_CLIENT_SECRET:   $(arm-client-secret)
               ARM_TENANT_ID:       $(arm-tenant-id)
-              TF_VAR_location_code : "cu"
+              TF_VAR_location_code : "eu"
               TF_VAR_terraform_remote_state_access_key: $(tf-state-blob-access-key)
 
           - task: CopyFiles@2
