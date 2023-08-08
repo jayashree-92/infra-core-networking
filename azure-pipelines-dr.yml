@@ -6,6 +6,13 @@ pool:
   name : "terraform-pipeline-cu"
 
 trigger: none
+
+resources:
+ pipelines:
+   - pipeline: infra-core-networking-cu
+     source : azure-pipelines-cu.yml
+     trigger : true
+
 pr: none
 
 stages:
