@@ -5,7 +5,7 @@ variables:
 pool:
   name : "terraform-pipeline-cu"
 
-trigger: none
+#trigger: none
 resources:
   pipelines:
   - pipeline: triiger-by-cu   # Name of the pipeline resource
