@@ -9,7 +9,7 @@ trigger: none
 
 resources:
  pipelines:
-   - pipeline: infra-core-networking-cu
+   - pipeline: infra-core-networking
      source : infra-core-networking-cu
      trigger : true
 
