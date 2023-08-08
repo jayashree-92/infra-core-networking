@@ -10,7 +10,7 @@ trigger: none
 resources:
  pipelines:
    - pipeline: infra-core-networking-cu
-     source : azure-pipelines-cu.yml
+     source : infra-core-networking-cu
      trigger : true
 
 pr: none
