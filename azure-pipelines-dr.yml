@@ -8,9 +8,11 @@ pool:
 trigger: none
 resources:
   pipelines:
-  - pipeline: triiger-by-cu   # Name of the pipeline resource
+  - pipeline: infra-core-networking-cu   # Name of the pipeline resource
     source: infra-core-networking-cu # Name of the pipeline referenced by the pipeline resource
     trigger: true # enable the trigger
+
+
 pr : none
 
 stages:
