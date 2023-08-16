@@ -7,7 +7,7 @@ locals {
   create_private_dns_zones = try({ for i, sub in local.subscriptions : i => sub if(try(sub.private_dns_zones, false) != false) }[0], null) != null
   subscription_ids         = { for sub in local.subscriptions : sub.name => sub.id }
   subscription_names = {
-    sb_net_prod    = "sb-net-prod-1a4d"
+    sb_net_prod    = "sb-net-prod-01"
     sb_pfm_prod    = "sb-pfm-prod-1a4d"
     sb_pfm_tst     = "sb-pfm-tst-1a4d"
     sb_pfm_qa      = "sb-pfm-qa-1a4d"
