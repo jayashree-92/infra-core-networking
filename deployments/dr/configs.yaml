@@ -11,7 +11,7 @@ propagate_not_secure_vitual_hub_connection: false
 
 subscriptions:
   # Network
-  - name: sb-net-prod-01
+  - name: sb-net-prod-1a4d
     contains_vwan: true
     id: 75641de5-1456-4853-bc77-dd7db76c35a1
     legacy_name:
