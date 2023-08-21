@@ -1731,7 +1731,7 @@ subscriptions:
             next_hop_in_ip_address: "10.60.0.132"
           - name: ro-snet-pub-prod-cu-avd
             address_prefix: WindowsVirtualDesktop
-           next_hop_type: Internet
+            next_hop_type: Internet
             next_hop_in_ip_address: ""
     spokes:
       - name: vnet-cpo-prod-cu
