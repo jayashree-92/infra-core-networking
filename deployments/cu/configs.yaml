@@ -1640,6 +1640,38 @@ subscriptions:
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
             next_hop_in_ip_address: 
+          - name: ro-snet-pub-dev-cu-sftp-bloomberg
+            address_prefix: 208.22.57.176/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-sftp-imsi
+            address_prefix: 199.253.174.33/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-sftp-maples
+            address_prefix: 84.207.253.157/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-sftp-citco
+            address_prefix: 209.87.104.10/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-sftp-globeop
+            address_prefix: 63.161.116.88/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-sftp-gs
+            address_prefix: 204.4.178.87/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-paython
+            address_prefix: 40.119.4.253/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+          - name: ro-snet-pub-dev-cu-myinnocap
+            address_prefix: 40.77.68.70/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
   
       - name: rt-cpo-prod-cu-vdidatae
         disable_bgp_route_propagation: false
@@ -1664,6 +1696,11 @@ subscriptions:
             address_prefix: WindowsVirtualDesktop
             next_hop_type: Internet
             next_hop_in_ip_address: 
+          - name: ro-snet-pub-datae-cu-myinnocap
+            address_prefix: 40.77.68.70/32
+            next_hop_type: VirtualAppliance
+            next_hop_in_ip_address: "10.60.0.132"
+
       - name: rt-cpo-prod-cu-vdibsops
         disable_bgp_route_propagation: false
         routes:
