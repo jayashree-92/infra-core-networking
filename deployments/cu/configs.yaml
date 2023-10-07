@@ -2255,7 +2255,7 @@ subscriptions:
             route_table_association:
             delegations: []
 
-      - name: Vnet-Id-Prod-UsC-01
+
         legacy_name: Vnet-Id-Prod-UsC-01
         virtual_hub_name: vhub-net-prod-cu
         virtual_hub_connection_name: PeerIdHub-Prod-UsC-01
