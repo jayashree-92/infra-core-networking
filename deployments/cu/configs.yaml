@@ -101,34 +101,34 @@ subscriptions:
           gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
           enabled: false
           sites:
-            - name: LegAzure-Prod-CAE-01
-              location: canadaeast
-              address_cidrs: ["10.33.0.0/16"]
-              device_vendor: FortiGate
-              routing:
-                associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable
-                propagated_route_table:
-                  labels: ["default"]
-                  route_table_ids:
-                    [
-                      "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable",
-                    ]
-              o365_policy:
-                traffic_category:
-                  allow_endpoint_enabled: false
-                  default_endpoint_enabled: false
-                  optimize_endpoint_enabled: false
-              tags:
-                managed-by: terraform
-              links:
-                - name: LegProdCAE01
-                  ip_address: null
-                  fqdn: vpn.innocap.com
-                  provider_name: Azure
-                  speed_in_mbps: 100
-                  bgp:
-                    asn: 65309
-                    peering_address: 169.254.17.133
+            # - name: LegAzure-Prod-CAE-01
+            #   location: canadaeast
+            #   address_cidrs: ["10.33.0.0/16"]
+            #   device_vendor: FortiGate
+            #   routing:
+            #     associated_route_table: /subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable
+            #     propagated_route_table:
+            #       labels: ["default"]
+            #       route_table_ids:
+            #         [
+            #           "/subscriptions/75641de5-1456-4853-bc77-dd7db76c35a1/resourceGroups/Rg-vWan-Prod-01/providers/Microsoft.Network/virtualHubs/vhub-net-prod-eu-54fu/hubRouteTables/defaultRouteTable",
+            #         ]
+            #   o365_policy:
+            #     traffic_category:
+            #       allow_endpoint_enabled: false
+            #       default_endpoint_enabled: false
+            #       optimize_endpoint_enabled: false
+            #   tags:
+            #     managed-by: terraform
+            #   links:
+            #     - name: LegProdCAE01
+            #       ip_address: null
+            #       fqdn: vpn.innocap.com
+            #       provider_name: Azure
+            #       speed_in_mbps: 100
+            #       bgp:
+            #         asn: 65309
+            #         peering_address: 169.254.17.133
 
         firewall:
           name: fw-net-prod-cu-01
