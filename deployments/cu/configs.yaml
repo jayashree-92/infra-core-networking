@@ -375,26 +375,26 @@ subscriptions:
             address_prefix: 0.0.0.0/0
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-    vnets:
-      - name: vnet-cpf-prod-cu
-        function: cpf
-        resource_group:
-          name: rg-cpf-prod-cu-vnet
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-cpf-prod-cu
-        address_space: ["172.16.0.0/16"]
-        location:
-        dns_servers: []
-        tags:
-          managed-by: terraform
-          resource-name: vnet-cpf-prod-cu
-          spoke: false
-        subnets:
-          - name: snet-cpf-prod-cu-pub
-            nsg_name: nsg-cpf-prod-cu-pub
-            address_prefixes: ["172.16.0.0/24"]
+    vnets: []
+      # - name: vnet-cpf-prod-cu
+      #   function: cpf
+      #   resource_group:
+      #     name: rg-cpf-prod-cu-vnet
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-cpf-prod-cu
+      #   address_space: ["172.16.0.0/16"]
+      #   location:
+      #   dns_servers: []
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-cpf-prod-cu
+      #     spoke: false
+      #   subnets:
+      #     - name: snet-cpf-prod-cu-pub
+      #       nsg_name: nsg-cpf-prod-cu-pub
+      #       address_prefixes: ["172.16.0.0/24"]
 
     spokes:
       - name: vnet-pfm-prod-cu
@@ -1008,26 +1008,26 @@ subscriptions:
             address_prefix: 0.0.0.0/0
             next_hop_type: VirtualAppliance
             next_hop_in_ip_address: "10.60.0.132"
-    vnets:
-      - name: vnet-cpf-qa-cu
-        function: cpf
-        resource_group:
-          name: rg-cpf-qa-cu-vnet
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-cpf-qa-cu
-        address_space: ["172.16.0.0/16"]
-        location:
-        dns_servers: []
-        tags:
-          managed-by: terraform
-          resource-name: vnet-cpf-qa-cu
-          spoke: false
-        subnets:
-          - name: snet-cpf-qa-cu-pub
-            nsg_name: nsg-cpf-qa-cu-pub
-            address_prefixes: ["172.16.0.0/24"]
+    vnets: []
+      # - name: vnet-cpf-qa-cu
+      #   function: cpf
+      #   resource_group:
+      #     name: rg-cpf-qa-cu-vnet
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-cpf-qa-cu
+      #   address_space: ["172.16.0.0/16"]
+      #   location:
+      #   dns_servers: []
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-cpf-qa-cu
+      #     spoke: false
+      #   subnets:
+      #     - name: snet-cpf-qa-cu-pub
+      #       nsg_name: nsg-cpf-qa-cu-pub
+      #       address_prefixes: ["172.16.0.0/24"]
     spokes:
       - name: vnet-pfm-qa-cu
         legacy_name:
