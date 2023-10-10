@@ -100,7 +100,7 @@ subscriptions:
         vpn:
           gateway_name: 01d29d7a32974121afadd8abdb92b84d-centralus-gw
           enabled: false
-          sites:
+          sites: []
             # - name: LegAzure-Prod-CAE-01
             #   location: canadaeast
             #   address_cidrs: ["10.33.0.0/16"]
