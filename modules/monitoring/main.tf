@@ -24,67 +24,34 @@ resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
 
 
 resource "azurerm_monitor_diagnostic_setting" "mdg" {
-  for_each                   = var.nsg_keys
-  name                       = "diag-${var.nsgs[each.key].name}"
-  target_resource_id         = var.nsgs[each.key].id
-  storage_account_id         = var.storage_account_id
-  log_analytics_workspace_id = var.log_analytics_workspace.resource_id
+  for_each                       = var.nsg_keys
+  name                           = "diag-${var.nsgs[each.key].name}"
+  target_resource_id             = var.nsgs[each.key].id
+  log_analytics_workspace_id     = var.log_analytics_workspace.resource_id
+  log_analytics_destination_type = var.log_analytics_destination_type
 
   enabled_log {
     category = "NetworkSecurityGroupEvent"
-    # enabled  = true
-
-    retention_policy {
-      enabled = true
-      days    = 90
-    }
   }
 
   enabled_log {
     category = "NetworkSecurityGroupRuleCounter"
-    # enabled  = true
-
-    retention_policy {
-      enabled = true
-      days    = 90
-    }
   }
-
-  # metric {
-  #   category = "AllMetrics"
-  #   enabled  = false
-
-  #   retention_policy {
-  #     days    = 0
-  #     enabled = false
-  #   }
-  # }
 }
 
 
 resource "azurerm_monitor_diagnostic_setting" "spoke_mdg" {
-  name                       = "diag-${var.spoke.vnet.name}"
-  target_resource_id         = var.spoke.vnet.id
-  storage_account_id         = var.storage_account_id
-  log_analytics_workspace_id = var.log_analytics_workspace.resource_id
+  name                           = "diag-${var.spoke.vnet.name}"
+  target_resource_id             = var.spoke.vnet.id
+  log_analytics_workspace_id     = var.log_analytics_workspace.resource_id
+  log_analytics_destination_type = var.log_analytics_destination_type
 
   enabled_log {
     category = "VMProtectionAlerts"
-    # enabled  = true
-
-    retention_policy {
-      enabled = true
-      days    = 90
-    }
   }
 
   metric {
+    enabled = false
     category = "AllMetrics"
-    enabled  = false
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 }

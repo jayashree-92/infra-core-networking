@@ -12,6 +12,7 @@ variable "network_watcher_name" {
 variable "storage_account_id" {
   description = "The storage account id for log persistence"
   type        = string
+  default     = null
 }
 
 variable "nsg_keys" {
@@ -44,4 +45,9 @@ variable "log_analytics_workspace" {
     resource_id = string
     location    = string
   })
+}
+
+variable "log_analytics_destination_type" {
+  type    = string
+  default = null
 }

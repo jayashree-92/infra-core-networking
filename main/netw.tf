@@ -11,7 +11,7 @@ resource "random_string" "sa_netw_rids" {
 
 module "netw_sa_net_prod" {
   count  = try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_net_prod.name
   location                          = azurerm_resource_group.rg_nsg_net_prod.location
@@ -87,7 +87,7 @@ module "nsg_log_net_prod" {
 
 module "netw_sa_pfm_prod" {
   count  = try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_prod.name
   location                          = azurerm_resource_group.rg_nsg_prod.location
@@ -186,7 +186,7 @@ module "nsg_log_pfm_prod_vnets" {
 
 module "netw_sa_pfm_tst" {
   count  = try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_tst.name
   location                          = azurerm_resource_group.rg_nsg_tst.location
@@ -264,7 +264,7 @@ module "nsg_log_pfm_tst" {
 
 module "netw_sa_pfm_qa" {
   count  = try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_qa.name
   location                          = azurerm_resource_group.rg_nsg_qa.location
@@ -367,7 +367,7 @@ module "nsg_log_pfm_qa_vnets" {
 
 module "netw_sa_pfm_dev" {
   count  = try(local.subscriptions_map.sb_pfm_dev.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_dev.name
   location                          = azurerm_resource_group.rg_nsg_dev.location
@@ -446,7 +446,7 @@ module "nsg_log_pfm_dev" {
 
 module "netw_sa_id_prod" {
   count  = try(local.subscriptions_map.sb_id_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_id_prod.name
   location                          = azurerm_resource_group.rg_nsg_id_prod.location
@@ -526,7 +526,7 @@ module "nsg_log_id_prod" {
 
 module "netw_sa_itt_prod" {
   count  = try(local.subscriptions_map.sb_itt_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_itt_prod.name
   location                          = azurerm_resource_group.rg_nsg_itt_prod.location
@@ -607,7 +607,7 @@ module "nsg_log_itt_prod" {
 
 module "netw_sa_dvp_prod" {
   count  = try(local.subscriptions_map.sb_dvp_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_dvp_prod.name
   location                          = azurerm_resource_group.rg_nsg_dvp_prod.location
@@ -687,7 +687,7 @@ module "nsg_log_dvp_prod" {
 
 module "netw_sa_itm_prod" {
   count  = try(local.subscriptions_map.sb_itm_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_itm_prod.name
   location                          = azurerm_resource_group.rg_nsg_itm_prod.location
@@ -767,7 +767,7 @@ module "nsg_log_itm_prod" {
 
 module "netw_sa_sec_prod" {
   count  = try(local.subscriptions_map.sb_sec_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_sec_prod.name
   location                          = azurerm_resource_group.rg_nsg_sec_prod.location
@@ -846,7 +846,7 @@ module "nsg_log_sec_prod" {
 }
 
 module "netw_sa_cpo_prod_us" {
-  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
   count                             = try(local.subscriptions_map.sb_cpo_prod_us.network_watcher.enabled, true) ? 1 : 0
   resource_group_name               = azurerm_resource_group.rg_nsg_cpo_prod_us.name
   location                          = azurerm_resource_group.rg_nsg_cpo_prod_us.location
@@ -923,7 +923,7 @@ module "nsg_log_cpo_prod_us" {
 }
 
 module "netw_sa_cpo_prod_ci" {
-  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
   count                             = try(local.subscriptions_map.sb_cpo_prod_ci.network_watcher.enabled, true) ? 1 : 0
   resource_group_name               = azurerm_resource_group.rg_nsg_cpo_prod_ci.name
   location                          = azurerm_resource_group.rg_nsg_cpo_prod_ci.location
@@ -1002,7 +1002,7 @@ module "nsg_log_cpo_prod_ci" {
 }
 
 module "netw_sa_sb_inno_mtl" {
-  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.0"
+  source                            = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
   count                             = try(local.subscriptions_map.sb_inno_mtl.network_watcher.enabled, true) ? 1 : 0
   resource_group_name               = azurerm_resource_group.rg_nsg_sb_inno_mtl.name
   location                          = azurerm_resource_group.rg_nsg_sb_inno_mtl.location

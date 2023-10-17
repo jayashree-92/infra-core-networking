@@ -57,16 +57,10 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
     }
   }
 
-  dynamic "log" {
+  dynamic "enabled_log" {
     for_each = local.fw_diag_settings_categories
     content {
-      category = log.value
-      enabled  = true
-
-      retention_policy {
-        enabled = true
-        days    = 90
-      }
+      category = enabled_log.value
     }
   }
 }
