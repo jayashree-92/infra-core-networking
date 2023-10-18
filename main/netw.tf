@@ -37,9 +37,9 @@ module "netw_sa_net_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -113,9 +113,9 @@ module "netw_sa_pfm_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -212,9 +212,9 @@ module "netw_sa_pfm_tst" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -290,9 +290,9 @@ module "netw_sa_pfm_qa" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -393,9 +393,9 @@ module "netw_sa_pfm_dev" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -472,9 +472,9 @@ module "netw_sa_id_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -552,9 +552,9 @@ module "netw_sa_itt_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -633,9 +633,9 @@ module "netw_sa_dvp_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -713,9 +713,9 @@ module "netw_sa_itm_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -793,9 +793,9 @@ module "netw_sa_sec_prod" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -872,9 +872,9 @@ module "netw_sa_cpo_prod_us" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -949,9 +949,9 @@ module "netw_sa_cpo_prod_ci" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
@@ -1028,9 +1028,9 @@ module "netw_sa_sb_inno_mtl" {
     file = false
   }
 
-  enable_diagnostig_settings = {
+  enable_diagnostic_settings = {
     table = false
-    queue = true
+    queue = false
     blob  = true
     file  = true
   }
