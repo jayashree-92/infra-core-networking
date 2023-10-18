@@ -1,0 +1,127 @@
+parameters:
+  - name: location
+    type: string
+  - name: function
+    type: string
+  - name: environment
+    type: string
+  - name: terraformMainDir
+    type: string
+  - name: terraformDeployDir
+    type: string
+  - name: useWorkspace
+    type: boolean
+    default: false
+
+stages:
+- stage: TeraformPlan
+  displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
+  pool: terraform-pipeline-${{ parameters.location }}
+  jobs:
+    - job: TerraformPlan${{ upper(parameters.location) }}
+      displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
+
+      variables:
+        terraformPlanCliOptions: '-var="terraform_remote_state_access_key=$(tf-state-blob-access-key)" -var="location_code=${{ parameters.location }}" -out ${{ lower(parameters.environment) }}.tfplan'
+
+      steps:
+        - checkout: self
+
+        - template: templates/azdo-install-ssh.yml@templates
+          parameters:
+            sshknownHosts:    "$(tf-git-ssh-known-hosts)"
+            sshPublicKey:     "$(tf-git-ssh-public-key)"
+            sshSecureFile:    "$(tf-git-ssh-secure-file-name)"
+
+        - template: templates/terraform-init.yml@templates
+          parameters:
+            stateBlobAccountName:     $(tf-state-blob-account)
+            stateBlobContainerName:   $(tf-state-blob-container)
+            stateBlobFile:            $(tf-state-blob-file-${{ parameters.location }})
+            stateBlobAccessKey:       $(tf-state-blob-access-key)
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+        
+        - template: templates/terraform-workspace.yml@templates
+          parameters:
+            useWorkspace:             ${{ parameters.useWorkspace }}
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+            environment:              ${{ parameters.environment }}
+
+        - template: templates/terraform-plan.yml@templates
+          parameters:
+            armSubscriptionId:        $(tf-arm-subscription-id-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armClientId:              $(tf-arm-client-id-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armClientSecret:          $(tf-arm-client-secret-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armTenantId:              $(tf-arm-tenant-id)
+            terraformPlanCliOptions:  ${{ variables.terraformPlanCliOptions }}
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+
+        - task: CopyFiles@2
+          inputs:
+            SourceFolder: ${{ parameters.terraformMainDir }}
+            Contents: ${{ lower(parameters.environment) }}.tfplan
+            TargetFolder: $(Build.ArtifactStagingDirectory)
+          displayName: CreatePipelineArtifact
+
+        - publish: $(Build.ArtifactStagingDirectory)
+          artifact: terraform_plan_${{ lower(parameters.environment) }}
+
+- stage: manualValidation
+  displayName: Validation
+  condition: succeeded()
+  jobs:
+    - template: templates/azdo-manual-validation.yml@templates
+      parameters:
+        notifyUsers: 'alan.pinard@innocap.com'
+        instructions: 'Manual deployment detected, please validate the Terraform plan before continue.'
+        
+- stage: TeraformApply
+  displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
+  pool: terraform-pipeline-${{ parameters.location }}
+  condition: succeeded()
+  jobs:
+    - job: TerraformApply${{ upper(parameters.location) }}
+      displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
+      continueOnError: 'false'
+      variables:
+        terraformApplyCliOptions: '--auto-approve ${{ parameters.environment }}.tfplan'
+      steps:
+        - checkout: self
+
+        - template: templates/azdo-install-ssh.yml@templates
+          parameters:
+            sshknownHosts:    "$(tf-git-ssh-known-hosts)"
+            sshPublicKey:     "$(tf-git-ssh-public-key)"
+            sshSecureFile:    "$(tf-git-ssh-secure-file-name)"
+
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: current
+            downloadType: single
+            itemPattern: ${{ lower(parameters.environment) }}.tfplan
+            artifactName: terraform_plan_${{ parameters.environment }}
+            downloadPath: ${{ parameters.terraformMainDir }}
+
+        - template: templates/terraform-init.yml@templates
+          parameters:
+            stateBlobAccountName:     $(tf-state-blob-account)
+            stateBlobContainerName:   $(tf-state-blob-container)
+            stateBlobFile:            $(tf-state-blob-file-${{ parameters.location }})
+            stateBlobAccessKey:       $(tf-state-blob-access-key)
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+
+        - template: templates/terraform-workspace.yml@templates
+          parameters:
+            useWorkspace:             ${{ parameters.useWorkspace }}
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+            environment:              ${{ parameters.environment }}
+
+        - template: templates/terraform-apply.yml@templates
+          parameters:
+            armSubscriptionId:        $(tf-arm-subscription-id-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armClientId:              $(tf-arm-client-id-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armClientSecret:          $(tf-arm-client-secret-sb-${{parameters.function}}-${{parameters.environment}}-1a4d)
+            armTenantId:              $(tf-arm-tenant-id)
+            terraformApplyCliOptions: ${{ variables.terraformApplyCliOptions }}
+            workingDirectory:         ${{ parameters.terraformMainDir }}
+

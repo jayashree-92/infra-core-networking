@@ -1,0 +1,35 @@
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: Terraform-Modules/terraform-module-template
+      ref: refs/tags/v1.0.3
+
+parameters:
+  - name: location
+    displayName: Location
+    values:
+      - cu
+      - ci
+
+variables:
+  - group: terraform-backend-core-networking
+  - group: terraform-global
+  - group: terraform-ssh
+  - name: terraformMainDir
+    value: '$(System.DefaultWorkingDirectory)/main'
+  - name: terraformDeployDir
+    value: '$(System.DefaultWorkingDirectory)/deployments'
+
+trigger: none
+pr: none
+
+stages:
+  - template: azure-release.yml
+    parameters:
+      location:           ${{ parameters.location }}
+      function:           "net"
+      environment:        "prod"
+      terraformMainDir:   ${{ variables.terraformMainDir }}
+      terraformDeployDir: ${{ variables.terraformDeployDir }}
+      useWorkspace:       false
