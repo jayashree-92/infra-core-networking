@@ -44,7 +44,6 @@ resource "azurerm_monitor_diagnostic_setting" "fw_mdg" {
   provider                       = azurerm.sb_net_prod
   name                           = "diag-${module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.name}"
   target_resource_id             = module.hubs[local.vwan_subscription.hubs[0].name].hub.firewall.id
-  storage_account_id             = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
   log_analytics_workspace_id     = local.config_file.log_analytics_workspace.resource_id
   log_analytics_destination_type = "Dedicated"
 
