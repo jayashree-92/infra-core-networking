@@ -11,6 +11,8 @@ parameters:
     values:
       - cu
       - ci
+      - eu
+      - dr
 
 variables:
   - group: terraform-backend-core-networking

@@ -21,6 +21,7 @@ subscriptions:
     nsg_rg_name: rg-net-prod-cu-nsg
     routes_rg_name: rg-net-prod-cu-rt
     network_watcher:
+      enabled: true
       purpose: net
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -307,6 +308,7 @@ subscriptions:
     routes_rg_name: rg-pfm-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: pfm
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -678,6 +680,7 @@ subscriptions:
     routes_rg_name: rg-pfm-tst-cu-rt
     netw_name: netw-net-tst-cu
     network_watcher:
+      enabled: true
       purpose: pfm
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -940,6 +943,7 @@ subscriptions:
     routes_rg_name: rg-pfm-qa-cu-rt
     netw_name: netw-net-qa-cu
     network_watcher:
+      enabled: true
       purpose: pfm
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -1222,6 +1226,7 @@ subscriptions:
     routes_rg_name: rg-pfm-dev-cu-rt
     netw_name: netw-net-dev-cu
     network_watcher:
+      enabled: true
       purpose: pfm
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -1574,6 +1579,7 @@ subscriptions:
     routes_rg_name: rg-cpo-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: cpo
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -1909,6 +1915,7 @@ subscriptions:
     routes_rg_name: rg-sec-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: sec
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -1988,6 +1995,7 @@ subscriptions:
     routes_rg_name: rg-itt-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: itt
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -2067,6 +2075,7 @@ subscriptions:
     routes_rg_name: rg-id-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: id
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -2162,6 +2171,7 @@ subscriptions:
     routes_rg_name: rg-dvp-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: dvp
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -2296,6 +2306,7 @@ subscriptions:
     routes_rg_name: rg-itm-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: itm
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01
@@ -2375,6 +2386,7 @@ subscriptions:
     routes_rg_name: rg-inno-prod-cu-rt
     netw_name: netw-net-prod-cu
     network_watcher:
+      enabled: true
       purpose: inno
       function: net
       private_dns_zone_rg_name: rg-nethub-privdns-usc-01

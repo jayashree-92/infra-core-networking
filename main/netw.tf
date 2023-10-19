@@ -62,6 +62,7 @@ module "netw_sa_net_prod" {
 }
 
 resource "azurerm_network_watcher" "netw_net_prod" {
+  count               = try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_net_prod
   name                = "${local.vwan_subscription.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_net_prod].result}"
   location            = azurerm_resource_group.rg_nsg_net_prod.location
@@ -71,7 +72,7 @@ resource "azurerm_network_watcher" "netw_net_prod" {
 module "nsg_log_net_prod" {
   for_each                = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke if try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_net_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_net_prod[0].name
   storage_account_id      = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -138,6 +139,7 @@ module "netw_sa_pfm_prod" {
 
 
 resource "azurerm_network_watcher" "netw_pfm_prod" {
+  count               = try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_pfm_prod_01
   name                = "${local.subscriptions_map.sb_pfm_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_pfm_prod].result}"
   location            = azurerm_resource_group.rg_nsg_prod.location
@@ -148,7 +150,7 @@ resource "azurerm_network_watcher" "netw_pfm_prod" {
 module "nsg_log_pfm_prod" {
   for_each                = { for spoke in local.spokes.sb_pfm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod[0].name
   storage_account_id      = length(module.netw_sa_pfm_prod) > 0 ? module.netw_sa_pfm_prod[0].id : null
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -167,7 +169,7 @@ module "nsg_log_pfm_prod" {
 module "nsg_log_pfm_prod_vnets" {
   for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod[0].name
   storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -236,6 +238,7 @@ module "netw_sa_pfm_tst" {
 }
 
 resource "azurerm_network_watcher" "netw_pfm_tst" {
+  count               = try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_pfm_stg_01
   name                = "${local.subscriptions_map.sb_pfm_tst.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_pfm_tst].result}"
   location            = azurerm_resource_group.rg_nsg_tst.location
@@ -245,7 +248,7 @@ resource "azurerm_network_watcher" "netw_pfm_tst" {
 module "nsg_log_pfm_tst" {
   for_each                = { for spoke in local.spokes.sb_pfm_tst : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_tst.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_tst[0].name
   storage_account_id      = try(module.netw_sa_pfm_tst[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -315,6 +318,7 @@ module "netw_sa_pfm_qa" {
 
 
 resource "azurerm_network_watcher" "netw_pfm_qa" {
+  count               = try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_pfm_qa_01
   name                = "${local.subscriptions_map.sb_pfm_qa.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_pfm_qa].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_qa.name
@@ -325,7 +329,7 @@ resource "azurerm_network_watcher" "netw_pfm_qa" {
 module "nsg_log_pfm_qa" {
   for_each                = { for spoke in local.spokes.sb_pfm_qa : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_qa.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_qa[0].name
   storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -348,7 +352,7 @@ module "nsg_log_pfm_qa" {
 module "nsg_log_pfm_qa_vnets" {
   for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_qa.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_qa.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_qa[0].name
   storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -417,6 +421,7 @@ module "netw_sa_pfm_dev" {
 }
 
 resource "azurerm_network_watcher" "netw_pfm_dev" {
+  count               = try(local.subscriptions_map.sb_pfm_dev.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_pfm_dev_01
   name                = "${local.subscriptions_map.sb_pfm_dev.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_pfm_dev].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_dev.name
@@ -427,7 +432,7 @@ resource "azurerm_network_watcher" "netw_pfm_dev" {
 module "nsg_log_pfm_dev" {
   for_each                = { for spoke in local.spokes.sb_pfm_dev : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_dev.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_dev.name
+  network_watcher_name    = azurerm_network_watcher.netw_pfm_dev[0].name
   storage_account_id      = try(module.netw_sa_pfm_dev[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -497,6 +502,7 @@ module "netw_sa_id_prod" {
 
 
 resource "azurerm_network_watcher" "netw_id_prod" {
+  count               = try(local.subscriptions_map.sb_id_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_id_prod
   name                = "${local.subscriptions_map.sb_id_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_id_prod].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_id_prod.name
@@ -507,7 +513,7 @@ resource "azurerm_network_watcher" "netw_id_prod" {
 module "nsg_log_id_prod" {
   for_each                = { for spoke in local.spokes.sb_id_prod : spoke.name => spoke if try(local.subscriptions_map.sb_id_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_id_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_id_prod[0].name
   storage_account_id      = try(module.netw_sa_id_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -577,6 +583,7 @@ module "netw_sa_itt_prod" {
 
 
 resource "azurerm_network_watcher" "netw_itt_prod" {
+  count               = try(local.subscriptions_map.sb_itt_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_itt_prod
   name                = "${local.subscriptions_map.sb_itt_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_itt_prod].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_itt_prod.name
@@ -587,7 +594,7 @@ resource "azurerm_network_watcher" "netw_itt_prod" {
 module "nsg_log_itt_prod" {
   for_each                = { for spoke in local.spokes.sb_itt_prod : spoke.name => spoke if try(local.subscriptions_map.sb_itt_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_itt_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_itt_prod[0].name
   storage_account_id      = try(module.netw_sa_itt_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -658,6 +665,7 @@ module "netw_sa_dvp_prod" {
 
 
 resource "azurerm_network_watcher" "netw_dvp_prod" {
+  count               = try(local.subscriptions_map.sb_dvp_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_dvp_prod
   name                = "${local.subscriptions_map.sb_dvp_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_dvp_prod].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_dvp_prod.name
@@ -668,7 +676,7 @@ resource "azurerm_network_watcher" "netw_dvp_prod" {
 module "nsg_log_dvp_prod" {
   for_each                = { for spoke in local.spokes.sb_dvp_prod : spoke.name => spoke if try(local.subscriptions_map.sb_dvp_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_dvp_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_dvp_prod[0].name
   storage_account_id      = try(module.netw_sa_dvp_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -737,6 +745,7 @@ module "netw_sa_itm_prod" {
 }
 
 resource "azurerm_network_watcher" "netw_itm_prod" {
+  count               = try(local.subscriptions_map.sb_itm_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_itm_prod
   name                = "${local.subscriptions_map.sb_itm_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_itm_prod].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_itm_prod.name
@@ -747,7 +756,7 @@ resource "azurerm_network_watcher" "netw_itm_prod" {
 module "nsg_log_itm_prod" {
   for_each                = { for spoke in local.spokes.sb_itm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_itm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_itm_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_itm_prod[0].name
   storage_account_id      = try(module.netw_sa_itm_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
@@ -818,6 +827,7 @@ module "netw_sa_sec_prod" {
 
 
 resource "azurerm_network_watcher" "netw_sec_prod" {
+  count               = try(local.subscriptions_map.sb_sec_prod.network_watcher.enabled, true) ? 1 : 0
   provider            = azurerm.sb_sec_prod
   name                = "${local.subscriptions_map.sb_sec_prod.netw_name}-${random_string.sa_netw_rids[local.subscription_names.sb_sec_prod].result}"
   resource_group_name = azurerm_resource_group.rg_nsg_sec_prod.name
@@ -828,7 +838,7 @@ resource "azurerm_network_watcher" "netw_sec_prod" {
 module "nsg_log_sec_prod" {
   for_each                = { for spoke in local.spokes.sb_sec_prod : spoke.name => spoke if try(local.subscriptions_map.sb_sec_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_sec_prod.name
+  network_watcher_name    = azurerm_network_watcher.netw_sec_prod[0].name
   storage_account_id      = try(module.netw_sa_sec_prod[0].id, null)
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
