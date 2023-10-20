@@ -1,6 +1,6 @@
 module "vwan" {
   count  = local.create_vwan == true ? 1 : 0
-  source = "../modules/vwan"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-virtual-wan//module//?ref=v1.0.0"
   vwan   = local.vwan_subscription.vwan
   providers = {
     azurerm = azurerm.sb_net_prod
@@ -18,7 +18,7 @@ resource "random_string" "rid_hubs" {
 }
 
 module "hubs" {
-  source                  = "../modules/hub"
+  source                  = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-network-hub//module//?ref=v1.0.0"
   for_each                = { for hub in local.vwan_subscription.hubs : hub.name => hub }
   location                = local.config_file.location
   rid_hub                 = random_string.rid_hubs[each.value.name].result

@@ -1,6 +1,6 @@
 module "routes_pfm_prod" {
   count    = length(local.route_tables.sb_pfm_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_pfm_prod.routes_rg_name
   routes   = local.route_tables.sb_pfm_prod
@@ -16,7 +16,7 @@ output "route_test" {
 
 module "routes_pfm_tst" {
   count    = length(local.route_tables.sb_pfm_tst) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_pfm_tst.routes_rg_name
   routes   = local.route_tables.sb_pfm_tst
@@ -28,7 +28,7 @@ module "routes_pfm_tst" {
 
 module "routes_pfm_qa" {
   count    = length(local.route_tables.sb_pfm_qa) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_pfm_qa.routes_rg_name
   routes   = local.route_tables.sb_pfm_qa
@@ -40,7 +40,7 @@ module "routes_pfm_qa" {
 
 module "routes_pfm_dev" {
   count    = length(local.route_tables.sb_pfm_dev) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_pfm_dev.routes_rg_name
   routes   = local.route_tables.sb_pfm_dev
@@ -53,7 +53,7 @@ module "routes_pfm_dev" {
 
 module "routes_id_prod" {
   count    = length(local.route_tables.sb_id_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_id_prod.routes_rg_name
   routes   = local.route_tables.sb_id_prod
@@ -65,7 +65,7 @@ module "routes_id_prod" {
 
 module "routes_itt_prod" {
   count    = length(local.route_tables.sb_itt_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_itt_prod.routes_rg_name
   routes   = local.route_tables.sb_itt_prod
@@ -77,7 +77,7 @@ module "routes_itt_prod" {
 
 module "routes_dvp_prod" {
   count    = length(local.route_tables.sb_dvp_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_dvp_prod.routes_rg_name
   routes   = local.route_tables.sb_dvp_prod
@@ -89,7 +89,7 @@ module "routes_dvp_prod" {
 
 module "routes_itm_prod" {
   count    = length(local.route_tables.sb_itm_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_itm_prod.routes_rg_name
   routes   = local.route_tables.sb_itm_prod
@@ -101,7 +101,7 @@ module "routes_itm_prod" {
 
 module "routes_sec_prod" {
   count    = length(local.route_tables.sb_sec_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_sec_prod.routes_rg_name
   routes   = local.route_tables.sb_sec_prod
@@ -113,7 +113,7 @@ module "routes_sec_prod" {
 
 module "routes_net_prod" {
   count    = length(local.route_tables.sb_net_prod) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_net_prod.routes_rg_name
   routes   = local.route_tables.sb_net_prod
@@ -125,7 +125,7 @@ module "routes_net_prod" {
 
 module "routes_cpo_prod_us" {
   count    = length(local.route_tables.sb_cpo_prod_us) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_cpo_prod_us.routes_rg_name
   routes   = local.route_tables.sb_cpo_prod_us
@@ -137,7 +137,7 @@ module "routes_cpo_prod_us" {
 
 module "routes_cpo_prod_ci" {
   count    = length(local.route_tables.sb_cpo_prod_ci) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_cpo_prod_ci.routes_rg_name
   routes   = local.route_tables.sb_cpo_prod_ci
@@ -149,7 +149,7 @@ module "routes_cpo_prod_ci" {
 
 module "routes_inno_mtl" {
   count    = length(local.route_tables.sb_inno_mtl) > 0 ? 1 : 0
-  source   = "../modules/route-table"
+  source   = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-route-table//module//?ref=v1.0.0"
   location = local.config_file.location
   rg_name  = local.subscriptions_map.sb_inno_mtl.routes_rg_name
   routes   = local.route_tables.sb_inno_mtl

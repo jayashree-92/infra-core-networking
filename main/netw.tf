@@ -163,29 +163,6 @@ module "nsg_log_pfm_prod" {
   }
 }
 
-######################################
-#  nsg log flow for non spoke vnets
-######################################
-module "nsg_log_pfm_prod_vnets" {
-  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_prod.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
-  source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_prod[0].name
-  storage_account_id      = try(module.netw_sa_pfm_prod[0].id, null)
-  location                = local.config_file.location
-  log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
-  nsgs                    = module.vnets_sb_pfm_prod[each.key].vnet.nsgs
-  spoke                   = module.vnets_sb_pfm_prod[each.key].vnet
-
-  providers = {
-    azurerm = azurerm.sb_pfm_prod_01
-  }
-
-  depends_on = [
-    azurerm_network_watcher.netw_pfm_prod
-  ]
-}
-
 module "netw_sa_pfm_tst" {
   count  = try(local.subscriptions_map.sb_pfm_tst.network_watcher.enabled, true) ? 1 : 0
   source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
@@ -336,29 +313,6 @@ module "nsg_log_pfm_qa" {
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
   nsgs                    = module.spokes_sb_pfm_qa[each.key].vnet_spoke.nsgs
   spoke                   = module.spokes_sb_pfm_qa[each.key].vnet_spoke
-
-  providers = {
-    azurerm = azurerm.sb_pfm_qa_01
-  }
-
-  depends_on = [
-    azurerm_network_watcher.netw_pfm_qa
-  ]
-}
-
-######################################
-#  nsg log flow for non spoke vnets
-######################################
-module "nsg_log_pfm_qa_vnets" {
-  for_each                = { for vnet in try(local.subscriptions_map.sb_pfm_qa.vnets, []) : vnet.name => vnet if try(vnet.name, false) != false && try(local.subscriptions_map.sb_pfm_qa.network_watcher.enabled, true) }
-  source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_pfm_qa[0].name
-  storage_account_id      = try(module.netw_sa_pfm_qa[0].id, null)
-  location                = local.config_file.location
-  log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
-  nsgs                    = module.vnets_sb_pfm_qa[each.key].vnet.nsgs
-  spoke                   = module.vnets_sb_pfm_qa[each.key].vnet
 
   providers = {
     azurerm = azurerm.sb_pfm_qa_01
