@@ -295,45 +295,45 @@ subscriptions:
                     "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
                   ]
 
-      - name: vnet-pub-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pub-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pub
-        resource_group:
-          name: rg-pub-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pub-prod-ci-vnet
-        address_space: ["10.70.234.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pub-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-pub-prod-ci-pub
-            legacy_name:
-            workload_tier: pub
-            nsg_name: nsg-pub-prod-ci-pub
-            address_prefixes: ["10.70.234.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+      # - name: vnet-pub-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pub-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-prod-ci-vnet
+      #   address_space: ["10.70.234.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-prod-ci-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-prod-ci-pub
+      #       address_prefixes: ["10.70.234.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   - name: sb-pfm-tst-1a4d
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
@@ -501,45 +501,45 @@ subscriptions:
                     "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
                   ]
 
-      - name: vnet-pub-tst-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pub-tst-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pub
-        resource_group:
-          name: rg-pub-tst-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pub-tst-ci-vnet
-        address_space: ["10.70.232.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pub-tst-ci
-          spoke: true
-        subnets:
-          - name: snet-pub-tst-ci-pub
-            legacy_name:
-            workload_tier: pub
-            nsg_name: nsg-pub-tst-ci-pub
-            address_prefixes: ["10.70.232.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+      # - name: vnet-pub-tst-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pub-tst-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-tst-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-tst-ci-vnet
+      #   address_space: ["10.70.232.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-tst-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-tst-ci-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-tst-ci-pub
+      #       address_prefixes: ["10.70.232.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   - name: sb-pfm-qa-1a4d
     id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
@@ -707,45 +707,45 @@ subscriptions:
                     "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
                   ]
 
-      - name: vnet-pub-qa-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pub-qa-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pub
-        resource_group:
-          name: rg-pub-qa-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pub-qa-ci-vnet
-        address_space: ["10.70.230.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pub-qa-ci
-          spoke: true
-        subnets:
-          - name: snet-pub-qa-ci-pub
-            legacy_name:
-            workload_tier: pub
-            nsg_name: nsg-pub-qa-ci-pub
-            address_prefixes: ["10.70.230.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+      # - name: vnet-pub-qa-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pub-qa-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-qa-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-qa-ci-vnet
+      #   address_space: ["10.70.230.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-qa-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-qa-ci-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-qa-ci-pub
+      #       address_prefixes: ["10.70.230.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   - name: sb-pfm-dev-1a4d
     id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
@@ -913,45 +913,45 @@ subscriptions:
                     "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
                   ]
 
-      - name: vnet-pub-dev-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pub-dev-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pub
-        resource_group:
-          name: rg-pub-dev-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pub-dev-ci-vnet
-        address_space: ["10.70.228.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pub-dev-ci
-          spoke: true
-        subnets:
-          - name: snet-pub-dev-ci-pub
-            legacy_name:
-            workload_tier: pub
-            nsg_name: nsg-pub-dev-ci-pub
-            address_prefixes: ["10.70.228.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+      # - name: vnet-pub-dev-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pub-dev-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-dev-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-dev-ci-vnet
+      #   address_space: ["10.70.228.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-dev-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-dev-ci-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-dev-ci-pub
+      #       address_prefixes: ["10.70.228.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   # Corporate
   - name: sb-cpo-prod-us-1a4d
@@ -1148,94 +1148,6 @@ subscriptions:
             service_endpoint_policy_ids: []
             private_endpoint_network_policies_enabled: true
             route_table_association:
-            delegations: []
-
-      - name: Vnet-Corp-Prod-InC-01
-        legacy_name: Vnet-Corp-Prod-InC-01
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: PeerVnetCorp-Prod-InC-01
-        legacy_virtual_hub_connection_name: PeerVnetCorp-Prod-InC-01
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function:
-        resource_group:
-          name: Rg-Vnet-Corp-Prod-InC-01
-          legacy_name: Rg-Vnet-Corp-Prod-InC-01
-          location:
-          tags:
-            resource-type: legacy
-            managed-by: terraform
-            resource-name: Rg-Vnet-Corp-Prod-InC-01
-        address_space: ["10.47.0.0/18"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers:
-          [
-          ]
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          resource-type: legacy
-          managed-by: terraform
-          resource-name: Vnet-Corp-Prod-InC-01
-          spoke: true
-        subnets:
-          - name: Snet-Corp-VDIBsOps-InC-01
-            legacy_name: Snet-Corp-VDIBsOps-InC-01
-            workload_tier: vdibsops
-            nsg_name: nsg-Snet-Corp-VDIBsOps-InC-01
-            address_prefixes: ["10.47.11.0/24"]
-            nsg_enabled: true
-            service_endpoints: ["Microsoft.Storage"]
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: Snet-Corp-VDIFunc-InC-01
-            legacy_name: Snet-Corp-VDIFunc-InC-01
-            workload_tier: vdifunc
-            nsg_name: nsg-Snet-Corp-VDIFunc-InC-01
-            address_prefixes: ["10.47.12.0/24"]
-            nsg_enabled: true
-            service_endpoints: ["Microsoft.Storage"]
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: Snet-Corp-VDIDataS-InC-01
-            legacy_name: Snet-Corp-VDIDataS-InC-01
-            workload_tier: vdidatas
-            nsg_name: nsg-Snet-Corp-VDIDataS-InC-01
-            address_prefixes: ["10.47.13.0/24"]
-            nsg_enabled: true
-            service_endpoints: ["Microsoft.Storage"]
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: Snet-Corp-VDIDev-InC-01
-            legacy_name: Snet-Corp-VDIDev-InC-01
-            workload_tier: vdidev
-            nsg_name: nsg-Snet-Corp-VDIDev-InC-01
-            address_prefixes: ["10.47.14.0/24"]
-            nsg_enabled: true
-            service_endpoints: ["Microsoft.Storage"]
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-cpo-prod-ci-vdidev
-            delegations: []
-          - name: Snet-Corp-VDIITadmin-InC-01
-            legacy_name: Snet-Corp-VDIITadmin-InC-01
-            workload_tier: vdiitadmin
-            nsg_name: nsg-Snet-Corp-VDIITadmin-InC-01
-            address_prefixes: ["10.47.15.0/24"]
-            nsg_enabled: true
-            service_endpoints: ["Microsoft.Storage"]
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-cpo-prod-ci-vdiitadmin
             delegations: []
 
   #  Security
@@ -1487,64 +1399,6 @@ subscriptions:
             workload_tier: priv
             nsg_name: nsg-id-prod-ci-priv
             address_prefixes: ["10.70.211.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-
-      - name: Vnet-Id-Prod-InC-01
-        legacy_name: Vnet-Id-Prod-InC-01
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: PeerIdHub-Prod-InC-01
-        legacy_virtual_hub_connection_name: PeerIdHub-Prod-InC-01
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function:
-        resource_group:
-          name: Rg-IdNet-Prod-InC-01
-          legacy_name: Rg-IdNet-Prod-InC-01
-          location:
-          tags:
-            resource-type: legacy
-            managed-by: terraform
-            resource-name: Rg-IdNet-Prod-InC-01
-        address_space: ["10.70.48.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links:
-          - privatelink.azconfig.io
-          - privatelink.azure-automation.net
-          - privatelink.batch.azure.com
-          - privatelink.blob.core.windows.net
-          - privatelink.database.windows.net
-          - privatelink.dfs.core.windows.net
-          - privatelink.e4ff6437056e.database.windows.net
-          - privatelink.eventgrid.azure.net
-          - privatelink.file.core.windows.net
-          - privatelink.postgres.database.azure.com
-          - privatelink.queue.core.windows.net
-          - privatelink.servicebus.windows.net
-          - privatelink.sql.azuresynapse.net
-          - privatelink.table.core.windows.net
-          - privatelink.vaultcore.azure.net
-          - privatelink.cus.backup.windowsazure.com
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          resource-type: legacy
-          managed-by: terraform
-          resource-name: Vnet-Id-Prod-InC-01
-          spoke: true
-        subnets:
-          - name: Snet-Id-Prod-InC-01
-            legacy_name: Snet-Id-Prod-InC-01
-            workload_tier: inf
-            nsg_name: nsg-Snet-Id-Prod-InC-01
-            address_prefixes: ["10.70.48.0/24"]
             nsg_enabled: true
             service_endpoints:
             service_endpoint_policy_ids: []
