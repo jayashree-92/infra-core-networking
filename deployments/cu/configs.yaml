@@ -18,6 +18,7 @@ subscriptions:
     netw_rg_name: rg-net-prod-cu-netw
     netw_name: netw-net-prod-cu
     netw_sa_acc_name: sanetnetprodcu
+    create_storage_account : false
     nsg_rg_name: rg-net-prod-cu-nsg
     routes_rg_name: rg-net-prod-cu-rt
     network_watcher:
@@ -302,6 +303,7 @@ subscriptions:
             delegations: []
   # Platform
   - name: sb-pfm-prod-1a4d
+    create_storage_account : false
     id: b69669b9-6d12-4ada-b44d-5f578b85f46c
     legacy_name:
     nsg_rg_name: rg-pfm-prod-cu-nsg
@@ -674,6 +676,7 @@ subscriptions:
       #       delegations: []
 
   - name: sb-pfm-tst-1a4d
+    create_storage_account : false
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
     legacy_name:
     nsg_rg_name: rg-pfm-tst-cu-nsg
@@ -937,6 +940,7 @@ subscriptions:
             delegations: []
 
   - name: sb-pfm-qa-1a4d
+    create_storage_account : false
     id: e4eb0487-0872-4b0f-9185-79cf4d6a2af1
     legacy_name: Sb-Client-PProd-US-01
     nsg_rg_name: rg-pfm-qa-cu-nsg
@@ -1220,6 +1224,7 @@ subscriptions:
             delegations: []
 
   - name: sb-pfm-dev-1a4d
+    create_storage_account : false
     id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name:
     nsg_rg_name: rg-pfm-dev-cu-nsg
@@ -1573,6 +1578,7 @@ subscriptions:
 
   # Corporate
   - name: sb-cpo-prod-us-1a4d
+    create_storage_account : false
     id: d0c437f8-266d-4cd9-84cb-df09ee801e26
     legacy_name:
     nsg_rg_name: rg-cpo-prod-cu-nsg
@@ -1895,6 +1901,7 @@ subscriptions:
             delegations: []
 
   - name: sb-cpo-prod-ci-1a4d
+    create_storage_account : false
     id: 9f6c36c6-042f-4bb1-9c8d-915a3f524c6e
     legacy_name: Sb-Corp-Prod-IN
     nsg_rg_name: rg-cpo-prod-cu-nsg
@@ -1909,6 +1916,7 @@ subscriptions:
 
   #  Security
   - name: sb-sec-prod-01
+    create_storage_account : false
     id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
     legacy_name:
     nsg_rg_name: rg-sec-prod-cu-nsg
@@ -2069,6 +2077,7 @@ subscriptions:
 
   # Identity
   - name: sb-Id-prod-1a4d
+    create_storage_account : false
     id: 99d9c0c8-690d-42ed-85c8-e910aae61413
     legacy_name:
     nsg_rg_name: rg-id-prod-cu-nsg
@@ -2165,6 +2174,7 @@ subscriptions:
 
   # DevOps
   - name: sb-dvp-prod-1a4d
+    create_storage_account : false
     id: 5a1019fa-917d-4ca0-8580-52ff2469e621
     legacy_name:
     nsg_rg_name: rg-dvp-prod-cu-nsg
@@ -2380,6 +2390,7 @@ subscriptions:
 
   # Innocap Legacy
   - name: sb-inno-mtl
+    create_storage_account : false
     id: 5605304f-51d3-41aa-9b59-0ccce4b7c22e
     legacy_name:
     nsg_rg_name: rg-inno-prod-cu-nsg

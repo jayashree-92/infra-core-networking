@@ -87,7 +87,7 @@ module "nsg_log_net_prod" {
 
 
 module "netw_sa_pfm_prod" {
-  count  = try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) ? 1 : 0
+  count  = try(local.subscriptions_map.sb_pfm_prod.create_storage_account, true) ? 1 : 0
   source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_prod.name
