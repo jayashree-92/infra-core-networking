@@ -86,56 +86,56 @@ module "nsg_log_net_prod" {
 }
 
 
-module "netw_sa_pfm_prod" {
-  count  = try(local.subscriptions_map.sb_pfm_prod.create_storage_account, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
+# module "netw_sa_pfm_prod" {
+#   count  = try(local.subscriptions_map.sb_pfm_prod.create_storage_account, true) ? 1 : 0
+#   source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3"
 
-  resource_group_name               = azurerm_resource_group.rg_nsg_prod.name
-  location                          = azurerm_resource_group.rg_nsg_prod.location
-  storage_account_name              = local.subscriptions_map.sb_pfm_prod.network_watcher.function
-  purpose_name                      = local.subscriptions_map.sb_pfm_prod.network_watcher.purpose
-  environment_code                  = local.subscriptions_map.sb_pfm_prod.environment
-  use_full_environment_code         = true
-  storage_account_name_suffix       = random_string.sa_netw_rids[local.subscription_names.sb_pfm_prod].result
-  location_code                     = local.location_code
-  skuname                           = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.skuname
-  min_tls_version                   = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.min_tls_version
-  public_access_enable              = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.public_access_enable
-  enable_advanced_threat_protection = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.enable_advanced_threat_protection
-  account_kind                      = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.account_kind
-  managed_identity_type             = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.managed_identity_type
-  large_file_share_enabled          = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.large_file_share_enabled
-  cmk_encryption_enable             = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.cmk_encryption_enable
-  keyvault_id                       = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.keyvault_id
-  log_analytics_name                = local.config_file.log_analytics_workspace.name
-  log_analytics_resource_group_name = local.config_file.log_analytics_workspace.resource_group_name
-  enable_private_endpoints = {
-    blob = true
-    file = false
-  }
+#   resource_group_name               = azurerm_resource_group.rg_nsg_prod.name
+#   location                          = azurerm_resource_group.rg_nsg_prod.location
+#   storage_account_name              = local.subscriptions_map.sb_pfm_prod.network_watcher.function
+#   purpose_name                      = local.subscriptions_map.sb_pfm_prod.network_watcher.purpose
+#   environment_code                  = local.subscriptions_map.sb_pfm_prod.environment
+#   use_full_environment_code         = true
+#   storage_account_name_suffix       = random_string.sa_netw_rids[local.subscription_names.sb_pfm_prod].result
+#   location_code                     = local.location_code
+#   skuname                           = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.skuname
+#   min_tls_version                   = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.min_tls_version
+#   public_access_enable              = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.public_access_enable
+#   enable_advanced_threat_protection = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.enable_advanced_threat_protection
+#   account_kind                      = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.account_kind
+#   managed_identity_type             = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.managed_identity_type
+#   large_file_share_enabled          = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.large_file_share_enabled
+#   cmk_encryption_enable             = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.cmk_encryption_enable
+#   keyvault_id                       = local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.keyvault_id
+#   log_analytics_name                = local.config_file.log_analytics_workspace.name
+#   log_analytics_resource_group_name = local.config_file.log_analytics_workspace.resource_group_name
+#   enable_private_endpoints = {
+#     blob = true
+#     file = false
+#   }
 
-  enable_diagnostic_settings = {
-    table = false
-    queue = false
-    blob  = true
-    file  = true
-  }
+#   enable_diagnostic_settings = {
+#     table = false
+#     queue = false
+#     blob  = true
+#     file  = true
+#   }
 
-  private_endpoint_virtual_network_name                = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.vnet.name
-  private_endpoint_virtual_network_resource_group_name = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.vnet.resource_group_name
-  private_endpoint_subnet_name                         = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.subnets["snet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.snet}"].name
-  private_dns_zone_resource_group_name                 = local.subscriptions_map.sb_pfm_prod.network_watcher.private_dns_zone_rg_name
+#   private_endpoint_virtual_network_name                = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.vnet.name
+#   private_endpoint_virtual_network_resource_group_name = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.vnet.resource_group_name
+#   private_endpoint_subnet_name                         = module.spokes_sb_pfm_prod["vnet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}"].vnet_spoke.subnets["snet-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_pfm_prod.environment}-${local.location_code}-${local.subscriptions_map.sb_pfm_prod.network_watcher.storage_account.private_endpoint.snet}"].name
+#   private_dns_zone_resource_group_name                 = local.subscriptions_map.sb_pfm_prod.network_watcher.private_dns_zone_rg_name
 
-  providers = {
-    azurerm               = azurerm.sb_pfm_prod_01
-    azurerm.log_analytics = azurerm.sb_itm_prod
-    azurerm.dns_zone      = azurerm.sb_net_prod
-  }
+#   providers = {
+#     azurerm               = azurerm.sb_pfm_prod_01
+#     azurerm.log_analytics = azurerm.sb_itm_prod
+#     azurerm.dns_zone      = azurerm.sb_net_prod
+#   }
 
-  depends_on = [
-    azurerm_resource_group.rg_nsg_prod
-  ]
-}
+#   depends_on = [
+#     azurerm_resource_group.rg_nsg_prod
+#   ]
+# }
 
 
 resource "azurerm_network_watcher" "netw_pfm_prod" {
@@ -151,7 +151,7 @@ module "nsg_log_pfm_prod" {
   for_each                = { for spoke in local.spokes.sb_pfm_prod : spoke.name => spoke if try(local.subscriptions_map.sb_pfm_prod.network_watcher.enabled, true) }
   source                  = "../modules/monitoring"
   network_watcher_name    = azurerm_network_watcher.netw_pfm_prod[0].name
-  storage_account_id      = length(module.netw_sa_pfm_prod) > 0 ? module.netw_sa_pfm_prod[0].id : null
+  storage_account_id      = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
   location                = local.config_file.location
   log_analytics_workspace = local.config_file.log_analytics_workspace
   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
