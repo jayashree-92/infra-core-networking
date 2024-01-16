@@ -562,7 +562,6 @@ module "nsg_log_itt_prod" {
 
   depends_on = [
     azurerm_network_watcher.netw_itt_prod,
-    module.netw_sa_itt_prod,
   ]
 }
 
@@ -724,7 +723,6 @@ module "nsg_log_itm_prod" {
 
   depends_on = [
     azurerm_network_watcher.netw_itm_prod,
-    module.netw_sa_itm_prod,
   ]
 }
 
@@ -961,7 +959,6 @@ module "nsg_log_cpo_prod_ci" {
 
   depends_on = [
     azurerm_network_watcher.netw_cpo_prod_ci,
-    module.netw_sa_cpo_prod_ci
   ]
 }
 
@@ -1040,7 +1037,7 @@ module "nsg_log_sb_inno_mtl" {
 
   depends_on = [
     azurerm_network_watcher.netw_sb_inno_mtl,
-    module.netw_sa_sb_inno_mtl
+
   ]
 }
 
