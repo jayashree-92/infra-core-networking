@@ -16,7 +16,7 @@ parameters:
 stages:
 - stage: TeraformPlan
   displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
-  pool: terraform-pipeline-${{ parameters.location }}
+  pool: Azure Pipelines #terraform-pipeline-${{ parameters.location }}
   jobs:
     - job: TerraformPlan${{ upper(parameters.location) }}
       displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
