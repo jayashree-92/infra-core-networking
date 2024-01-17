@@ -69,21 +69,21 @@ resource "azurerm_network_watcher" "netw_net_prod" {
   resource_group_name = azurerm_resource_group.rg_nsg_net_prod.name
 }
 
-module "nsg_log_net_prod" {
-  for_each                = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke if try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) }
-  source                  = "../modules/monitoring"
-  network_watcher_name    = azurerm_network_watcher.netw_net_prod[0].name
-  storage_account_id      = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
-  location                = local.config_file.location
-  log_analytics_workspace = local.config_file.log_analytics_workspace
-  nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
-  nsgs                    = module.spokes_sb_net_prod[each.key].vnet_spoke.nsgs
-  spoke                   = module.spokes_sb_net_prod[each.key].vnet_spoke
+# module "nsg_log_net_prod" {
+#   for_each                = { for spoke in local.spokes.sb_net_prod : spoke.name => spoke if try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) }
+#   source                  = "../modules/monitoring"
+#   network_watcher_name    = azurerm_network_watcher.netw_net_prod[0].name
+#   storage_account_id      = length(module.netw_sa_net_prod) > 0 ? module.netw_sa_net_prod[0].id : null
+#   location                = local.config_file.location
+#   log_analytics_workspace = local.config_file.log_analytics_workspace
+#   nsg_keys                = { for subnet in each.value.subnets : subnet.nsg_name => subnet.nsg_name if subnet.nsg_name != null }
+#   nsgs                    = module.spokes_sb_net_prod[each.key].vnet_spoke.nsgs
+#   spoke                   = module.spokes_sb_net_prod[each.key].vnet_spoke
 
-  providers = {
-    azurerm = azurerm.sb_net_prod
-  }
-}
+#   providers = {
+#     azurerm = azurerm.sb_net_prod
+#   }
+# }
 
 
 # module "netw_sa_pfm_prod" {
