@@ -87,7 +87,7 @@ subscriptions:
             resource-name: fw-net-prod-ci
         route_tables: []
     route_tables: []
-    #spokes:
+    spokes: []
       # - name: vnet-net-prod-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -159,7 +159,7 @@ subscriptions:
       - name: rt-pfm-prod-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    #spokes:
+    spokes: []
       # - name: vnet-pfm-prod-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -365,7 +365,7 @@ subscriptions:
       - name: rt-pfm-tst-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    #spokes:
+    spokes: []
       # - name: vnet-pfm-tst-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -571,7 +571,7 @@ subscriptions:
       - name: rt-pfm-qa-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    #spokes:
+    spokes: []
       # - name: vnet-pfm-qa-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -777,7 +777,7 @@ subscriptions:
       - name: rt-pfm-dev-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    #spokes:
+    spokes: []
       # - name: vnet-pfm-dev-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -1178,7 +1178,7 @@ subscriptions:
     environment: prod
     function: sec
     route_tables: []
-    #spokes:
+    spokes: []
       # - name: vnet-sec-prod-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -1258,7 +1258,7 @@ subscriptions:
     environment: prod
     function: itt
     route_tables: []
-    #spokes:
+    spokes: []
       # - name: vnet-itt-prod-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
@@ -1527,7 +1527,7 @@ subscriptions:
     environment: prod
     function: itm
     route_tables: []
-    #spokes:
+    spokes: []
       # - name: vnet-itm-prod-ci
       #   legacy_name:
       #   virtual_hub_name: vhub-net-prod-ci
