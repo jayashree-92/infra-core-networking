@@ -295,45 +295,45 @@ subscriptions:
       #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
       #             ]
 
-      - name: vnet-pub-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pub-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pub
-        resource_group:
-          name: rg-pub-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pub-prod-ci-vnet
-        address_space: ["10.70.234.0/23"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pub-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-pub-prod-ci-pub
-            legacy_name:
-            workload_tier: pub
-            nsg_name: nsg-pub-prod-ci-pub
-            address_prefixes: ["10.70.234.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+      # - name: vnet-pub-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pub-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pub
+      #   resource_group:
+      #     name: rg-pub-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pub-prod-ci-vnet
+      #   address_space: ["10.70.234.0/23"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pub-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pub-prod-ci-pub
+      #       legacy_name:
+      #       workload_tier: pub
+      #       nsg_name: nsg-pub-prod-ci-pub
+      #       address_prefixes: ["10.70.234.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   - name: sb-pfm-tst-1a4d
     id: a07e20a7-c174-4337-9e5b-8c6aa42acd6d
