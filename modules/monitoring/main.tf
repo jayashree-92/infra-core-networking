@@ -10,7 +10,7 @@ resource "azurerm_network_watcher_flow_log" "netw_flow_logs" {
 
   retention_policy {
     enabled = true
-    days    = 7
+    days    = 10
   }
 
   traffic_analytics {
