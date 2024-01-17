@@ -77,7 +77,7 @@ stages:
         
 - stage: TeraformApply
   displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
-  pool: terraform-pipeline-${{ parameters.location }}
+  pool: Azure Pipelines #terraform-pipeline-${{ parameters.location }}
   condition: succeeded()
   jobs:
     - job: TerraformApply${{ upper(parameters.location) }}
