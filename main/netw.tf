@@ -23,7 +23,7 @@ module "netw_sa_net_prod" {
   location_code                     = local.location_code
   skuname                           = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.skuname
   min_tls_version                   = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.min_tls_version
-  public_access_enable              = true
+  public_access_enable              = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.public_access_enable
   enable_advanced_threat_protection = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.enable_advanced_threat_protection
   account_kind                      = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.account_kind
   managed_identity_type             = local.subscriptions_map.sb_net_prod.network_watcher.storage_account.managed_identity_type
@@ -41,7 +41,7 @@ module "netw_sa_net_prod" {
     table = false
     queue = false
     blob  = true
-    file  = true
+    file  = false
   }
 
   private_endpoint_virtual_network_name                = module.spokes_sb_net_prod["vnet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}"].vnet_spoke.vnet.name
