@@ -16,7 +16,7 @@ parameters:
 stages:
 - stage: TeraformPlan
   displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
-  pool: terraform-pipeline-${{ parameters.location }}
+  pool: terraform-pipeline-cu  #terraform-pipeline-${{ parameters.location }}
   jobs:
     - job: TerraformPlan${{ upper(parameters.location) }}
       displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
@@ -77,7 +77,7 @@ stages:
         
 - stage: TeraformApply
   displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
-  pool: terraform-pipeline-${{ parameters.location }}
+  pool: terraform-pipeline-cu #terraform-pipeline-${{ parameters.location }}
   condition: succeeded()
   jobs:
     - job: TerraformApply${{ upper(parameters.location) }}
