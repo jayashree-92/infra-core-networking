@@ -49,13 +49,6 @@ module "netw_sa_net_prod" {
   private_endpoint_subnet_name                         = module.spokes_sb_net_prod["vnet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}"].vnet_spoke.subnets["snet-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.vnet}-${local.subscriptions_map.sb_net_prod.environment}-${local.location_code}-${local.subscriptions_map.sb_net_prod.network_watcher.storage_account.private_endpoint.snet}"].name
   private_dns_zone_resource_group_name                 = local.subscriptions_map.sb_net_prod.network_watcher.private_dns_zone_rg_name
 
-  network_rules = {
-    default_action = "Allow"
-    bypass         = ["AzureServices", "Logging", "Metrics"]
-    ip_rules       = []
-    subnet_ids     = []
-  }
-
   providers = {
     azurerm               = azurerm.sb_net_prod
     azurerm.log_analytics = azurerm.sb_itm_prod
