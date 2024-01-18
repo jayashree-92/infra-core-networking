@@ -11,7 +11,7 @@ resource "random_string" "sa_netw_rids" {
 
 module "netw_sa_net_prod" {
   count  = try(local.subscriptions_map.sb_net_prod.network_watcher.enabled, true) ? 1 : 0
-  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.4"
+  source = "git::ssh://git@ssh.dev.azure.com/v3/Innocap/Terraform-Modules/terraform-azurerm-storage-account//module?ref=v2.1.3rc"
 
   resource_group_name               = azurerm_resource_group.rg_nsg_net_prod.name
   location                          = azurerm_resource_group.rg_nsg_net_prod.location
