@@ -83,7 +83,7 @@ stages:
   displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
   pool: 
     ${{ if eq( parameters['location'], 'dr') }}:
-      name: terraform-pipeline-cu
+      name: Azure Pipelines
     ${{ else }}:
       name: terraform-pipeline-${{ parameters.location }}
   condition: succeeded()
