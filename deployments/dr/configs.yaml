@@ -21,7 +21,7 @@ subscriptions:
     netw_name: netw-net-dr-eu
     netw_sa_acc_name: sanetnetprodeu
     network_watcher:
-      enabled: false
+      enabled: true
       purpose: net
       function: net
       private_dns_zone_rg_name: rg-net-dr-eu-dns
