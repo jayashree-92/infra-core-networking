@@ -913,7 +913,7 @@ subscriptions:
             delegations: []
 
   - name: sb-pfm-dev-1a4d
-    id: 389c5b26-4aae-466b-962e-eeecac03f3a3
+    id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name: Sb-client-Dev-US-01
     nsg_rg_name: rg-pfm-dev-eu-nsg
     routes_rg_name: rg-pfm-dev-eu-rt
