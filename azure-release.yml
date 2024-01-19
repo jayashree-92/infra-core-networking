@@ -17,7 +17,7 @@ stages:
 - stage: TeraformPlan
   displayName: 'Terraform Plan ${{ upper(parameters.location) }}'
   pool: 
-    ${{ if eq( parameters['location'], 'eu') }}:
+    ${{ if eq( parameters['location'], 'dr') }}:
       name: terraform-pipeline-cu
     ${{ else }}:
       name: terraform-pipeline-${{ parameters.location }}
@@ -82,7 +82,7 @@ stages:
 - stage: TeraformApply
   displayName: 'Terraform Apply ${{ upper(parameters.location) }}'
   pool: 
-    ${{ if eq( parameters['location'], 'eu') }}:
+    ${{ if eq( parameters['location'], 'dr') }}:
       name: terraform-pipeline-cu
     ${{ else }}:
       name: terraform-pipeline-${{ parameters.location }}
