@@ -1,6 +1,6 @@
 locals {
   config_file              = yamldecode(file("../deployments/${var.location_code}/configs.yaml"))
-  location_code            = local.config_file.location_code
+  location_code            = var.location_code #local.config_file.location_code
   subscriptions            = local.config_file.subscriptions
   vwan_subscription        = try({ for i, sub in local.subscriptions : i => sub if(try(sub.contains_vwan, false) == true) }[0], null)
   create_vwan              = try({ for i, sub in local.subscriptions : i => sub if(try(sub.vwan, false) != false) }[0], null) != null
