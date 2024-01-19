@@ -915,7 +915,7 @@ subscriptions:
   - name: sb-pfm-dev-1a4d
     id: 389c5b26-4aae-466b-962e-eeecac03f3a3
     legacy_name: Sb-client-Dev-US-01
-    nsg_rg_name: rg-pfm-dev-eu-nsg
+    nsg_rg_name: 
     routes_rg_name: rg-pfm-dev-eu-rt
     netw_name: netw-net-dev-eu
     netw_sa_acc_name: sanetpfmdeveu
