@@ -86,6 +86,8 @@ stages:
   pool: 
     ${{ if eq( parameters['location'], 'dr') }}:
       name: Azure Pipelines
+    ${{ elseif eq(parameters['location'], 'eu') }}:
+      name: Azure Pipelines  
     ${{ else }}:
       name: terraform-pipeline-${{ parameters.location }}
   condition: succeeded()
