@@ -1504,7 +1504,7 @@ subscriptions:
   - name: sb-sec-prod-01
     id: 7a81325d-5d4f-4348-8057-9a5cdca2642e
     legacy_name:
-    nsg_rg_name: rg-sec-prod-eu-nsg
+    nsg_rg_name: #rg-sec-prod-eu-nsg
     routes_rg_name: rg-sec-prod-eu-rt
     netw_name: netw-net-prod-eu
     network_watcher:
