@@ -21,7 +21,7 @@ subscriptions:
     netw_name: netw-net-dr-eu
     netw_sa_acc_name: sanetnetprodeu
     network_watcher:
-      enabled: false
+      enabled: true
       purpose: net
       function: net
       private_dns_zone_rg_name: rg-net-dr-eu-dns
@@ -913,7 +913,7 @@ subscriptions:
             delegations: []
 
   - name: sb-pfm-dev-1a4d
-    id: 389c5b26-4aae-466b-962e-eeecac03f3a3
+    id: 4172118f-0fbf-4130-ba5b-5ad78292ae91
     legacy_name: Sb-client-Dev-US-01
     nsg_rg_name: rg-pfm-dev-eu-nsg
     routes_rg_name: rg-pfm-dev-eu-rt
@@ -1620,7 +1620,7 @@ subscriptions:
     route_tables: []
     spokes:
       - name: vnet-inno-dr-eu
-        legacy_name: innozcupgenvn001
+        legacy_name: innozeupgenvn001
         virtual_hub_name: vhub-net-dr-eu
         virtual_hub_connection_name: peer-vnet-inno-dr-eu
         virtual_hub_connection_enabled: true
@@ -1629,7 +1629,7 @@ subscriptions:
         function: pfm
         resource_group:
           name: rg-inno-dr-eu-vnet
-          legacy_name: innozcupgenrg001
+          legacy_name: innozeupgenrg001
           location:
           tags:
             managed-by: terraform
@@ -1664,7 +1664,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-001
-            legacy_name: innozcupgensn001
+            legacy_name: innozeupgensn001
             workload_tier: 001
             nsg_name: nsg-inno-dr-eu-001
             address_prefixes: ["10.39.1.0/24"]
@@ -1676,7 +1676,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-002
-            legacy_name: innozcupgensn002
+            legacy_name: innozeupgensn002
             workload_tier: 002
             nsg_name: nsg-inno-dr-eu-002
             address_prefixes: ["10.39.2.0/24"]
@@ -1688,7 +1688,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-003
-            legacy_name: innozcupgensn003
+            legacy_name: innozeupgensn003
             workload_tier: 003
             nsg_name: nsg-inno-dr-eu-103
             address_prefixes: ["10.39.3.0/24"]
@@ -1700,7 +1700,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-004
-            legacy_name: innozcupgensn004
+            legacy_name: innozeupgensn004
             workload_tier: 004
             nsg_name: nsg-inno-dr-eu-004
             address_prefixes: ["10.39.4.0/24"]
@@ -1712,7 +1712,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-005
-            legacy_name: innozcupgensn005
+            legacy_name: innozeupgensn005
             workload_tier: 005
             nsg_name: nsg-inno-dr-eu-005
             address_prefixes: ["10.39.5.0/24"]
@@ -1724,7 +1724,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-006
-            legacy_name: innozcupgensn006
+            legacy_name: innozeupgensn006
             workload_tier: 006
             nsg_name: nsg-inno-dr-eu-06
             address_prefixes: ["10.39.6.0/24"]
@@ -1736,7 +1736,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-007
-            legacy_name: innozcupgensn007
+            legacy_name: innozeupgensn007
             workload_tier: 007
             nsg_name: nsg-inno-dr-eu-007
             address_prefixes: ["10.39.7.0/24"]
@@ -1748,7 +1748,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-008
-            legacy_name: innozcupgensn008
+            legacy_name: innozeupgensn008
             workload_tier: 008
             nsg_name: nsg-inno-dr-eu-008
             address_prefixes: ["10.39.8.0/24"]
@@ -1760,7 +1760,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-009
-            legacy_name: innozcupgensn009
+            legacy_name: innozeupgensn009
             workload_tier: 009
             nsg_name: nsg-inno-dr-eu-009
             address_prefixes: ["10.39.9.0/24"]
@@ -1772,7 +1772,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-010
-            legacy_name: innozcupgensn010
+            legacy_name: innozeupgensn010
             workload_tier: 010
             nsg_name: nsg-inno-dr-eu-010
             address_prefixes: ["10.39.10.0/24"]
@@ -1808,7 +1808,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-100
-            legacy_name: innozcupgensn100
+            legacy_name: innozeupgensn100
             workload_tier: 100
             nsg_name: nsg-inno-dr-eu-100
             address_prefixes: ["10.39.100.0/24"]
@@ -1820,7 +1820,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-133
-            legacy_name: innozcupgensn133
+            legacy_name: innozeupgensn133
             workload_tier: 133
             nsg_name: nsg-inno-dr-eu-133
             address_prefixes: ["10.39.133.0/24"]
@@ -1832,7 +1832,7 @@ subscriptions:
             delegations: []
 
           - name: snet-inno-dr-eu-255
-            legacy_name: innozcupgensn255
+            legacy_name: innozeupgensn255
             workload_tier: 255
             nsg_name: nsg-inno-dr-eu-255
             address_prefixes: ["10.39.255.0/24"]

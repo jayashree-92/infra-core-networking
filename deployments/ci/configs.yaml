@@ -87,7 +87,7 @@ subscriptions:
             resource-name: fw-net-prod-ci
         route_tables: []
     route_tables: []
-    spokes:
+    spokes: 
       - name: vnet-net-prod-ci
         legacy_name:
         virtual_hub_name: vhub-net-prod-ci
@@ -159,141 +159,141 @@ subscriptions:
       - name: rt-pfm-prod-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    spokes:
-      - name: vnet-pfm-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pfm-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pfm
-        resource_group:
-          name: rg-pfm-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pfm-prod-ci
-        address_space: ["10.70.192.0/20"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pfm-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-pfm-prod-ci-dmz
-            legacy_name:
-            workload_tier: dmz
-            nsg_name: nsg-pfm-prod-ci-dmz
-            address_prefixes: ["10.70.192.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-pres
-            legacy_name:
-            workload_tier: pres
-            nsg_name: nsg-pfm-prod-ci-pres
-            address_prefixes: ["10.70.193.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-app
-            legacy_name:
-            workload_tier: app
-            nsg_name: nsg-pfm-prod-ci-app
-            address_prefixes: ["10.70.194.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-data
-            legacy_name:
-            workload_tier: data
-            nsg_name: nsg-pfm-prod-ci-data
-            address_prefixes: ["10.70.195.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-int
-            legacy_name:
-            workload_tier: int
-            nsg_name: nsg-pfm-prod-ci-int
-            address_prefixes: ["10.70.196.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-web
-            legacy_name:
-            workload_tier: web
-            nsg_name: nsg-pfm-prod-ci-web
-            address_prefixes: ["10.70.197.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-pfm-prod-ci-priv
-            address_prefixes: ["10.70.198.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-osc
-            legacy_name:
-            workload_tier: osc
-            nsg_name: nsg-pfm-dev-ci-osc
-            address_prefixes: ["10.70.199.0/27"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-prod-ci-smi
-            legacy_name:
-            workload_tier: smi
-            nsg_name: nsg-pfm-prod-ci-smi
-            address_prefixes: ["10.70.199.128/25"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-pfm-prod-ci-smi
-            delegations:
-              - name: Microsoft.Sql/managedInstances
-                actions:
-                  [
-                    "Microsoft.Network/virtualNetworks/subnets/join/action",
-                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-                  ]
+    spokes: []
+      # - name: vnet-pfm-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pfm-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-prod-ci
+      #   address_space: ["10.70.192.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-prod-ci-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-prod-ci-dmz
+      #       address_prefixes: ["10.70.192.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-prod-ci-pres
+      #       address_prefixes: ["10.70.193.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-prod-ci-app
+      #       address_prefixes: ["10.70.194.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-prod-ci-data
+      #       address_prefixes: ["10.70.195.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-prod-ci-int
+      #       address_prefixes: ["10.70.196.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-prod-ci-web
+      #       address_prefixes: ["10.70.197.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-prod-ci-priv
+      #       address_prefixes: ["10.70.198.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-dev-ci-osc
+      #       address_prefixes: ["10.70.199.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-prod-ci-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-prod-ci-smi
+      #       address_prefixes: ["10.70.199.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-prod-ci-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
 
       # - name: vnet-pub-prod-ci
       #   legacy_name:
@@ -365,141 +365,141 @@ subscriptions:
       - name: rt-pfm-tst-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    spokes:
-      - name: vnet-pfm-tst-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pfm-tst-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pfm
-        resource_group:
-          name: rg-pfm-tst-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pfm-tst-ci
-        address_space: ["10.70.176.0/20"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pfm-tst-ci
-          spoke: true
-        subnets:
-          - name: snet-pfm-tst-ci-dmz
-            legacy_name:
-            workload_tier: dmz
-            nsg_name: nsg-pfm-tst-ci-dmz
-            address_prefixes: ["10.70.176.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-pres
-            legacy_name:
-            workload_tier: pres
-            nsg_name: nsg-pfm-tst-ci-pres
-            address_prefixes: ["10.70.177.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-app
-            legacy_name:
-            workload_tier: app
-            nsg_name: nsg-pfm-tst-ci-app
-            address_prefixes: ["10.70.178.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-data
-            legacy_name:
-            workload_tier: data
-            nsg_name: nsg-pfm-tst-ci-data
-            address_prefixes: ["10.70.179.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-int
-            legacy_name:
-            workload_tier: int
-            nsg_name: nsg-pfm-tst-ci-int
-            address_prefixes: ["10.70.180.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-web
-            legacy_name:
-            workload_tier: web
-            nsg_name: nsg-pfm-tst-ci-web
-            address_prefixes: ["10.70.181.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-pfm-tst-ci-priv
-            address_prefixes: ["10.70.182.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-osc
-            legacy_name:
-            workload_tier: osc
-            nsg_name: nsg-pfm-tst-ci-osc
-            address_prefixes: ["10.70.183.0/27"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-tst-ci-smi
-            legacy_name:
-            workload_tier: smi
-            nsg_name: nsg-pfm-tst-ci-smi
-            address_prefixes: ["10.70.183.128/25"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-pfm-tst-ci-smi
-            delegations:
-              - name: Microsoft.Sql/managedInstances
-                actions:
-                  [
-                    "Microsoft.Network/virtualNetworks/subnets/join/action",
-                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-                  ]
+    spokes: []
+      # - name: vnet-pfm-tst-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pfm-tst-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-tst-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-tst-ci
+      #   address_space: ["10.70.176.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-tst-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-tst-ci-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-tst-ci-dmz
+      #       address_prefixes: ["10.70.176.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-tst-ci-pres
+      #       address_prefixes: ["10.70.177.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-tst-ci-app
+      #       address_prefixes: ["10.70.178.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-tst-ci-data
+      #       address_prefixes: ["10.70.179.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-tst-ci-int
+      #       address_prefixes: ["10.70.180.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-tst-ci-web
+      #       address_prefixes: ["10.70.181.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-tst-ci-priv
+      #       address_prefixes: ["10.70.182.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-tst-ci-osc
+      #       address_prefixes: ["10.70.183.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-tst-ci-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-tst-ci-smi
+      #       address_prefixes: ["10.70.183.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-tst-ci-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
 
       # - name: vnet-pub-tst-ci
       #   legacy_name:
@@ -571,141 +571,141 @@ subscriptions:
       - name: rt-pfm-qa-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    spokes:
-      - name: vnet-pfm-qa-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pfm-qa-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pfm
-        resource_group:
-          name: rg-pfm-qa-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pfm-qa-ci
-        address_space: ["10.70.160.0/20"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pfm-qa-ci
-          spoke: true
-        subnets:
-          - name: snet-pfm-qa-ci-dmz
-            legacy_name:
-            workload_tier: dmz
-            nsg_name: nsg-pfm-qa-ci-dmz
-            address_prefixes: ["10.70.160.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-pres
-            legacy_name:
-            workload_tier: pres
-            nsg_name: nsg-pfm-qa-ci-pres
-            address_prefixes: ["10.70.161.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-app
-            legacy_name:
-            workload_tier: app
-            nsg_name: nsg-pfm-qa-ci-app
-            address_prefixes: ["10.70.162.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-data
-            legacy_name:
-            workload_tier: data
-            nsg_name: nsg-pfm-qa-ci-data
-            address_prefixes: ["10.70.163.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-int
-            legacy_name:
-            workload_tier: int
-            nsg_name: nsg-pfm-qa-ci-int
-            address_prefixes: ["10.70.164.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-web
-            legacy_name:
-            workload_tier: web
-            nsg_name: nsg-pfm-qa-ci-web
-            address_prefixes: ["10.70.165.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-pfm-qa-ci-priv
-            address_prefixes: ["10.70.166.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-osc
-            legacy_name:
-            workload_tier: osc
-            nsg_name: nsg-pfm-qa-ci-osc
-            address_prefixes: ["10.70.167.0/27"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-qa-ci-smi
-            legacy_name:
-            workload_tier: smi
-            nsg_name: nsg-pfm-qa-ci-smi
-            address_prefixes: ["10.70.167.128/25"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-pfm-qa-ci-smi
-            delegations:
-              - name: Microsoft.Sql/managedInstances
-                actions:
-                  [
-                    "Microsoft.Network/virtualNetworks/subnets/join/action",
-                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-                  ]
+    spokes: []
+      # - name: vnet-pfm-qa-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pfm-qa-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-qa-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-qa-ci
+      #   address_space: ["10.70.160.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-qa-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-qa-ci-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-qa-ci-dmz
+      #       address_prefixes: ["10.70.160.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-qa-ci-pres
+      #       address_prefixes: ["10.70.161.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-qa-ci-app
+      #       address_prefixes: ["10.70.162.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-qa-ci-data
+      #       address_prefixes: ["10.70.163.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-qa-ci-int
+      #       address_prefixes: ["10.70.164.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-qa-ci-web
+      #       address_prefixes: ["10.70.165.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-qa-ci-priv
+      #       address_prefixes: ["10.70.166.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-qa-ci-osc
+      #       address_prefixes: ["10.70.167.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-qa-ci-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-qa-ci-smi
+      #       address_prefixes: ["10.70.167.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-qa-ci-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
 
       # - name: vnet-pub-qa-ci
       #   legacy_name:
@@ -777,141 +777,141 @@ subscriptions:
       - name: rt-pfm-dev-ci-smi
         disable_bgp_route_propagation: false
         routes: []
-    spokes:
-      - name: vnet-pfm-dev-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-pfm-dev-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: pfm
-        resource_group:
-          name: rg-pfm-dev-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-pfm-dev-ci
-        address_space: ["10.70.144.0/20"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-pfm-dev-ci
-          spoke: true
-        subnets:
-          - name: snet-pfm-dev-ci-dmz
-            legacy_name:
-            workload_tier: dmz
-            nsg_name: nsg-pfm-dev-ci-dmz
-            address_prefixes: ["10.70.144.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-pres
-            legacy_name:
-            workload_tier: pres
-            nsg_name: nsg-pfm-dev-ci-pres
-            address_prefixes: ["10.70.145.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-app
-            legacy_name:
-            workload_tier: app
-            nsg_name: nsg-pfm-dev-ci-app
-            address_prefixes: ["10.70.146.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-data
-            legacy_name:
-            workload_tier: data
-            nsg_name: nsg-pfm-dev-ci-data
-            address_prefixes: ["10.70.147.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-int
-            legacy_name:
-            workload_tier: int
-            nsg_name: nsg-pfm-dev-ci-int
-            address_prefixes: ["10.70.148.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-web
-            legacy_name:
-            workload_tier: web
-            nsg_name: nsg-pfm-dev-ci-web
-            address_prefixes: ["10.70.149.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-pfm-dev-ci-priv
-            address_prefixes: ["10.70.150.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-osc
-            legacy_name:
-            workload_tier: osc
-            nsg_name: nsg-pfm-dev-ci-osc
-            address_prefixes: ["10.70.151.0/27"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-pfm-dev-ci-smi
-            legacy_name:
-            workload_tier: smi
-            nsg_name: nsg-pfm-dev-ci-smi
-            address_prefixes: ["10.70.151.128/25"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association: rt-pfm-dev-ci-smi
-            delegations:
-              - name: Microsoft.Sql/managedInstances
-                actions:
-                  [
-                    "Microsoft.Network/virtualNetworks/subnets/join/action",
-                    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-                    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-                  ]
+    spokes: []
+      # - name: vnet-pfm-dev-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-pfm-dev-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: pfm
+      #   resource_group:
+      #     name: rg-pfm-dev-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-pfm-dev-ci
+      #   address_space: ["10.70.144.0/20"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-pfm-dev-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-pfm-dev-ci-dmz
+      #       legacy_name:
+      #       workload_tier: dmz
+      #       nsg_name: nsg-pfm-dev-ci-dmz
+      #       address_prefixes: ["10.70.144.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-pres
+      #       legacy_name:
+      #       workload_tier: pres
+      #       nsg_name: nsg-pfm-dev-ci-pres
+      #       address_prefixes: ["10.70.145.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-app
+      #       legacy_name:
+      #       workload_tier: app
+      #       nsg_name: nsg-pfm-dev-ci-app
+      #       address_prefixes: ["10.70.146.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-data
+      #       legacy_name:
+      #       workload_tier: data
+      #       nsg_name: nsg-pfm-dev-ci-data
+      #       address_prefixes: ["10.70.147.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-int
+      #       legacy_name:
+      #       workload_tier: int
+      #       nsg_name: nsg-pfm-dev-ci-int
+      #       address_prefixes: ["10.70.148.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-web
+      #       legacy_name:
+      #       workload_tier: web
+      #       nsg_name: nsg-pfm-dev-ci-web
+      #       address_prefixes: ["10.70.149.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-pfm-dev-ci-priv
+      #       address_prefixes: ["10.70.150.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-osc
+      #       legacy_name:
+      #       workload_tier: osc
+      #       nsg_name: nsg-pfm-dev-ci-osc
+      #       address_prefixes: ["10.70.151.0/27"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-pfm-dev-ci-smi
+      #       legacy_name:
+      #       workload_tier: smi
+      #       nsg_name: nsg-pfm-dev-ci-smi
+      #       address_prefixes: ["10.70.151.128/25"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association: rt-pfm-dev-ci-smi
+      #       delegations:
+      #         - name: Microsoft.Sql/managedInstances
+      #           actions:
+      #             [
+      #               "Microsoft.Network/virtualNetworks/subnets/join/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+      #               "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      #             ]
 
       # - name: vnet-pub-dev-ci
       #   legacy_name:
@@ -1178,57 +1178,57 @@ subscriptions:
     environment: prod
     function: sec
     route_tables: []
-    spokes:
-      - name: vnet-sec-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-sec-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: sec
-        resource_group:
-          name: rg-sec-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-sec-prod-ci
-        address_space: ["10.70.212.0/22"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-sec-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-sec-prod-ci-inf
-            legacy_name:
-            workload_tier: inf
-            nsg_name: nsg-sec-prod-ci-inf
-            address_prefixes: ["10.70.212.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-sec-prod-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-sec-prod-ci-priv
-            address_prefixes: ["10.70.215.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+    spokes: []
+      # - name: vnet-sec-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-sec-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: sec
+      #   resource_group:
+      #     name: rg-sec-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-sec-prod-ci
+      #   address_space: ["10.70.212.0/22"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-sec-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-sec-prod-ci-inf
+      #       legacy_name:
+      #       workload_tier: inf
+      #       nsg_name: nsg-sec-prod-ci-inf
+      #       address_prefixes: ["10.70.212.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-sec-prod-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-sec-prod-ci-priv
+      #       address_prefixes: ["10.70.215.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   # IT Tools
   - name: sb-itt-prod-1a4d
@@ -1258,57 +1258,57 @@ subscriptions:
     environment: prod
     function: itt
     route_tables: []
-    spokes:
-      - name: vnet-itt-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-itt-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: itt
-        resource_group:
-          name: rg-itt-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-itt-prod-ci
-        address_space: ["10.70.216.0/22"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-itt-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-itt-prod-ci-inf
-            legacy_name:
-            workload_tier: inf
-            nsg_name: nsg-itt-prod-ci-inf
-            address_prefixes: ["10.70.216.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-itt-prod-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-itt-prod-ci-priv
-            address_prefixes: ["10.70.219.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+    spokes: []
+      # - name: vnet-itt-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-itt-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: itt
+      #   resource_group:
+      #     name: rg-itt-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-itt-prod-ci
+      #   address_space: ["10.70.216.0/22"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-itt-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-itt-prod-ci-inf
+      #       legacy_name:
+      #       workload_tier: inf
+      #       nsg_name: nsg-itt-prod-ci-inf
+      #       address_prefixes: ["10.70.216.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-itt-prod-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-itt-prod-ci-priv
+      #       address_prefixes: ["10.70.219.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   # Identity
   - name: sb-Id-prod-1a4d
@@ -1527,57 +1527,57 @@ subscriptions:
     environment: prod
     function: itm
     route_tables: []
-    spokes:
-      - name: vnet-itm-prod-ci
-        legacy_name:
-        virtual_hub_name: vhub-net-prod-ci
-        virtual_hub_connection_name: peer-vnet-itm-prod-ci
-        legacy_virtual_hub_connection_name:
-        virtual_hub_associated_route_table_name: defaultRouteTable
-        function: itm
-        resource_group:
-          name: rg-itm-prod-ci-vnet
-          legacy_name:
-          location:
-          tags:
-            managed-by: terraform
-            resource-name: rg-itm-prod-ci
-        address_space: ["10.70.224.0/22"]
-        location:
-        bgp_community:
-        ddos_protection_plan:
-        dns_servers: []
-        private_dns_zone_links: []
-        edge_zone:
-        internet_security_enabled: true
-        flow_timeout_in_minutes:
-        tags:
-          managed-by: terraform
-          resource-name: vnet-itm-prod-ci
-          spoke: true
-        subnets:
-          - name: snet-itm-prod-ci-inf
-            legacy_name:
-            workload_tier: inf
-            nsg_name: nsg-itm-prod-ci-inf
-            address_prefixes: ["10.70.224.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
-          - name: snet-itm-prod-ci-priv
-            legacy_name:
-            workload_tier: priv
-            nsg_name: nsg-itm-prod-ci-priv
-            address_prefixes: ["10.70.227.0/24"]
-            nsg_enabled: true
-            service_endpoints:
-            service_endpoint_policy_ids: []
-            private_endpoint_network_policies_enabled: true
-            route_table_association:
-            delegations: []
+    spokes: []
+      # - name: vnet-itm-prod-ci
+      #   legacy_name:
+      #   virtual_hub_name: vhub-net-prod-ci
+      #   virtual_hub_connection_name: peer-vnet-itm-prod-ci
+      #   legacy_virtual_hub_connection_name:
+      #   virtual_hub_associated_route_table_name: defaultRouteTable
+      #   function: itm
+      #   resource_group:
+      #     name: rg-itm-prod-ci-vnet
+      #     legacy_name:
+      #     location:
+      #     tags:
+      #       managed-by: terraform
+      #       resource-name: rg-itm-prod-ci
+      #   address_space: ["10.70.224.0/22"]
+      #   location:
+      #   bgp_community:
+      #   ddos_protection_plan:
+      #   dns_servers: []
+      #   private_dns_zone_links: []
+      #   edge_zone:
+      #   internet_security_enabled: true
+      #   flow_timeout_in_minutes:
+      #   tags:
+      #     managed-by: terraform
+      #     resource-name: vnet-itm-prod-ci
+      #     spoke: true
+      #   subnets:
+      #     - name: snet-itm-prod-ci-inf
+      #       legacy_name:
+      #       workload_tier: inf
+      #       nsg_name: nsg-itm-prod-ci-inf
+      #       address_prefixes: ["10.70.224.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
+      #     - name: snet-itm-prod-ci-priv
+      #       legacy_name:
+      #       workload_tier: priv
+      #       nsg_name: nsg-itm-prod-ci-priv
+      #       address_prefixes: ["10.70.227.0/24"]
+      #       nsg_enabled: true
+      #       service_endpoints:
+      #       service_endpoint_policy_ids: []
+      #       private_endpoint_network_policies_enabled: true
+      #       route_table_association:
+      #       delegations: []
 
   # Innocap Legacy
   - name: sb-inno-mtl
