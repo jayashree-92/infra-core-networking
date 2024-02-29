@@ -86,6 +86,14 @@ subscriptions:
         - privatelink.e4ff6437056e.database.windows.net
         - privatelink.cus.backup.windowsazure.com
         - privatelink.queue.core.windows.net
+        - privatelink.88034d71f943.database.windows.net
+        - privatelink.adf.azure.com
+        - privatelink.azurecr.io
+        - privatelink.azurewebsites.net
+        - privatelink.cognitiveservices.azure.com
+        - privatelink.datafactory.azure.net
+        - privatelink.search.windows.net
+        - privatelink.siterecovery.windowsazure.com
 
     hubs:
       - name: vhub-net-dr-eu
